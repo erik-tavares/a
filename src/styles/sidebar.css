@@ -1,0 +1,366 @@
+/* ===================== */
+/*      HEADER           */
+/* ===================== */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Mantém alinhamento à esquerda */
+  padding: 15px;
+  width: 100%;
+  /* gap: 35px; Espaço entre o ícone e o título */
+  white-space: nowrap; /* Evita quebra de linha do título */
+}
+
+/* Ícone do menu */
+.menu-icon {
+  font-size: clamp(20px, 2vw, 24px); /* Ajusta dinamicamente o tamanho */
+  color: white;
+  margin: 0; /* Remove qualquer deslocamento desnecessário */
+}
+
+/* Título "Painel Principal" */
+.sidebar-title {
+  font-size: clamp(16px, 2vw, 22px); /* Ajusta tamanho conforme a tela */
+  font-weight: bold;
+  color: white;
+  margin: 0; /* Remove centralização automática */
+  white-space: nowrap; /* Evita quebra de linha */
+  flex-grow: 1; /* Ocupa espaço disponível sem forçar quebra */
+}
+
+/* Conteúdo do cabeçalho */
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaço entre ícone e título */
+  width: 100%;
+  flex-wrap: nowrap; /* Garante que o título não desça */
+}
+
+/* ===================== */
+/*   RESPONSIVIDADE      */
+/* ===================== */
+@media (max-width: 480px) {
+  .sidebar-header {
+    padding: 10px; /* Reduz o padding em telas menores */
+    gap: 8px; /* Reduz espaço entre ícone e título */
+  }
+
+  .menu-icon {
+    font-size: 18px; /* Ícone menor para telas pequenas */
+  }
+
+  .sidebar-title {
+    font-size: 16px; /* Tamanho menor do título em telas pequenas */
+  }
+}
+
+/* ===================== */
+/*      DIVIDER          */
+/* ===================== */
+.sidebar-divider {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  margin: 10px 0;
+}
+
+/* ===================== */
+/*      SIDEBAR          */
+/* ===================== */
+.sidebar {
+  position: fixed;
+  left: -260px; /* Mantém o valor fixo para evitar inconsistências */
+  top: 0;
+  width: 260px;
+  height: 100vh;
+  background-color: #3b447b;
+  color: white;
+  transition: left 0.3s ease-in-out;
+  padding-top: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+/* Custom Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ===================== */
+/*    TOGGLE BUTTON      */
+/* ===================== */
+.toggle-btn {
+  position: fixed;
+  top: 15px;
+  left: 260px; /* Mantém fixo ao lado da sidebar */
+  background-color: #3b447b;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease, left 0.3s ease-in-out;
+  z-index: 1100;
+}
+
+.sidebar:not(.open) .toggle-btn {
+  left: 15px;
+}
+
+.toggle-btn:hover {
+  background-color: #2e365f;
+}
+
+/* ===================== */
+/*   SEARCH CONTAINER    */
+/* ===================== */
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: #646c9c;
+  border-radius: 15px;
+  padding: 12px;
+  margin: 10px auto 20px;
+  width: 80%;
+  height: 20px;
+}
+
+.search-icon {
+  color: white;
+  font-size: 18px;
+  margin-left: 17px;
+}
+
+.search-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  padding-left: 12px;
+  font-size: 16px;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ===================== */
+/*        MENU           */
+/* ===================== */
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.sidebar-title {
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: bold;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.sidebar-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  width: 100%;
+}
+
+.sidebar-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(14px, 2vw, 18px);
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  padding: 12px 10px;
+  transition: background 0.3s ease-in-out;
+  border-radius: 8px;
+}
+
+.sidebar-menu li a:hover {
+  background-color: #07aba0;
+}
+
+/* ===================== */
+/*      MENU BUTTONS     */
+/* ===================== */
+.sidebar-button {
+  width: 90%;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: clamp(14px, 2vw, 18px);
+  transition: background 0.3s ease-in-out;
+}
+
+.sidebar-button.active {
+  background-color: #07aba0 !important;
+  color: white;
+}
+
+.submenu {
+  display: block;
+}
+
+.submenu-item a.active-submenu {
+  background-color: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+  color: white;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sidebar-button:hover {
+  background-color: white;
+  color: #3b447b;
+}
+
+/* ===================== */
+/*      DASHBOARD        */
+/* ===================== */
+.dashboard-button {
+  width: 90%;
+  background-color: #07aba0;
+  border-radius: 10px;
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: clamp(14px, 2vw, 18px);
+  transition: background 0.3s ease-in-out;
+  cursor: default;
+}
+
+.dashboard-button:hover {
+  background-color: #07aba0;
+  color: white;
+}
+
+/* ===================== */
+/*       SUBMENU         */
+/* ===================== */
+.submenu {
+  display: none;
+  list-style: none;
+  padding-left: 20px;
+}
+
+.submenu.open {
+  display: block;
+}
+
+.submenu li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  font-size: clamp(12px, 1.8vw, 14px);
+  border-radius: 10px;
+  transition: background 0.3s ease-in-out;
+}
+
+.submenu li a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ===================== */
+/*    RESPONSIVIDADE     */
+/* ===================== */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+    left: -240px;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .toggle-btn {
+    left: 240px;
+  }
+
+  .sidebar-menu li a {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .sidebar-title {
+    font-size: 20px;
+  }
+
+  .sidebar-button {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 220px;
+    left: -220px;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .toggle-btn {
+    left: 220px;
+  }
+
+  .search-container {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .sidebar-menu li a {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .sidebar-title {
+    font-size: 18px;
+  }
+
+  .sidebar-button {
+    width: 100%;
+    font-size: 14px;
+  }
+}

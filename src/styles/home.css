@@ -1,0 +1,235 @@
+/* ===================== */
+/*  LAYOUT PRINCIPAL DA HOME */
+/* ===================== */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  background-color: #f3f4f6;
+  padding-top: 40px;
+  transition: margin-left 0.3s ease;
+  margin-left: 0;
+}
+
+.home-container.sidebar-open {
+  margin-left: min(260px, 25vw);
+}
+
+@media (max-width: 768px) {
+  .home-container.sidebar-open {
+    margin-left: min(200px, 20vw);
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container.sidebar-open {
+    margin-left: min(180px, 18vw);
+  }
+}
+
+/* ===================== */
+/*      CABEÇALHO (HEADER) */
+/* ===================== */
+.home-header {
+  width: 100%;
+  transition: margin-left 0.3s ease;
+}
+
+.home-header.sidebar-open {
+  margin-left: min(260px, 25vw);
+}
+
+@media (max-width: 768px) {
+  .home-header.sidebar-open {
+    margin-left: min(200px, 20vw);
+  }
+}
+
+@media (max-width: 480px) {
+  .home-header.sidebar-open {
+    margin-left: min(180px, 18vw);
+  }
+}
+
+/* ===================== */
+/*      MENSAGEM DE BOAS-VINDAS */
+/* ===================== */
+.home-greeting-container {
+  max-width: 90%;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+  margin-left: 0;
+}
+
+.home-greeting {
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 700;
+  font-family: "Roboto Slab", sans-serif;
+  color: #3b447b;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.home-subtitle {
+  font-size: clamp(14px, 2vw, 16px);
+  font-weight: 700;
+  font-family: "Roboto Slab", sans-serif;
+  color: #07aba0;
+  text-align: left;
+}
+
+/* ===================== */
+/*      LINHA ABAIXO DO SUBTÍTULO */
+/* ===================== */
+.subtitle-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #07aba0, #cccccc, #999999);
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .sidebar-open .subtitle-line {
+    width: calc(100% - min(200px, 20vw));
+  }
+}
+
+/* ===================== */
+/*      SEÇÃO DE AJUDA   */
+/* ===================== */
+.help-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+  padding: 40px 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar-open .help-container {
+  margin-left: min(450px, 25vw);
+}
+
+@media (max-width: 768px) {
+  .sidebar-open .help-container {
+    margin-left: min(200px, 20vw);
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-open .help-container {
+    margin-left: min(180px, 18vw);
+  }
+}
+
+/* ===================== */
+/*       HELP TITLE      */
+/* ===================== */
+.help-title {
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: 700;
+  font-size: clamp(20px, 3vw, 26px);
+  color: #3b447b;
+  margin-bottom: 4px;
+  margin-left: 50px;
+}
+
+/* ===================== */
+/*     HELP OPTIONS      */
+/* ===================== */
+.help-options {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+/* ===================== */
+/*       HELP CARD       */
+/* ===================== */
+.help-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 450px;
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  padding: 22px;
+  text-align: center;
+  margin: 10px;
+}
+
+.help-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.help-text {
+  text-align: center;
+}
+
+/* ===================== */
+/*      HELP LOGO        */
+/* ===================== */
+.help-logo {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  border-radius: 15px;
+  border: 1px solid #b4b4b4;
+  background: linear-gradient(135deg, #b4b4b4, #818181);
+  padding: 22px 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===================== */
+/*      BOTÃO DE LOGOUT  */
+/* ===================== */
+.logout-button {
+  margin-top: 20px;
+  padding: clamp(8px, 2vw, 12px) clamp(16px, 5vw, 24px);
+  font-size: clamp(12px, 3vw, 16px);
+  font-weight: bold;
+  color: #fff;
+  background-color: #3b447b;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.logout-button:hover {
+  background-color: #2e365f;
+  transform: scale(1.05);
+}
+
+/* ===================== */
+/*    AJUSTES EXTRAS PARA RESPONSIVIDADE   */
+/* ===================== */
+@media (max-width: 1024px) {
+  .help-options {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .help-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .help-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 10px 0;
+  }
+}

@@ -1,0 +1,387 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap");
+
+/* Estilização principal */
+.novo-operador-container {
+  width: 100%;
+  max-width: 1042px;
+  margin: 40px auto;
+  text-align: left;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+/* Corrige o problema da tela desaparecendo ao trocar de aba */
+.aba-conteudo {
+  min-height: 600px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.aba-conteudo.ativa {
+  opacity: 1;
+  visibility: visible;
+}
+
+.novo-operador-content {
+  min-height: 500px; /* Ajuste conforme necessário */
+  transition: opacity 0.2s ease-in-out; /* Adiciona uma transição suave */
+}
+
+.sidebar-open .novo-operador-container {
+  margin-left: 250px;
+}
+
+.novo-operador-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Estilização do título Novo Operador */
+.novo-operador-header h1 {
+  font-size: 37px;
+  font-weight: bold;
+  color: #3b447b;
+  width: 1085px; /* Largura fixa */
+  height: 37px; /* Altura fixa */
+}
+
+/* Estilização do título "Dados de Acesso" */
+.dados-acesso-title {
+  font-size: 37px;
+  font-weight: bold;
+  color: #3b447b;
+  width: 549px; /* Largura fixa */
+  height: 37px; /* Altura fixa */
+}
+
+/* Estilização do botão de voltar */
+.back-button {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+  background: #3b447b;
+  width: 140px; /* Largura fixa */
+  height: 35px; /* Altura fixa */
+  border-radius: 50px; /* Borda arredondada */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Efeito hover para interação */
+.back-button:hover {
+  background: #2e376b;
+}
+
+/* Estilização das abas */
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.tabs span {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.comissao {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26.38px;
+  color: #3b447b;
+  width: 120px; /* Largura fixa */
+  height: 26px; /* Altura fixa */
+  display: inline-block; /* Para respeitar largura e altura */
+}
+
+/* Estilização do span "dados gerais" */
+.tabs .active {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26.38px;
+  color: #3b447b;
+  width: 120px; /* Largura fixa */
+  height: 26px; /* Altura fixa */
+  display: inline-block; /* Para respeitar largura e altura */
+}
+
+/* Aba inativa */
+.tabs .inactive {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26.38px;
+  color: #676767;
+  padding: 10px 20px;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+}
+
+.novo-operador-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.form-row.three-cols {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.nome-group {
+  flex: 1;
+  width: 550px;
+}
+
+.form-group.email-group {
+  flex: 1;
+  width: 550px;
+}
+
+.form-group.celular-group {
+  flex: 1;
+  width: 221px;
+  align-items: center;
+}
+
+.form-group.tipo-group,
+.form-group.situacao-group {
+  flex: 1;
+  width: 211px;
+}
+
+.form-group.codigo-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #3b447b;
+}
+
+.form-group input,
+.form-group select {
+  width: 75%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Estilização das labels */
+.form-group label {
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 23.74px;
+  color: #676363;
+}
+
+/* Estilização específica para o input de Nome */
+.form-group.nome-group input {
+  width: 310px;
+  height: 20px;
+  border: 1px solid;
+  border-image-source: linear-gradient(to right, #999999, #cccccc, #999999);
+  border-image-slice: 1;
+  /* text-align: center; */
+  background: #ffffff;
+}
+
+/* Estilização específica para o input de Email */
+.form-group.email-group input {
+  width: 310px;
+  height: 20px;
+  border: 1px solid;
+  border-image-source: linear-gradient(to right, #999999, #cccccc, #999999);
+  border-image-slice: 1;
+  text-align: left;
+  background: #ffffff;
+}
+
+/* Estilização específica para o input de Celular */
+.form-group.celular-group input {
+  width: 150px;
+  height: 20px;
+  border: 1px solid;
+  border-image-source: linear-gradient(to right, #999999, #cccccc, #999999);
+  border-image-slice: 1;
+  /* text-align: center; */
+  background: #ffffff;
+}
+
+/* Estilização específica para os selects Tipo e Situação */
+.form-group.tipo-group select,
+.form-group.situacao-group select {
+  width: 150px;
+  height: 40px;
+  border: 1px solid;
+  border-image-source: linear-gradient(to right, #999999, #cccccc, #999999);
+  border-image-slice: 1;
+  text-align: center;
+  background: #ffffff;
+}
+
+/* Estilização específica para o input de Código */
+.form-group.codigo-group input {
+  width: 25%;
+  height: 20px;
+  border: 1px solid;
+  border-image-source: linear-gradient(to right, #999999, #cccccc, #999999);
+  border-image-slice: 1;
+  /* text-align: center; */
+  background: #ffffff;
+}
+
+/* Estilização do placeholder */
+.form-group input::placeholder {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 23.74px;
+  color: #999999; /* Ajuste conforme necessário */
+  opacity: 1; /* Para garantir que a opacidade não reduza a visibilidade */
+}
+
+/* Estilização para navegadores que usam diferentes seletores */
+.form-group input::-webkit-input-placeholder {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23.74px;
+  color: #999999;
+}
+
+.form-group input:-moz-placeholder {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 23.74px;
+  color: #999999;
+}
+
+.form-group input::-moz-placeholder {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23.74px;
+  color: #999999;
+}
+
+.form-group input:-ms-input-placeholder {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23.74px;
+  color: #999999;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #07aba0;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  /* margin-top: 150px; */
+}
+
+.save-btn {
+  background-color: #3b447b;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Força os inputs Usuário do Sistema e Senha do Sistema a ficarem um abaixo do outro */
+.form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espaçamento entre os campos */
+  width: 10%;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .novo-operador-container {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .tabs {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tabs span {
+    width: 100%;
+  }
+
+  .form-row.three-cols {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .novo-operador-header h1 {
+    font-size: 22px;
+  }
+
+  .back-button {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

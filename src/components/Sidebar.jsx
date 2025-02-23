@@ -22,7 +22,10 @@ import {
 } from "react-icons/fa";
 import { FaHouse } from "react-icons/fa6";
 import "../styles/sidebar.css";
+import { Tooltip } from "react-tooltip"; // Correta importação do Tooltip
+import "react-tooltip/dist/react-tooltip.css"; // Importação do CSS do tooltip
 
+// Importação do CSS do tooltip
 // ✅ Definição dos itens do menu principal
 const menuItems = [
   {
@@ -75,6 +78,16 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
   const [searchQuery, setSearchQuery] = useState("");
   const pathname = usePathname();
   const router = useRouter();
+
+  // Verifica se o usuário já está na Home
+  const isHome = pathname === "/home";
+
+  // Função para ir para a Home apenas se não estiver na Home
+  const goToHome = () => {
+    if (!isHome) {
+      router.push("/home");
+    }
+  };
 
   // ✅ Mantém os menus abertos automaticamente se a rota ativa pertencer a um submenu
   const [openMenus, setOpenMenus] = useState(() => {
@@ -139,7 +152,30 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
       {/* ✅ Cabeçalho */}
       <div className="sidebar-header">
         <div className="header-content">
-          <FaHouse className="menu-icon" />
+          {/* Botão com Tooltip dinâmico */}
+          <button
+            className="menu-button"
+            onClick={goToHome}
+            data-tooltip-id="home-tooltip"
+          >
+            <FaHouse className="menu-icon" />
+          </button>
+
+          {/* Tooltip dinâmico com responsividade */}
+          <Tooltip
+            id="home-tooltip"
+            place="right"
+            effect="solid"
+            style={{
+              fontSize: "clamp(12px, 2vw, 16px)", // Fonte ajustável
+              maxWidth: "200px", // Evita que ultrapasse a tela
+              padding: "6px 10px", // Melhor espaçamento
+              whiteSpace: "nowrap", // Evita que o texto quebre
+            }}
+          >
+            {isHome ? "Você já está na Home" : "Voltar para a Home/Dashboard"}
+          </Tooltip>
+
           <h2 className="sidebar-title">Painel Principal</h2>
         </div>
       </div>

@@ -6,12 +6,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  min-height: 100vh; /* Garante que ocupe toda a altura da tela */
   height: 100vh;
   background-color: #f3f4f6;
-  padding-top: 40px;
   transition: margin-left 0.3s ease;
   margin-left: 0;
-  max-width: 100%;
+  width: 100%; /* Evita cortes de fundo */
 }
 
 .home-container.sidebar-open {
@@ -219,7 +219,7 @@
 .home-greeting-container {
   max-width: 100%;
   padding-bottom: 10px;
-  padding-left: 20px;
+  padding-right: 200px;
   position: relative;
   margin-left: 0;
   text-align: center;
@@ -295,6 +295,7 @@
   font-size: clamp(20px, 3vw, 26px);
   color: #3b447b;
   margin-bottom: 4px;
+  text-align: justify;
 }
 
 /* ===================== */
@@ -333,6 +334,26 @@
 
 .help-text {
   text-align: center;
+}
+
+/* ===================== */
+/*    RESPONSIVIDADE DOS CARDS  */
+/* ===================== */
+@media (max-width: 768px) {
+  .help-options {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .help-card {
+    width: 90%; /* Ocupa mais espaço em telas menores */
+  }
+}
+
+@media (max-width: 480px) {
+  .help-card {
+    width: 100%; /* Em telas muito pequenas, ocupa toda a largura */
+  }
 }
 
 /* ===================== */

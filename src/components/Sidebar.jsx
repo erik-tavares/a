@@ -22,6 +22,7 @@ import {
 } from "react-icons/fa";
 import "../styles/sidebar.css";
 
+// ✅ Definição dos itens do menu principal
 const menuItems = [
   {
     title: "Dashboard",
@@ -71,53 +72,70 @@ const menuItems = [
 
 export default function Sidebar({ isOpen, toggleSidebar }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const pathname = usePathname(); // ✅ Obtém a rota atual corretamente
-  const router = useRouter(); // Inicializando o Router do Next.js
+  const pathname = usePathname();
+  const router = useRouter();
 
-  // Mantém o Dashboard sempre aberto
+  // ✅ Mantém os menus abertos automaticamente se a rota ativa pertencer a um submenu
   const [openMenus, setOpenMenus] = useState(() => {
     const initialOpenMenus = {};
+
     menuItems.forEach((item, index) => {
+      // ✅ Garante que o Dashboard sempre fique aberto
       if (item.title === "Dashboard") {
-        initialOpenMenus[index] = true; // Garante que o Dashboard esteja sempre aberto
+        initialOpenMenus[index] = true;
+      }
+
+      // ✅ Mantém o menu aberto se a rota ativa pertencer a um submenu
+      if (
+        item.submenu &&
+        item.submenu.some((sub) => pathname.startsWith(sub.link))
+      ) {
+        initialOpenMenus[index] = true;
       }
     });
+
     return initialOpenMenus;
   });
 
+  // ✅ Alterna a visibilidade dos menus ao clicar
   const toggleMenu = (index) => {
     setOpenMenus((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
-  const handleNavigation = (path) => {
-    router.push(path); // Redirecionamento dinâmico
-  };
+  // ✅ Mantém a ordem original dos menus, mas destaca os submenus certos
+  let filteredMenu;
 
-  // ✅ Se estiver na home, marca automaticamente o Dashboard como ativo
-  let filteredMenu = menuItems;
-
-  // ✅ Se estiver dentro de qualquer sub-rota de "cadastro/operadores", mantém o menu "Cadastros"
-  if (pathname.startsWith("/cadastro/operadores")) {
-    const activeMenu = menuItems.find((menu) => menu.title === "Cadastros");
+  // ✅ Se estiver na Home, mostra todos os menus principais
+  if (pathname === "/home") {
+    filteredMenu = menuItems;
+  } else {
+    // ✅ Para outras páginas, exibe apenas o menu principal correspondente e o submenu certo
+    const activeMenu = menuItems.find((menu) =>
+      menu.submenu?.some((sub) => pathname.startsWith(sub.link))
+    );
 
     if (activeMenu) {
-      // 🔹 Filtramos quais submenus devem aparecer
-      const allowedSubmenus = activeMenu.submenu.filter(
-        (sub) => ["/cadastro/operadores", ""].includes(sub.link) //  Define quais rotas mostrar
-      );
-
-      filteredMenu = [{ ...activeMenu, submenu: allowedSubmenus }];
+      filteredMenu = [
+        {
+          ...activeMenu,
+          submenu: activeMenu.submenu.filter((sub) =>
+            pathname.startsWith(sub.link)
+          ), // ✅ Exibe apenas o submenu correspondente
+        },
+      ];
+    } else {
+      filteredMenu = []; // Se não houver correspondência, esconde o menu
     }
   }
 
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
-      {/* Botão de abrir/fechar */}
+      {/* ✅ Botão de abrir/fechar */}
       <button className="toggle-btn" onClick={toggleSidebar}>
         {isOpen ? <FaTimes /> : <FaBars />}
       </button>
 
-      {/* Cabeçalho */}
+      {/* ✅ Cabeçalho */}
       <div className="sidebar-header">
         <div className="header-content">
           <FaAlignLeft className="menu-icon" />
@@ -127,7 +145,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
 
       <hr className="sidebar-divider" />
 
-      {/* Campo de Pesquisa */}
+      {/* ✅ Campo de Pesquisa */}
       <div className="search-container">
         <FaSearch className="search-icon" />
         <input
@@ -139,11 +157,11 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
         />
       </div>
 
-      {/* Menu */}
+      {/* ✅ Menu */}
       <nav className="sidebar-menu">
         <ul>
           {filteredMenu.map((item, index) => {
-            // ✅ Verifica se o menu principal ou algum dos seus submenus está ativo
+            // ✅ Verifica se o menu principal ou um dos submenus está ativo
             const isActive =
               pathname.startsWith(item.link) ||
               (item.submenu &&
@@ -151,24 +169,27 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
 
             return (
               <li key={index}>
+                {/* ✅ Link do menu principal */}
                 <a
                   href={item.link}
-                  className={`sidebar-button ${
-                    item.link === "/" && pathname === "/" ? "active" : ""
-                  } ${isActive ? "active" : ""} ${
+                  className={`sidebar-button ${isActive ? "active" : ""} ${
                     openMenus[index] ? "open" : ""
                   }`}
                   onClick={() => toggleMenu(index)}
                 >
                   {item.icon} {item.title}
                 </a>
+
+                {/* ✅ Renderiza o submenu se existir */}
                 {item.submenu && (
                   <ul className={`submenu ${openMenus[index] ? "open" : ""}`}>
                     {item.submenu.map((sub, subIndex) => (
                       <li key={subIndex} className="submenu-item">
                         <a
                           href={sub.link}
-                          className={pathname === sub.link ? "active" : ""}
+                          className={
+                            pathname.startsWith(sub.link) ? "active" : ""
+                          }
                         >
                           {sub.icon} <span>{sub.title}</span>
                         </a>

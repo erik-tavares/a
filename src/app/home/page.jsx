@@ -14,34 +14,43 @@ export default function HomePage() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const storedUser = localStorage.getItem("user");
 
-    if (storedUser) {
-      try {
-        const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);
-      } catch (error) {
-        console.error("Erro ao carregar usuário:", error);
-      }
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    if (storedUsers.length > 0) {
+      // Recupera o último usuário logado
+      const loggedUser =
+        JSON.parse(localStorage.getItem("loggedUser")) ||
+        storedUsers[storedUsers.length - 1];
+      setUser(loggedUser);
     } else {
       router.push("/");
+      return;
     }
 
-    const currentHour = new Date().getHours();
-    if (currentHour >= 5 && currentHour < 12) {
-      setGreeting("Bom dia");
-    } else if (currentHour >= 12 && currentHour < 18) {
-      setGreeting("Boa tarde");
-    } else {
-      setGreeting("Boa noite");
-    }
+    // Função para definir a saudação com base no horário atual
+    const updateGreeting = () => {
+      const currentHour = new Date().getHours();
+      if (currentHour >= 5 && currentHour < 12) {
+        setGreeting("Bom dia");
+      } else if (currentHour >= 12 && currentHour < 18) {
+        setGreeting("Boa tarde");
+      } else {
+        setGreeting("Boa noite");
+      }
+    };
 
-    setLoading(false);
+    updateGreeting(); // Atualiza ao montar o componente
+    const interval = setInterval(updateGreeting, 60000); // Atualiza a cada 1 minuto
+
+    setLoading(false); // Define que carregamento foi concluído
+
+    return () => clearInterval(interval); // Remove intervalo ao desmontar
   }, []);
 
   const handleLogout = () => {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("user");
+      localStorage.removeItem("loggedUser");
       router.push("/");
     }
   };
@@ -54,6 +63,11 @@ export default function HomePage() {
     return <div className="loading">Carregando...</div>;
   }
 
+  // Define o nome de exibição corretamente e transforma em maiúsculas
+  const displayName = (
+    user?.username || (user?.email ? user.email.split("@")[0] : "Usuário")
+  ).toUpperCase();
+
   return (
     <>
       {/* Sidebar recebe o estado de aberto e a função para alternar */}
@@ -62,7 +76,7 @@ export default function HomePage() {
       <div className={`home-container ${isSidebarOpen ? "sidebar-open" : ""}`}>
         <div className="home-greeting-container">
           <h1 className="home-greeting">
-            {greeting}, {user?.email?.split("@")[0] || "Usuário"}!
+            {greeting}, {displayName}
           </h1>
           <p className="home-subtitle">
             Seja Bem-Vindo ao Sistema de Controle de Produção da{" "}

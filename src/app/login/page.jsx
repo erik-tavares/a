@@ -1,51 +1,56 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation"; // Para redirecionamento
 import "../../styles/login.css";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [userInput, setUserInput] = useState(""); // Pode ser e-mail ou usuário
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // Estado para mensagens de erro
   const router = useRouter(); // Hook para redirecionamento
 
-  useEffect(() => {
-    // Se já houver um usuário logado, redireciona para home
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      router.push("/home");
-    }
-  }, []);
-
-  // Função para salvar o usuário ou autenticar
   const handleSubmit = (event) => {
     event.preventDefault(); // Evita recarregar a página
 
-    if (!email || !password) {
+    if (!userInput || !password) {
       setError("Preencha todos os campos!");
       return;
     }
 
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const isEmail = userInput.includes("@"); // Verifica se é e-mail
+    const newUser = {
+      username: isEmail ? null : userInput, // Salva username se não for e-mail
+      email: isEmail ? userInput : null, // Salva e-mail se for e-mail
+      password,
+    };
 
-    if (storedUser) {
-      // Se o usuário já existe, valida a senha
-      if (storedUser.email === email && storedUser.password === password) {
+    // Pega a lista de usuários cadastrados no localStorage
+    let storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Verifica se já existe um usuário com esse e-mail ou nome de usuário
+    const existingUser = storedUsers.find(
+      (user) =>
+        user.email === newUser.email || user.username === newUser.username
+    );
+
+    if (existingUser) {
+      // Se o usuário já existe, validar a senha
+      if (existingUser.password === password) {
         router.push("/home"); // Redireciona para a Home
       } else {
         setError("Usuário ou senha inválidos!");
       }
     } else {
-      // Se não existe, cria o usuário
-      const user = { email, password };
-      localStorage.setItem("user", JSON.stringify(user));
+      // Se não existe, adiciona à lista e salva no localStorage
+      storedUsers.push(newUser);
+      localStorage.setItem("users", JSON.stringify(storedUsers));
 
       alert("Conta criada com sucesso!");
       router.push("/home"); // Redireciona para a Home
     }
 
-    setEmail("");
+    setUserInput("");
     setPassword("");
   };
 
@@ -67,13 +72,13 @@ export default function LoginPage() {
           <div className="input-container">
             <input
               type="text"
-              id="email"
+              id="userInput"
               className="login-input"
               placeholder=" " /* ⚠ Necessário para a animação funcionar */
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
             />
-            <label htmlFor="email" className="input-label">
+            <label htmlFor="userInput" className="input-label">
               E-mail ou usuário
             </label>
           </div>

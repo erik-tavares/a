@@ -20,6 +20,7 @@ import {
   FaChartLine,
   FaCheckSquare,
 } from "react-icons/fa";
+import { FaHouse } from "react-icons/fa6";
 import "../styles/sidebar.css";
 
 // ✅ Definição dos itens do menu principal
@@ -138,7 +139,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
       {/* ✅ Cabeçalho */}
       <div className="sidebar-header">
         <div className="header-content">
-          <FaAlignLeft className="menu-icon" />
+          <FaHouse className="menu-icon" />
           <h2 className="sidebar-title">Painel Principal</h2>
         </div>
       </div>

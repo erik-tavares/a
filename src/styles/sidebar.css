@@ -174,7 +174,7 @@
 .sidebar-title {
   font-size: clamp(18px, 2vw, 22px);
   font-weight: bold;
-  text-align: center;
+  text-align: -webkit-center;
   padding: 15px 0;
 }
 

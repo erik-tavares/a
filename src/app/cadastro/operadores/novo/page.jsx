@@ -189,7 +189,7 @@ export default function NovoOperadorPage() {
           {abaSelecionada === "comissao" && (
             <div className="comissao-content">
               <h2>Configuração de Comissão</h2>
-              <p>Aqui você pode configurar as comissões do operador.</p>
+              <p>EM BREVE</p>
             </div>
           )}
         </div>

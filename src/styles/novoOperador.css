@@ -21,14 +21,15 @@
 }
 
 .novo-operador-content {
-  min-height: 500px; /* Ajuste conforme necessário */
-  transition: opacity 0.2s ease-in-out; /* Adiciona uma transição suave */
+  min-height: 500px;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .sidebar-open .novo-operador-container {
   margin-left: 250px;
 }
 
+/* Estilização do cabeçalho */
 .novo-operador-header {
   display: flex;
   justify-content: space-between;
@@ -36,34 +37,23 @@
   margin-bottom: 20px;
 }
 
-/* Estilização do título Novo Operador */
-.novo-operador-header h1 {
-  font-size: 37px;
-  font-weight: bold;
-  color: #3b447b;
-  width: 1085px; /* Largura fixa */
-  height: 37px; /* Altura fixa */
-}
-
-/* Estilização do título "Dados de Acesso" */
+.novo-operador-header h1,
 .dados-acesso-title {
-  font-size: 37px;
+  font-size: clamp(22px, 3vw, 37px);
   font-weight: bold;
   color: #3b447b;
-  width: 549px; /* Largura fixa */
-  height: 37px; /* Altura fixa */
 }
 
-/* Estilização do botão de voltar */
+/* Botão de voltar */
 .back-button {
   font-family: "Roboto Slab", serif;
   font-weight: 700;
-  font-size: 16px;
+  font-size: clamp(14px, 2vw, 16px);
   color: white;
   background: #3b447b;
-  width: 140px; /* Largura fixa */
-  height: 35px; /* Altura fixa */
-  border-radius: 50px; /* Borda arredondada */
+  width: 140px;
+  height: 35px;
+  border-radius: 50px;
   border: none;
   cursor: pointer;
   display: flex;
@@ -72,7 +62,6 @@
   transition: background 0.3s ease-in-out;
 }
 
-/* Efeito hover para interação */
 .back-button:hover {
   background: #2e376b;
 }
@@ -82,6 +71,7 @@
   display: flex;
   border-bottom: 2px solid #ccc;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .tabs span {
@@ -90,34 +80,19 @@
   font-weight: bold;
 }
 
+.tabs .active,
 .comissao {
   font-family: "Roboto Slab", serif;
   font-weight: 700;
-  font-size: 20px;
+  font-size: clamp(16px, 2vw, 20px);
   line-height: 26.38px;
   color: #3b447b;
-  width: 120px; /* Largura fixa */
-  height: 26px; /* Altura fixa */
-  display: inline-block; /* Para respeitar largura e altura */
 }
 
-/* Estilização do span "dados gerais" */
-.tabs .active {
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 26.38px;
-  color: #3b447b;
-  width: 120px; /* Largura fixa */
-  height: 26px; /* Altura fixa */
-  display: inline-block; /* Para respeitar largura e altura */
-}
-
-/* Aba inativa */
 .tabs .inactive {
   font-family: "Roboto Slab", serif;
   font-weight: 700;
-  font-size: 20px;
+  font-size: clamp(14px, 2vw, 20px);
   line-height: 26.38px;
   color: #676767;
   padding: 10px 20px;
@@ -125,6 +100,7 @@
   cursor: pointer;
 }
 
+/* Estilização do formulário */
 .novo-operador-form {
   display: flex;
   flex-wrap: wrap;
@@ -135,9 +111,9 @@
 
 .form-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   width: 100%;
-  flex-wrap: wrap;
   align-items: center;
 }
 
@@ -146,55 +122,28 @@
   justify-content: space-between;
   gap: 30px;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
+/* Grupos de input */
 .form-group {
-  flex: 1;
+  /* flex: 1; */
   min-width: 250px;
   display: flex;
   flex-direction: column;
 }
 
-.form-group.nome-group {
-  flex: 1;
-  width: 550px;
-}
-
-.form-group.email-group {
-  flex: 1;
-  width: 550px;
-}
-
-.form-group.celular-group {
-  flex: 1;
-  width: 221px;
-  align-items: center;
-}
-
-.form-group.tipo-group,
-.form-group.situacao-group {
-  flex: 1;
-  width: 211px;
-}
-
-.form-group.codigo-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .form-group label {
-  display: block;
-  font-size: 16px;
-  font-weight: bold;
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #676363;
   margin-bottom: 5px;
-  color: #3b447b;
 }
 
 .form-group input,
 .form-group select {
-  width: 75%;
+  width: 100%;
   padding: 10px;
   font-size: 16px;
   border: 2px solid #ccc;
@@ -203,151 +152,103 @@
   transition: border-color 0.3s ease-in-out;
 }
 
-/* Estilização das labels */
-.form-group label {
-  font-family: "Roboto Slab", serif;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 23.74px;
-  color: #676363;
+input[name="codigo"] {
+  width: 40%;
 }
 
-/* Estilização específica para o input de Nome */
-.form-group.nome-group input {
-  width: 310px;
-  height: 20px;
-  border: 1px solid;
-  border-image-source: linear-gradient(to right, #999999, #cccccc, #999999);
-  border-image-slice: 1;
-  /* text-align: center; */
-  background: #ffffff;
+select[name="tipo"],
+select[name="situacao"] {
+  width: 50%;
 }
 
-/* Estilização específica para o input de Email */
-.form-group.email-group input {
-  width: 310px;
-  height: 20px;
-  border: 1px solid;
-  border-image-source: linear-gradient(to right, #999999, #cccccc, #999999);
-  border-image-slice: 1;
-  text-align: left;
-  background: #ffffff;
-}
-
-/* Estilização específica para o input de Celular */
-.form-group.celular-group input {
-  width: 150px;
-  height: 20px;
-  border: 1px solid;
-  border-image-source: linear-gradient(to right, #999999, #cccccc, #999999);
-  border-image-slice: 1;
-  /* text-align: center; */
-  background: #ffffff;
-}
-
-/* Estilização específica para os selects Tipo e Situação */
-.form-group.tipo-group select,
-.form-group.situacao-group select {
-  width: 150px;
-  height: 40px;
-  border: 1px solid;
-  border-image-source: linear-gradient(to right, #999999, #cccccc, #999999);
-  border-image-slice: 1;
-  text-align: center;
-  background: #ffffff;
-}
-
-/* Estilização específica para o input de Código */
-.form-group.codigo-group input {
-  width: 25%;
-  height: 20px;
-  border: 1px solid;
-  border-image-source: linear-gradient(to right, #999999, #cccccc, #999999);
-  border-image-slice: 1;
-  /* text-align: center; */
-  background: #ffffff;
-}
-
-/* Estilização do placeholder */
-.form-group input::placeholder {
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 23.74px;
-  color: #999999; /* Ajuste conforme necessário */
-  opacity: 1; /* Para garantir que a opacidade não reduza a visibilidade */
-}
-
-/* Estilização para navegadores que usam diferentes seletores */
-.form-group input::-webkit-input-placeholder {
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 23.74px;
-  color: #999999;
-}
-
-.form-group input:-moz-placeholder {
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  font-size: 13px;
-  line-height: 23.74px;
-  color: #999999;
-}
-
-.form-group input::-moz-placeholder {
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 23.74px;
-  color: #999999;
-}
-
-.form-group input:-ms-input-placeholder {
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 23.74px;
-  color: #999999;
-}
+/* input[name="email"],
+input[name="nome"] {
+  width: 110%;
+} */
 
 .form-group input:focus,
 .form-group select:focus {
   border-color: #07aba0;
 }
 
-.buttons {
-  display: flex;
-  gap: 10px;
-  /* margin-top: 150px; */
+/* Estilização dos placeholders */
+.form-group input::placeholder {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #999999;
+  opacity: 1;
 }
 
+/* Botões */
+.buttons {
+  display: flex;
+  gap: 35px;
+}
+
+/* Botão salvar */
 .save-btn {
   background-color: #3b447b;
   color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
+  width: 140px;
+  height: 38px;
+  padding: 5px;
+  border-radius: 50px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 16px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease-in-out;
 }
 
+.save-btn:hover {
+  background-color: #2e365f;
+  transform: scale(1.05);
+}
+
+/* Botão cancelar */
 .cancel-btn {
-  background-color: #ccc;
-  color: black;
-  padding: 10px 20px;
-  border-radius: 5px;
+  background: none;
+  border: none;
   cursor: pointer;
+  color: #3b447b;
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26.38px;
+  text-decoration: none;
+  transition: 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.cancel-btn:hover {
+  transform: scale(1.05);
 }
 
 /* Força os inputs Usuário do Sistema e Senha do Sistema a ficarem um abaixo do outro */
 .form-column {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Espaçamento entre os campos */
+  gap: 15px;
   width: 10%;
 }
 
 /* Responsividade */
+@media (max-width: 1024px) {
+  .novo-operador-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .form-row.three-cols {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .novo-operador-container {
     max-width: 100%;
@@ -363,9 +264,13 @@
     width: 100%;
   }
 
-  .form-row.three-cols {
-    flex-direction: column;
-    gap: 20px;
+  .novo-operador-header h1 {
+    font-size: 28px;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
   }
 }
 
@@ -383,5 +288,10 @@
   .cancel-btn {
     width: 100%;
     text-align: center;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
   }
 }

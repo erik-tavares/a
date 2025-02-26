@@ -80,7 +80,11 @@ const menuItems = [
     link: "#",
     submenu: [
       { title: "Entregas", icon: <FaBoxOpen />, link: "/logistica/entregas" },
-      { title: "Manutenções", icon: <IoSettings />, link: "" },
+      {
+        title: "Manutenções",
+        icon: <IoSettings />,
+        link: "/logistica/manutencao",
+      },
     ],
   },
   {

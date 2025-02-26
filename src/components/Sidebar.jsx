@@ -21,6 +21,8 @@ import {
   FaCheckSquare,
 } from "react-icons/fa";
 import { FaHouse } from "react-icons/fa6";
+import { FaTruckFront, FaBoxOpen } from "react-icons/fa6";
+import { IoSettings } from "react-icons/io5";
 import "../styles/sidebar.css";
 import { Tooltip } from "react-tooltip"; // Correta importação do Tooltip
 import "react-tooltip/dist/react-tooltip.css"; // Importação do CSS do tooltip
@@ -70,6 +72,15 @@ const menuItems = [
         link: "/suprimentos",
       },
       { title: "Depósitos", icon: <FaBox />, link: "/suprimentos/deposito" },
+    ],
+  },
+  {
+    title: "Logística",
+    icon: <FaTruckFront />,
+    link: "#",
+    submenu: [
+      { title: "Entregas", icon: <FaBoxOpen />, link: "/logistica/entregas" },
+      { title: "Manutenções", icon: <IoSettings />, link: "" },
     ],
   },
   {

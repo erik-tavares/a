@@ -1,0 +1,599 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap");
+
+.nova-entrega-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+  text-align: left;
+  padding: 0 10px;
+}
+
+/* ✅ Cabeçalho */
+.nova-entrega-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.nova-entrega-title {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #3b447b;
+}
+
+/* ✅ Seções do formulário */
+
+.cliente-produtos {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.dados-gerais {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* ✅ Organizamos os inputs em duas linhas de 5 colunas */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 colunas */
+  gap: 15px; /* Espaçamento entre os inputs */
+  align-items: center;
+}
+
+/* ✅ Estilos das labels */
+.form-group label {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #676363;
+  margin-bottom: 5px;
+}
+
+/* ✅ Formatação correta para cada grupo (label + input) */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group-container {
+  display: flex;
+  gap: 10px; /* Espaço entre os campos */
+  align-items: center;
+}
+
+.dados-gerais-title {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26.38px;
+  color: #3b447b;
+  width: 120px;
+  height: 26px;
+  top: 145px;
+  left: 332px;
+}
+
+.cliente-produtos-title {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26.38px;
+  color: #3b447b;
+  height: 26px;
+  top: 145px;
+  left: 332px;
+}
+
+.dados-gerais h2,
+.cliente-produtos h2 {
+  font-family: "Roboto Slab", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #3b447b;
+  margin-bottom: 10px;
+}
+
+/* ✅ Grid para organização dos campos */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  align-items: center;
+}
+
+/* ✅ Labels */
+label {
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #676363;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input,
+.select {
+  width: 183px;
+  height: 50px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  font-family: "Roboto Slab", serif;
+  color: #676363;
+}
+
+.select {
+  cursor: pointer;
+}
+
+input[type="date"] {
+  width: 183px;
+  height: 35px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  border-radius: 5px;
+  padding: 10px 10px 4px 10px;
+  font-size: 16px;
+  font-family: "Roboto Slab", serif;
+  color: #676363;
+  gap: 10px;
+}
+
+/* ✅ Ajuste para o campo de Valor do Frete */
+.valor-frete {
+  display: flex;
+  align-items: center;
+}
+
+input:focus,
+select:focus {
+  border: 1px solid #3b447b;
+}
+
+/* ✅ Campos desabilitados */
+input[disabled] {
+  background-color: #e0e0e0;
+  color: #676363;
+}
+
+/* ✅ Inputs específicos */
+.distancia-input {
+  width: 100%;
+  height: 50px;
+  text-align: center;
+}
+
+/* ✅ Campos da seção Cliente | Produtos */
+.cliente-produtos .grid-container {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ✅ Tabela de produtos */
+.tabela-produtos-container {
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fff;
+  gap: 15px;
+}
+
+.tabela-produtos {
+  border: 1px solid #ccc;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-produtos th,
+.tabela-produtos td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* ✅ Estilização dos cabeçalhos (th) */
+.tabela-produtos th {
+  background-color: #f9f9f9;
+  font-family: "Roboto Slab", serif;
+  font-weight: 400; /* ✅ Peso da fonte */
+  font-size: 18px; /* ✅ Tamanho da fonte */
+  line-height: 23.74px; /* ✅ Altura da linha */
+  color: #676363; /* ✅ Cor conforme a imagem */
+  text-transform: none; /* ✅ Mantém o texto normal */
+  padding: 8px 12px; /* ✅ Ajuste de espaçamento interno */
+}
+
+.status-divider {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #07aba0, #ccc, #999);
+  margin-top: 5px;
+  margin-bottom: 15px;
+  position: relative;
+  z-index: 0;
+}
+
+/* ✅ Inputs dentro da tabela */
+.tabela-produtos input {
+  height: 35px;
+  border: 1px solid transparent;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  background: #ffffff;
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.input-unidade,
+.input-quantidade {
+  width: 80px;
+}
+.input-produto {
+  width: 500px;
+}
+
+.lote {
+  width: 300px;
+  height: 55px;
+  cursor: pointer;
+  background: transparent;
+}
+
+select option {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 21px;
+  color: #676363;
+  width: 168px;
+  height: 21px;
+  opacity: 0.5;
+}
+
+/* ✅ Botão "Salvar" na tabela */
+.save-btn {
+  width: 70px;
+  height: 30px;
+  background-color: #3b447b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.save-btn:hover {
+  background-color: #2e365f;
+}
+
+/* ✅ Container para alinhar os botões "Salvar" e "Excluir" lado a lado */
+.botoes-acoes {
+  display: flex;
+  gap: 10px; /* Espaçamento entre os botões */
+}
+
+/* ✅ Botão "Excluir" (estilização igual ao "Salvar", mas vermelho) */
+.delete-btn {
+  background-color: #d9534f; /* ✅ Cor vermelha para deletar */
+  color: white;
+  width: 70px; /* ✅ Mesmo tamanho do "Salvar" */
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+/* ✅ Efeito hover para o botão "Excluir" */
+.delete-btn:hover {
+  background-color: #c9302c; /* ✅ Tom mais escuro ao passar o mouse */
+}
+
+/* ✅ Linha Totais */
+.totais-label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #3b447b;
+}
+
+.adicionar-item {
+  /* width: 111px; */
+  /* height: 21px; */
+  background-color: transparent;
+  color: #07aba0;
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 21.1px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 5px;
+  transition: color 0.3s ease-in-out;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.adicionar-item:hover {
+  color: #048f88;
+}
+
+.adicionar-item svg {
+  margin-right: 5px;
+}
+
+/* ✅ Rodapé da tabela */
+.totalizador {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #676363;
+  margin-top: 10px;
+}
+
+/* ✅ Botões de ação */
+.botoes-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.nova-entrega-title {
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 42.2px;
+  color: #3b447b;
+}
+
+.salvar-button,
+.finalizar-button {
+  width: 116px;
+  height: 38px;
+  background-color: #07aba0;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.3s ease-in-out;
+}
+
+.finalizar-button:hover {
+  background-color: #048f88;
+}
+
+.salvar-button {
+  background-color: #3b447b;
+}
+
+.salvar-button:hover {
+  background-color: #2e365f;
+}
+
+.finalizar-button:hover {
+  background-color: #056f63;
+}
+
+/* ✅ Responsividade */
+@media (max-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cliente-produtos .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-container,
+  .cliente-produtos .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .nova-entrega-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .botoes-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .tabela-produtos th,
+  .tabela-produtos td {
+    font-size: 14px;
+  }
+
+  .salvar-button,
+  .finalizar-button {
+    width: 100%;
+  }
+}
+.cliente-produtos {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* ✅ Ajuste manual para cada input/select */
+/* ✅ Ajuste específico para o input Nome */
+.input-nome {
+  width: 513px;
+  height: 50px;
+  border: 1px solid #999999;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 16px;
+  color: #676363;
+}
+
+.input-distancia {
+  width: 186px;
+  height: 30px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  background-color: white;
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.input-frete {
+  width: 183px;
+  height: 30px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  background-color: #ffffff;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.input-tipo {
+  width: 132px;
+  height: 30px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  background-color: #d9d9d9;
+  padding: 10px;
+  font-size: 16px;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.input-num-entrega {
+  width: 183px;
+  height: 30px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  background-color: #d9d9d9;
+  opacity: 50%;
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.input-modelo {
+  width: 132px;
+  height: 30px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  background-color: #d9d9d9;
+  opacity: 50%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.input-marca {
+  width: 185px;
+  height: 30px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  background-color: #d9d9d9;
+  opacity: 50%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* ✅ Cidade */
+/* ✅ Ajuste específico para o input Cidade */
+.input-cidade {
+  width: 273px;
+  height: 50px;
+  border: 1px solid #999999;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 16px;
+  color: #676363;
+}
+
+/* ✅ UF */
+/* ✅ Ajuste específico para o input UF */
+.input-uf {
+  width: 91px;
+  height: 50px;
+  border: 1px solid #999999;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 16px;
+  color: #676363;
+}
+
+/* ✅ Localização GPS */
+.input-gps {
+  width: 513px;
+  height: 50px;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* ✅ Número do Pedido */
+.input-num-pedido {
+  width: 120px;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* ✅ Número NF-e */
+.input-nf-e {
+  width: 123px;
+  height: 50px;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* ✅ Grid específico para os campos */
+.cliente-produtos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.3fr;
+  grid-template-rows: auto auto;
+  gap: 15px;
+  align-items: center;
+}
+
+/* ✅ Labels */
+.cliente-produtos-grid label {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #676363;
+  margin-bottom: 5px;
+  display: block;
+}

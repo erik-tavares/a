@@ -3,12 +3,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "../../../../components/Sidebar";
+import { FaSave, FaPlusCircle, FaTrash } from "react-icons/fa";
 import "../../../../styles/novoOperador.css";
 
 export default function NovoOperadorPage() {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [abaSelecionada, setAbaSelecionada] = useState("dados-gerais"); // Estado para controlar a aba ativa
+  const [exibirTabela, setExibirTabela] = useState(true); // Estado para exibir ou remover a tabela
   const [formData, setFormData] = useState({
     nome: "",
     codigo: "",
@@ -19,6 +21,9 @@ export default function NovoOperadorPage() {
     usuarioSistema: "",
     senhaSistema: "",
   });
+  const [produtos, setProdutos] = useState([
+    { id: 1, produto: "", unidade: "", quantidade: "", valor: "" },
+  ]);
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
@@ -43,6 +48,30 @@ export default function NovoOperadorPage() {
     router.push("/cadastro/operadores");
   };
 
+  const adicionarItem = () => {
+    setProdutos([
+      ...produtos,
+      {
+        id: produtos.length + 1,
+        produto: "",
+        unidade: "",
+        quantidade: "",
+        valor: "",
+      },
+    ]);
+  };
+
+  const handleProdutoChange = (id, field, value) => {
+    setProdutos(
+      produtos.map((item) =>
+        item.id === id ? { ...item, [field]: value } : item
+      )
+    );
+  };
+
+  const removerItem = (id) => {
+    setProdutos(produtos.filter((item) => item.id !== id));
+  };
   return (
     <div
       className={`novo-operador-container ${
@@ -188,16 +217,120 @@ export default function NovoOperadorPage() {
 
           {abaSelecionada === "comissao" && (
             <div className="comissao-content">
-              <h2>Configuração de Comissão</h2>
-              <p>EM BREVE</p>
+              <div className="tabela-produtos-container">
+                <h2 className="section-title">Produtos</h2>
+                <table className="tabela-produtos">
+                  <thead>
+                    <tr>
+                      <th>Produto</th>
+                      <th>Unidade</th>
+                      <th>Quantidade</th>
+                      <th>Valor</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {produtos.map((item) => (
+                      <tr key={item.id}>
+                        <td>
+                          <input
+                            type="text"
+                            className="input-produto"
+                            value={item.produto}
+                            onChange={(e) =>
+                              handleProdutoChange(
+                                item.id,
+                                "produto",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            className="input-unidade"
+                            value={item.unidade}
+                            onChange={(e) =>
+                              handleProdutoChange(
+                                item.id,
+                                "unidade",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            className="input-quantidade"
+                            value={item.quantidade}
+                            onChange={(e) =>
+                              handleProdutoChange(
+                                item.id,
+                                "quantidade",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            className="input-valor"
+                            value={item.valor}
+                            onChange={(e) =>
+                              handleProdutoChange(
+                                item.id,
+                                "valor",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td className="acoes">
+                          <button className="save-btn">
+                            salvar <FaSave />
+                          </button>
+                          <button
+                            className="delete-btn"
+                            onClick={() => removerItem(item.id)}
+                          >
+                            excluir <FaTrash />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                    <tr className="total">
+                      <td>Totais</td>
+                      <td></td>
+                      <td></td>
+                      <td>0,00</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button className="add-item-btn" onClick={adicionarItem}>
+                  <FaPlusCircle /> adicionar item
+                </button>
+                <div className="form-group regra-comissao-container">
+                  <label htmlFor="regra-comissao">
+                    Regra para liberação de comissões
+                  </label>
+                  <select id="regra-comissao" className="select-comissao">
+                    <option>Total produção | Média produção Operador</option>
+                  </select>
+                </div>
+              </div>
             </div>
           )}
         </div>
-
+        <hr className="hrButtons" />
         <div className="buttons">
           <button className="save-btn" onClick={handleSave}>
             salvar
           </button>
+
           <button
             className="cancel-btn"
             onClick={() => router.push("/cadastro/operadores")}

@@ -42,6 +42,7 @@
   font-size: clamp(22px, 3vw, 37px);
   font-weight: bold;
   color: #3b447b;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
 }
 
 /* Botão de voltar */
@@ -141,8 +142,18 @@
   margin-bottom: 5px;
 }
 
-.form-group input,
 .form-group select {
+  width: 100%;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.form-group input {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -159,6 +170,11 @@ input[name="codigo"] {
 select[name="tipo"],
 select[name="situacao"] {
   width: 50%;
+  padding: 8px;
+}
+
+input[name="celular"] {
+  width: 60%;
 }
 
 /* input[name="email"],
@@ -236,6 +252,16 @@ input[name="nome"] {
   width: 10%;
 }
 
+.hrButtons {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #07aba0, #ccc, #999);
+  margin-top: 5px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 0;
+}
+
 /* Responsividade */
 @media (max-width: 1024px) {
   .novo-operador-container {
@@ -293,5 +319,339 @@ input[name="nome"] {
   .form-row {
     flex-direction: column;
     gap: 15px;
+  }
+}
+/* COMISSÃO */
+/* COMISSAO */
+/* // Comissao /// */
+/* COMISSAO */
+.tabela-produtos-container {
+  margin-top: 20px;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fff;
+  gap: 15px;
+}
+.section-title {
+  color: #3b447b;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+}
+
+.input-unidade {
+  width: 80px;
+  height: 35px;
+  border: 1px solid #999999;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .input-unidade {
+    width: 70px;
+    height: 45px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-unidade {
+    width: 60px;
+    height: 40px;
+    font-size: 12px;
+  }
+}
+
+.input-quantidade {
+  width: 80px;
+  height: 35px;
+  border: 1px solid #999999;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .input-quantidade {
+    width: 70px;
+    height: 45px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-quantidade {
+    width: 60px;
+    height: 40px;
+    font-size: 12px;
+  }
+}
+
+.input-valor {
+  width: 80px;
+  height: 35px;
+  border: 1px solid #999999;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .input-valor {
+    width: 70px;
+    height: 45px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-valor {
+    width: 60px;
+    height: 40px;
+    font-size: 12px;
+  }
+}
+
+/* Estilização da Seção de Regras para Liberação de Comissões */
+.regra-comissao-container {
+  margin-top: 150px;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px;
+}
+
+.regra-comissao-container label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #676363;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+}
+
+.select-comissao {
+  width: 365px; /* Definido conforme a imagem */
+  height: 50px; /* Ajustado conforme a altura da imagem */
+  font-family: "Roboto Slab", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #676363;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  outline: none;
+  padding: 4px 8px; /* Espaçamento interno nos 4 lados */
+}
+
+.select-comissao:focus {
+  border-color: #3b447b;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .regra-comissao-container {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .select-comissao {
+    height: 42px; /* Ajuste mais suave */
+    font-size: 16px;
+    padding: 5px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .regra-comissao-container {
+    padding: 8px;
+  }
+
+  .select-comissao {
+    height: 38px; /* Mantém um tamanho confortável para toque */
+    font-size: 14px;
+    padding: 4px 6px;
+    border-radius: 3px;
+  }
+}
+
+@media (max-width: 360px) {
+  .select-comissao {
+    height: 35px;
+    font-size: 13px;
+    padding: 3px 5px;
+  }
+}
+
+.input-produto {
+  height: 35px;
+  border: 1px s;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 4px;
+  width: 500px;
+}
+
+@media (max-width: 768px) {
+  .input-produto {
+    width: 100%;
+    height: 45px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-produto {
+    height: 40px;
+    font-size: 12px;
+  }
+}
+
+.total {
+  width: 53px;
+  height: 24px;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+  color: #676363;
+  margin: 10px;
+}
+
+.tabela-produtos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-produtos th,
+.tabela-produtos td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+  padding: 15px;
+}
+
+.tabela-produtos th {
+  color: #676363;
+  font-weight: bold;
+}
+
+.tabela-produtos td input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.acoes {
+  text-align: center;
+  display: grid;
+  gap: 10px;
+}
+.botoes-acoes {
+  display: flex;
+  gap: 10px; /* Espaçamento entre os botões */
+}
+
+/* Estilização do botão de exclusão, igual ao botão de salvar */
+.delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #d9534f; /* Cor vermelha para deletar */
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #c9302c; /* Tom mais escuro no hover */
+}
+
+.save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3b447b;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.save-btn:hover {
+  background-color: #2e376b;
+}
+
+.add-item-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #07aba0;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.add-item-btn:hover {
+  color: #055e57;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .tabela-produtos th,
+  .tabela-produtos td {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .tabela-produtos td input {
+    padding: 4px;
+    font-size: 14px;
+  }
+
+  .save-btn {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .add-item-btn {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabela-produtos-container {
+    padding: 10px;
+  }
+
+  .tabela-produtos th,
+  .tabela-produtos td {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .tabela-produtos td input {
+    padding: 3px;
+    font-size: 12px;
+  }
+
+  .save-btn {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .add-item-btn {
+    font-size: 12px;
   }
 }

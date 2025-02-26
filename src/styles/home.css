@@ -8,7 +8,7 @@
   justify-content: flex-start;
   min-height: 100vh; /* Garante que ocupe toda a altura da tela */
   height: 100vh;
-  background-color: #f3f4f6;
+  /* background-color: #f3f4f6; */
   transition: margin-left 0.3s ease;
   margin-left: 0;
   width: 100%; /* Evita cortes de fundo */
@@ -152,7 +152,7 @@
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  background-color: #f3f4f6;
+  /* background-color: #f3f4f6; */
   /* padding: 10px 20px;
   position: fixed;
   top: 0;

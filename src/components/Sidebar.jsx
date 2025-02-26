@@ -44,22 +44,32 @@ const menuItems = [
     submenu: [
       { title: "Operador", icon: <FaUser />, link: "/cadastro/operadores" },
       { title: "Máquina", icon: <FaCogs />, link: "/cadastro/maquinas" },
-      { title: "Produto", icon: <FaBox />, link: "/cadastro/produtos" },
+      { title: "Produto", icon: <FaBox />, link: "/cadastro/produto" },
     ],
   },
   {
     title: "Produções",
     icon: <FaIndustry />,
     link: "#",
-    submenu: [{ title: "Listar Produções", icon: <FaFileAlt />, link: "#" }],
+    submenu: [
+      {
+        title: "Listar Produções",
+        icon: <FaFileAlt />,
+        link: "/producao",
+      },
+    ],
   },
   {
     title: "Suprimentos",
     icon: <FaBoxes />,
     link: "#",
     submenu: [
-      { title: "Controle de Estoque", icon: <FaCheckSquare />, link: "#" },
-      { title: "Depósitos", icon: <FaBox />, link: "#" },
+      {
+        title: "Controle de Estoque",
+        icon: <FaCheckSquare />,
+        link: "/suprimentos",
+      },
+      { title: "Depósitos", icon: <FaBox />, link: "/suprimentos/deposito" },
     ],
   },
   {

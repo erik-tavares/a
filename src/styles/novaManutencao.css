@@ -449,17 +449,15 @@ input[disabled] {
   color: #048f88;
 }
 
-/* ✅ Textarea de Observações */
-.textarea {
+.textarea-custom {
   width: 1077px;
   height: 50px;
   border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  text-align: left;
-  font-size: 16px;
-  color: #333;
-  padding: 10px;
-  resize: none;
+  border-image: linear-gradient(to bottom, #999999, #cccccc, #999999);
+  border-image-slice: 1;
+  padding: 12px; /* Equivalente ao p-3 do Tailwind */
+  border-radius: 4px;
+  text-align: center; /* Centraliza o texto dentro do textarea */
 }
 
 .nova-manutencao {
@@ -475,9 +473,14 @@ input[disabled] {
 }
 
 .nova-manutencao-title {
-  font-size: 24px;
+  font-family: "Roboto Slab", serif;
   font-weight: 700;
+  font-size: 28px;
+  line-height: 36.93px;
+  letter-spacing: 0%;
   color: #3b447b;
+  width: 243px;
+  height: 37px;
 }
 
 /* ✅ Botões */

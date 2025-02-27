@@ -1,24 +1,91 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FaArrowLeft, FaEllipsisV, FaPlus } from "react-icons/fa";
+import { FaArrowLeft, FaEllipsisV, FaPlus, FaTrash } from "react-icons/fa";
 import Sidebar from "@/components/Sidebar"; // ✅ Importando Sidebar
 import "../../../../styles/novaManutencao.css";
 import "../../../../styles/novaEntrega.css";
 
 export default function NovaManutencao() {
   const router = useRouter();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // ✅ Estado para controle do Sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [tabelas, setTabelas] = useState([{ id: Date.now() }]); // ✅ Estado inicial com uma tabela
+
+  useEffect(() => {
+    const storedTables = JSON.parse(localStorage.getItem("tabelas")) || [
+      {
+        id: Date.now(),
+        produto: "",
+        aplicacao: "",
+        unidade: "",
+        quantidade: "",
+        valor: "",
+        total: 0,
+      },
+    ];
+    setTabelas(storedTables);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tabelas", JSON.stringify(tabelas));
+  }, [tabelas]);
 
   const handleVoltar = () => {
     router.back();
   };
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen); // ✅ Alterna entre aberto e fechado
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const adicionarTabela = () => {
+    setTabelas([
+      ...tabelas,
+      {
+        id: Date.now(),
+        produto: "",
+        aplicacao: "",
+        unidade: "",
+        quantidade: "",
+        valor: "",
+        total: 0,
+      },
+    ]);
+  };
+
+  const excluirTabela = (id) => {
+    const novasTabelas = tabelas.filter((tabela) => tabela.id !== id);
+    setTabelas(novasTabelas);
+  };
+
+  const atualizarTabela = (id, campo, valor) => {
+    const novasTabelas = tabelas.map((tabela) =>
+      tabela.id === id
+        ? {
+            ...tabela,
+            [campo]: valor,
+            total:
+              campo === "quantidade" || campo === "valor"
+                ? calcularTotal(tabela, campo, valor)
+                : tabela.total,
+          }
+        : tabela
+    );
+    setTabelas(novasTabelas);
+  };
+
+  const calcularTotal = (tabela, campo, valor) => {
+    const quantidade =
+      campo === "quantidade"
+        ? parseFloat(valor) || 0
+        : parseFloat(tabela.quantidade) || 0;
+    const valorUnitario =
+      campo === "valor"
+        ? parseFloat(valor) || 0
+        : parseFloat(tabela.valor) || 0;
+    return (quantidade * valorUnitario).toFixed(2);
+  };
   return (
     <div
       className={`nova-entrega-container ${
@@ -27,8 +94,6 @@ export default function NovaManutencao() {
     >
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="flex-1 p-6">
-        {/* ✅ Botão para abrir/fechar o Sidebar */}
-
         {/* ✅ Cabeçalho */}
         <div className="nova-manutencao">
           <div className="nova-manutencao-header">
@@ -46,6 +111,7 @@ export default function NovaManutencao() {
 
         <h2 className="dados-gerais-title">dados gerais</h2>
         <hr className="status-divider" />
+
         {/* ✅ Dados gerais */}
         <div className="dados-gerais">
           <div className="grid-container">
@@ -113,63 +179,98 @@ export default function NovaManutencao() {
             </div>
           </div>
         </div>
-        <hr className="status-divider" />
 
+        <hr className="status-divider" />
         <h2 className="cliente-title">Peças e Mão de Obra</h2>
-        {/* ✅ Peças e Mão de Obra */}
+
+        {/* ✅ Renderização dinâmica das tabelas */}
         <div className="cliente-produtos">
-          <div className="tabela-produtos-container">
-            <table className="tabela-produtos">
-              <thead>
-                <tr>
-                  <th>Descrição</th>
-                  <th>Aplicação</th>
-                  <th>Unidade</th>
-                  <th>Quantidade</th>
-                  <th>Valor</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input type="text" className="input-produto" />
-                  </td>
-                  <td>
-                    <input type="text" className="input-aplicacao" />
-                  </td>
-                  <td>
-                    <input type="text" className="input-unidade" />
-                  </td>
-                  <td>
-                    <input type="text" className="input-quantidade" />
-                  </td>
-                  <td>
-                    <div className="flex items-center">
-                      <input
-                        type="text"
-                        className="input-valor"
-                        value="1.500,00"
-                        disabled
-                      />
-                    </div>
-                  </td>
-                  <td className="botoes-acoes">
-                    <button className="save-btn">salvar</button>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Totais</th>
-                  <td></td>
-                  <th>0</th>
-                  <th>0,00</th>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <button className="adicionar-item">
+          {tabelas.map(
+            ({ id, produto, aplicacao, unidade, quantidade, valor, total }) => (
+              <div key={id} className="tabela-produtos-container">
+                <table className="tabela-produtos">
+                  <thead>
+                    <tr>
+                      <th>Descrição</th>
+                      <th>Aplicação</th>
+                      <th>Unidade</th>
+                      <th>Quantidade</th>
+                      <th>Valor</th>
+                      <th>Total</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          className="input-produto"
+                          value={produto}
+                          onChange={(e) =>
+                            atualizarTabela(id, "produto", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          className="input-aplicacao"
+                          value={aplicacao}
+                          onChange={(e) =>
+                            atualizarTabela(id, "aplicacao", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          className="input-unidade"
+                          value={unidade}
+                          onChange={(e) =>
+                            atualizarTabela(id, "unidade", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          className="input-quantidade"
+                          value={quantidade}
+                          onChange={(e) =>
+                            atualizarTabela(id, "quantidade", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          className="input-valor"
+                          value={valor}
+                          onChange={(e) =>
+                            atualizarTabela(id, "valor", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td>{total}</td>
+                      <td className="botoes-acoes">
+                        <button className="save-btn">salvar</button>
+                        <button
+                          className="delete-btn"
+                          onClick={() => excluirTabela(id)}
+                        >
+                          <FaTrash /> Excluir
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            )
+          )}
+
+          {/* ✅ Botão para adicionar nova tabela */}
+          <button className="adicionar-item" onClick={adicionarTabela}>
             <FaPlus /> adicionar item
           </button>
         </div>
@@ -178,12 +279,17 @@ export default function NovaManutencao() {
         <div className="cliente-produtos">
           <h2 className="cliente-produtos-title">Observações:</h2>
           <textarea
-            className="w-full border p-3 rounded-md"
+            className="w-[1077px] h-[50px] border border-gray-400 p-3 rounded-md text-center"
+            style={{
+              borderImage:
+                "linear-gradient(to bottom, #999999, #CCCCCC, #999999) 1",
+            }}
             rows="3"
-          ></textarea>
+          />
         </div>
+
         <hr className="status-divider" />
-        {/* ✅ Botões */}
+        {/* ✅ Botões de Ação */}
         <div className="botoes-container">
           <button className="salvar-button">salvar</button>
           <button className="finalizar-button">finalizar</button>

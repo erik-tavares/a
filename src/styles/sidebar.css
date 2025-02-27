@@ -6,7 +6,6 @@
   align-items: center;
   justify-content: flex-start; /* Mantém alinhamento à esquerda */
   padding: 15px;
-  width: 100%;
   /* gap: 35px; Espaço entre o ícone e o título */
   white-space: nowrap; /* Evita quebra de linha do título */
 }
@@ -109,7 +108,7 @@
 .toggle-btn {
   position: fixed;
   top: 15px;
-  left: 260px; /* Mantém fixo ao lado da sidebar */
+  left: 265px; /* Mantém fixo ao lado da sidebar */
   background-color: #3b447b;
   color: white;
   border: none;

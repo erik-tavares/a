@@ -26,6 +26,8 @@ import { IoSettings } from "react-icons/io5";
 import "../styles/sidebar.css";
 import { Tooltip } from "react-tooltip"; // Correta importação do Tooltip
 import "react-tooltip/dist/react-tooltip.css"; // Importação do CSS do tooltip
+import { SlPeople } from "react-icons/sl";
+import { LiaPalletSolid } from "react-icons/lia";
 
 // Importação do CSS do tooltip
 // ✅ Definição dos itens do menu principal
@@ -47,6 +49,13 @@ const menuItems = [
       { title: "Operador", icon: <FaUser />, link: "/cadastro/operadores" },
       { title: "Máquina", icon: <FaCogs />, link: "/cadastro/maquinas" },
       { title: "Produto", icon: <FaBox />, link: "/cadastro/produto" },
+      { title: "Motorista", icon: <SlPeople />, link: "/cadastro/motorista" },
+      { title: "Clientes", icon: <SlPeople />, link: "/cadastro/clientes" },
+      {
+        title: "Paletizador",
+        icon: <LiaPalletSolid />,
+        link: "/cadastro/paletizador",
+      },
     ],
   },
   {

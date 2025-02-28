@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar"; // ✅ Importando o Sidebar
+import ModalOptionsProduto from "@/components/ModalProduto";
 import { HiChevronUpDown } from "react-icons/hi2"; // Ícone para ordenação
 import { FaEllipsisV, FaSearch } from "react-icons/fa"; // Ícones de ações e pesquisa
 import { useRouter } from "next/navigation"; // ✅ Para Next.js 13+ com App Router
@@ -12,6 +13,8 @@ export default function ProdutosPage() {
   const [pesquisa, setPesquisa] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [ordemAsc, setOrdemAsc] = useState(true);
+  const [exibirOpcoesOrdenacao, setExibirOpcoesOrdenacao] = useState(false); // ✅ Estado para exibir opções de ordenação
+  const [exibirOpcoesSituacao, setExibirOpcoesSituacao] = useState(false); // ✅ Estado para exibir filtros de situação
   const [produtos, setProdutos] = useState([
     {
       id: 1,
@@ -66,15 +69,28 @@ export default function ProdutosPage() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  // ✅ Alternar exibição dos botões de ordenação
+  const toggleOrdenacao = () => {
+    setExibirOpcoesOrdenacao(!exibirOpcoesOrdenacao);
+  };
+
+  // ✅ Alternar exibição dos filtros de situação
+  const toggleSituacao = () => {
+    setExibirOpcoesSituacao(!exibirOpcoesSituacao);
+  };
+
   const router = useRouter(); // ✅ Criando a instância corretamente
   // Função para inverter a ordem da tabela
   const inverterOrdem = () => {
     setProdutos([...produtos].reverse());
     setOrdemAsc(!ordemAsc);
   };
+
   const handleIncluirProduto = () => {
     router.push("produto/novoProduto"); // ✅ Agora o router está definido corretamente
   };
+
   return (
     <div
       className={`produtos-container ${isSidebarOpen ? "sidebar-open" : ""}`}
@@ -114,12 +130,33 @@ export default function ProdutosPage() {
 
           {/* Botões de filtro */}
           <div className="filtros">
-            <button className="filtro-btn">
+            <button className="filtro-btn" onClick={toggleOrdenacao}>
               <HiChevronUpDown /> nome
             </button>
-            <button className="filtro-btn">por situação</button>
+            <button className="filtro-btn" onClick={toggleSituacao}>
+              por situação
+            </button>
           </div>
         </div>
+        {exibirOpcoesOrdenacao && (
+          <div className="ordenacao-opcoes">
+            <p>Orndenar por:</p>
+            <button className="ordenacao-btn">Ordenar por Nome</button>
+            <button className="ordenacao-btn">Ordenar por Código</button>
+          </div>
+        )}
+
+        {/* ✅ Opções de filtro de situação */}
+        {exibirOpcoesSituacao && (
+          <div className="situacao-opcoes">
+            <p>Situação</p>
+            <button className="situacao-btn">Sem Filtro</button>
+            <button className="situacao-btn">Ativos</button>
+            <button className="situacao-btn">Inativos</button>
+            <button className="situacao-btn">Excluídos</button>
+          </div>
+        )}
+        {/* ✅ Opções de ordenação (aparecem ao clicar no botão) */}
 
         {/* Filtros */}
         <div className="status-filters">
@@ -145,6 +182,7 @@ export default function ProdutosPage() {
                     <HiChevronUpDown />
                   </button>
                 </th>
+                <th></th>
                 <th>Código</th>
                 <th>Unidade</th>
                 <th>Custo</th>
@@ -156,6 +194,13 @@ export default function ProdutosPage() {
                 <tr key={produto.id}>
                   <td>
                     <input type="checkbox" className="custom-checkbox" />
+                  </td>
+                  <td className="nome-produto">
+                    <ModalOptionsProduto
+                      className="action-icon"
+                      produto={produto}
+                    />{" "}
+                    {produto.nome}
                   </td>
                   <td>{produto.descricao}</td>
                   <td>{produto.codigo}</td>

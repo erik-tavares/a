@@ -3,7 +3,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
-import { FaPrint, FaCalendarAlt, FaIndustry, FaFileAlt } from "react-icons/fa";
+import ModalOptionsProducao from "@/components/ModalProducao";
+import {
+  FaPrint,
+  FaCalendarAlt,
+  FaIndustry,
+  FaFileAlt,
+  FaEllipsisV,
+} from "react-icons/fa";
 import "../../styles/listarProducao.css";
 
 export default function ListaDeProducao() {
@@ -11,6 +18,11 @@ export default function ListaDeProducao() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [filtroPeriodo, setFiltroPeriodo] = useState("");
   const [statusSelecionado, setStatusSelecionado] = useState("todos");
+  const [exibirOpcoesPeriodo, setExibirOpcoesPeriodo] = useState(false); // ✅ Estado para exibir as opções do período
+
+  const togglePeriodo = () => {
+    setExibirOpcoesPeriodo(!exibirOpcoesPeriodo);
+  };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -71,9 +83,21 @@ export default function ListaDeProducao() {
             type="date"
             className="periodo-button"
             value={filtroPeriodo}
+            onClick={togglePeriodo}
             onChange={(e) => setFiltroPeriodo(e.target.value)}
           />
         </div>
+
+        {/* ✅ Opções de Filtro de Período */}
+        {exibirOpcoesPeriodo && (
+          <div className="periodo-opcoes">
+            <p>Período</p>
+            <button className="periodo-btn">Sem Filtro</button>
+            <button className="periodo-btn">Do Dia</button>
+            <button className="periodo-btn">Do Mês</button>
+            <button className="periodo-btn">Do Intervalo</button>
+          </div>
+        )}
 
         <div className="status-filtros">
           <span
@@ -118,6 +142,7 @@ export default function ListaDeProducao() {
             <thead>
               <tr>
                 <th>Num</th>
+                <th></th>
                 <th>Data</th>
                 <th>Máquina</th>
                 <th>Operador</th>
@@ -132,6 +157,11 @@ export default function ListaDeProducao() {
                 <tr key={producao.num}>
                   <td>
                     <input type="checkbox" /> {producao.num}
+                  </td>
+                  <td>
+                    <td className="col-nameProducao">
+                      <ModalOptionsProducao />
+                    </td>
                   </td>
                   <td>{producao.data}</td>
                   <td>{producao.maquina}</td>

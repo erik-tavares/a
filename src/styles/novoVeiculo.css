@@ -1,0 +1,300 @@
+.novoVeiculo-container {
+  width: 100%;
+  max-width: 1042px;
+  margin: 40px auto;
+  text-align: left;
+}
+
+.novoVeiculo-content {
+  flex-grow: 1;
+  padding: 20px 40px;
+}
+
+.novoVeiculo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.novoVeiculo-title {
+  width: 174px;
+  height: 37px;
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 36.93px;
+  color: #3b447b;
+  text-align: center;
+}
+
+.btn-voltar {
+  width: 140px;
+  height: 38px;
+  background: #3b447b;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+.novoVeiculo-tabs {
+  height: 26px;
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26.38px;
+  color: #3b447b;
+}
+
+.status-dividerTop {
+  width: 100%;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #07aba0, #cccccc, #999999) 1;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.status-dividerBottom {
+  width: 100%;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  margin-top: 400px;
+}
+
+.novoVeiculo-tabs span {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #999;
+  font-size: 20px;
+}
+
+.novoVeiculo-tabs .active {
+  color: #3e3f75;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 35px;
+  margin-top: 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 23.74px;
+  color: #676363;
+  width: 64px;
+  height: 24px;
+}
+
+.form-group select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+::placeholder {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 23.74px;
+  color: #676363;
+  opacity: 0.5;
+}
+
+.input-modelo,
+.input-marca {
+  width: 266px;
+  height: 35px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+}
+
+.input-ano {
+  width: 120px;
+  height: 35px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+}
+
+.input-km {
+  width: 172px;
+  height: 35px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  background-color: #d9d9d9;
+}
+
+.input-tipo {
+  width: 150px;
+  height: 35px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+}
+
+.input-situacao {
+  width: 150px;
+  height: 35px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  cursor: pointer;
+}
+
+.input-codigo {
+  width: 120px;
+  height: 35px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+  text-align: center;
+}
+
+.input-placa {
+  width: 120px;
+  height: 35px;
+  border: 1px solid;
+  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
+}
+
+.novoVeiculo-footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 0;
+  gap: 20px;
+}
+
+.btn-salvar {
+  width: 140px;
+  height: 38px;
+  background: #3b447b;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  width: 82px;
+  height: 26px;
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26.38px;
+  color: #3b447b;
+  background: none;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .novoVeiculo-container {
+    padding: 20px;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .btn-voltar,
+  .btn-salvar,
+  .btn-cancelar {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+input[type="checkbox"] {
+  width: 21px;
+  height: 19px;
+  border: 2px solid #999999;
+  background-color: #ffffff;
+  border-radius: 5px;
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ✅ Efeito ao marcar a checkbox */
+input[type="checkbox"]:checked {
+  background-color: #3b447b;
+  border-color: #3b447b;
+  position: relative;
+}
+
+/* ✅ Estiliza o check interno */
+input[type="checkbox"]:checked::after {
+  content: "✔";
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.novoVeiculo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.novoVeiculo-table td {
+  width: 90px; /* Largura */
+  height: 24px; /* Altura */
+  font-family: "Roboto Slab", serif; /* Fonte específica */
+  font-weight: 400; /* Peso da fonte */
+  font-size: 18px; /* Tamanho da fonte */
+  line-height: 23.74px; /* Espaçamento entre linhas */
+  color: #000000; /* Cor do texto */
+  text-align: left; /* Alinhamento do texto */
+  padding: 10px; /* Espaçamento interno */
+  border-bottom: 1px solid #ddd; /* Linha inferior para separação */
+}
+
+.novoVeiculo-table th {
+  width: 43px;
+  height: 24px;
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 23.74px;
+  color: #676363;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 2px solid #ccc;
+}
+
+.novoVeiculo-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+@media (max-width: 768px) {
+  .novoVeiculo-container {
+    padding: 20px;
+  }
+  .novoVeiculo-table th,
+  .novoVeiculo-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}

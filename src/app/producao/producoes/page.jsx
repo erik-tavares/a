@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import ProducaoModal from "@/components/ModalProducoes";
 import {
   FaArrowLeft,
   FaPlusCircle,
   FaCalculator,
   FaTrash,
+  FaEllipsisV,
 } from "react-icons/fa";
 
 import "../../../styles/producoes.css";
@@ -111,9 +113,15 @@ export default function producoesPage() {
         {/* ✅ Cabeçalho */}
         <div className="novo-produto-header">
           <h1 className="novo-produto-title">Produção</h1>
-          <button onClick={() => router.back()} className="back-button">
-            <FaArrowLeft /> voltar
-          </button>
+          <div className="acoes-container">
+            <button onClick={() => router.back()} className="back-button">
+              <FaArrowLeft /> voltar
+            </button>
+            <button className="acoes-btn">
+              {" "}
+              <ProducaoModal />
+            </button>
+          </div>
         </div>
 
         {/* ✅ Abas */}

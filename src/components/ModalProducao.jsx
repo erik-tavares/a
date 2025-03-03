@@ -7,7 +7,7 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 import { IoReloadOutline } from "react-icons/io5";
-export default function MotoristaModal({ motorista }) {
+export default function ModalProducao({ producao }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = () => setIsOpen(!isOpen);

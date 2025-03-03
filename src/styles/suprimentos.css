@@ -113,6 +113,31 @@
   margin-top: 20px;
 }
 
+.situacao-opcoes,
+.ordenacao-opcoes {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.situacao-btn,
+.ordenacao-btn {
+  background: transparent;
+  border: 1px solid #3b447b;
+  color: #3b447b;
+  border-radius: 50px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 /* ✅ Estilização do ícone de três pontinhos (SVG) */
 .menu-acoes {
   width: 20px;

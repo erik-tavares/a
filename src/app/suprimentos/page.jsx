@@ -5,9 +5,23 @@ import Sidebar from "@/components/Sidebar";
 import { FaPrint } from "react-icons/fa";
 import "../../styles/suprimentos.css";
 import { useRouter } from "next/navigation"; // Importação para navegação
+
 export default function ControleDeEstoques() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter(); // Hook para navegação
+  const [exibirOpcoesOrdenacao, setExibirOpcoesOrdenacao] = useState(false); // ✅ Estado para exibir opções de ordenação
+  const [exibirOpcoesSituacao, setExibirOpcoesSituacao] = useState(false); // ✅ Estado para exibir filtros de situação
+
+  // ✅ Alternar exibição dos botões de ordenação
+  const toggleOrdenacao = () => {
+    setExibirOpcoesOrdenacao(!exibirOpcoesOrdenacao);
+  };
+
+  // ✅ Alternar exibição dos filtros de situação
+  const toggleSituacao = () => {
+    setExibirOpcoesSituacao(!exibirOpcoesSituacao);
+  };
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -107,9 +121,7 @@ export default function ControleDeEstoques() {
 
   //   Função para redirecionamento ao clicar nos três pontinhos
   const handleClick = (codigo) => {
-    if (codigo === 2) {
-      router.push(`/suprimentos/detalhes`);
-    }
+    router.push(`/suprimentos/detalhes?codigo=${codigo}`);
   };
 
   return (
@@ -134,12 +146,33 @@ export default function ControleDeEstoques() {
             className="procurar"
           />
 
-          <button className="filtro-botao">
+          <button className="filtro-botao" onClick={toggleOrdenacao}>
             <span>⇅</span> nome
           </button>
 
-          <button className="filtro-botao ativo">por situação</button>
+          <button className="filtro-botao ativo" onClick={toggleSituacao}>
+            por situação
+          </button>
         </div>
+
+        {exibirOpcoesOrdenacao && (
+          <div className="ordenacao-opcoes">
+            <label>Ordenar por:</label>
+            <button className="ordenacao-btn">Ordenar por Nome</button>
+            <button className="ordenacao-btn">Ordenar por Código</button>
+          </div>
+        )}
+
+        {/* ✅ Opções de filtro de situação */}
+        {exibirOpcoesSituacao && (
+          <div className="situacao-opcoes">
+            <label>Situação: </label>
+            <button className="situacao-btn">Sem Filtro</button>
+            <button className="situacao-btn">Ativos</button>
+            <button className="situacao-btn">Inativos</button>
+            <button className="situacao-btn">Excluídos</button>
+          </div>
+        )}
 
         {/* ✅ Filtros de categorias */}
         <div className="status-filtros">

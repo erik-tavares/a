@@ -358,12 +358,18 @@
   gap: 10px;
 }
 
+.acoes-btnModal {
+  border: none;
+  background: none;
+}
+
 .acoes-btn {
   background: none;
   border: 1px solid #3b447b;
   color: #3b447b;
   border-radius: 50px;
   cursor: pointer;
+  height: 35px;
 }
 
 .acoes-btn:hover {

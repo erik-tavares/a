@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { FaArrowLeft, FaEllipsisV, FaPlus, FaTrash } from "react-icons/fa";
 import Sidebar from "@/components/Sidebar"; // ✅ Importando Sidebar
 import "../../../../styles/novaManutencao.css";
-import "../../../../styles/novaEntrega.css";
+import ModalOptionsManutencao from "@/components/ModalNovaManutencao";
 
 export default function NovaManutencao() {
   const router = useRouter();
@@ -103,7 +103,7 @@ export default function NovaManutencao() {
                 <FaArrowLeft /> voltar
               </button>
               <button className="acoes-button">
-                ações <FaEllipsisV />
+                <ModalOptionsManutencao />
               </button>
             </div>
           </div>

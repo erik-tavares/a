@@ -12,6 +12,8 @@ import Sidebar from "@/components/Sidebar";
 import "../../../../styles/novaEntrega.css";
 import "../../../../styles/produto.css";
 import { useRouter } from "next/navigation"; // Importa o roteador do Next.js
+import ModalOptionsNovaEntrega from "@/components/ModalNovaEntrega";
+
 export default function NovaEntrega() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [tabelas, setTabelas] = useState([1]); // Estado inicial com uma tabela
@@ -52,8 +54,8 @@ export default function NovaEntrega() {
               {" "}
               &larr; Voltar{" "}
             </button>
-            <button className="acoes-btn">
-              ações <FaEllipsisV />
+            <button className="modalNovaEntrega">
+              <ModalOptionsNovaEntrega />
             </button>
           </div>
         </div>

@@ -7,14 +7,20 @@ import DatePicker from "react-datepicker"; // Importando o calendário
 import "react-datepicker/dist/react-datepicker.css"; // Estilos do calendário
 import "../../../styles/entregas.css";
 import { useRouter } from "next/navigation"; // ✅ Importando useRouter
+import ModalOptionsEntregas from "@/components/ModalEntregas";
 
 export default function Entregas() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [statusSelecionado, setStatusSelecionado] = useState("todos");
   const [dataFiltro, setDataFiltro] = useState(null);
   const [mostrarCalendario, setMostrarCalendario] = useState(false);
+  const [exibirOpcoesPeriodo, setExibirOpcoesPeriodo] = useState(false); // ✅ Estado para exibir as opções do período
   const [termoPesquisa, setTermoPesquisa] = useState(""); // Estado para pesquisa
   const router = useRouter(); // ✅ Criando a instância do router
+  const togglePeriodo = () => {
+    setExibirOpcoesPeriodo(!exibirOpcoesPeriodo);
+  };
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -87,7 +93,8 @@ export default function Entregas() {
           <div className="filtro-data">
             <button
               className="filtro-botao"
-              onClick={() => setMostrarCalendario(!mostrarCalendario)}
+              onClick={togglePeriodo}
+              onChange={() => setMostrarCalendario(!mostrarCalendario)}
             >
               <FaCalendarAlt /> por período
             </button>
@@ -105,6 +112,17 @@ export default function Entregas() {
             )}
           </div>
         </div>
+
+        {/* ✅ Opções de Filtro de Período */}
+        {exibirOpcoesPeriodo && (
+          <div className="periodo-opcoes">
+            <label>Período</label>
+            <button className="periodo-btn">Sem Filtro</button>
+            <button className="periodo-btn">Do Dia</button>
+            <button className="periodo-btn">Do Mês</button>
+            <button className="periodo-btn">Do Intervalo</button>
+          </div>
+        )}
 
         {/* ✅ Abas de status */}
         <div className="status-filtros">
@@ -141,8 +159,9 @@ export default function Entregas() {
           <table className="tabela-entregas">
             <thead>
               <tr>
-                <th></th>
+                <th></th> {/* Coluna para Checkbox */}
                 <th>Num</th>
+                <th>Ações</th> {/* Movido para logo após o Num */}
                 <th>Data</th>
                 <th>Placa</th>
                 <th>Motorista</th>
@@ -159,13 +178,9 @@ export default function Entregas() {
                     <td>
                       <input type="checkbox" />
                     </td>
+                    <td>{entrega.num}</td>
                     <td className="acoes">
-                      <img
-                        src="/3pontos.svg"
-                        alt="Opções"
-                        className="menu-acoes"
-                      />
-                      {entrega.num}
+                      <ModalOptionsEntregas /> {/* Agora logo após o Num */}
                     </td>
                     <td>{entrega.data.toLocaleDateString("pt-BR")}</td>
                     <td>{entrega.placa}</td>
@@ -189,7 +204,7 @@ export default function Entregas() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="9" className="sem-resultados">
+                  <td colSpan="10" className="sem-resultados">
                     Nenhuma entrega encontrada para este filtro.
                   </td>
                 </tr>

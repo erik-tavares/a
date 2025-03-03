@@ -209,9 +209,9 @@ export default function NovoProdutoPage() {
                 </div>
               </div>
               {/* ✅ Adicionando imagem à direita */}
-              {/* <div className="dimensoes-imagem">
+              <div className="dimensoes-imagem">
                 <img src="/pacote-caixa.svg" alt="Dimensões do Produto" />
-              </div> */}
+              </div>
               <div className="form-row2">
                 <div className="form-group">
                   <label>Largura</label>

@@ -117,8 +117,7 @@ export default function producoesPage() {
             <button onClick={() => router.back()} className="back-button">
               <FaArrowLeft /> voltar
             </button>
-            <button className="acoes-btn">
-              {" "}
+            <button className="acoes-btnModal">
               <ProducaoModal />
             </button>
           </div>
@@ -234,10 +233,6 @@ export default function producoesPage() {
                   </div>
                 </div>
               </div>
-              {/* ✅ Adicionando imagem à direita */}
-              {/* <div className="dimensoes-imagem">
-                <img src="/pacote-caixa.svg" alt="Dimensões do Produto" />
-              </div> */}
               <div className="form-row2">
                 <div className="form-group">
                   <label>Ciclos Atingidos</label>

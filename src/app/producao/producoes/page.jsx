@@ -103,16 +103,16 @@ export default function producoesPage() {
 
   return (
     <div
-      className={`novo-produto-container ${
+      className={`novo-producoes-container ${
         isSidebarOpen ? "sidebar-open" : ""
       }`}
     >
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-      <div className="novo-produto-content">
+      <div className="novo-producoes-content">
         {/* ✅ Cabeçalho */}
-        <div className="novo-produto-header">
-          <h1 className="novo-produto-title">Produção</h1>
+        <div className="novo-producoes-header">
+          <h1 className="novo-producoes-title">Produção</h1>
           <div className="acoes-container">
             <button onClick={() => router.back()} className="back-button">
               <FaArrowLeft /> voltar
@@ -285,8 +285,8 @@ export default function producoesPage() {
 
               {/* ✅ Estado para armazenar múltiplas tabelas */}
               {tabelas.map((tabela, index) => (
-                <div key={tabela.id} className="tabela-produtos-container">
-                  <table className="tabela-produtos">
+                <div key={tabela.id} className="tabela-producoes-container">
+                  <table className="tabela-producoes">
                     <thead>
                       <tr>
                         <th>Produto</th>

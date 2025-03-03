@@ -262,6 +262,17 @@ input[name="nome"] {
   z-index: 0;
 }
 
+.hrButtons2 {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #07aba0, #ccc, #999);
+  margin-top: 5px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 0;
+  margin-top: 200px;
+}
+
 /* Responsividade */
 @media (max-width: 1024px) {
   .novo-operador-container {
@@ -414,7 +425,6 @@ input[name="nome"] {
 
 /* Estilização da Seção de Regras para Liberação de Comissões */
 .regra-comissao-container {
-  margin-top: 150px;
   padding: 15px;
   border-radius: 8px;
   display: flex;

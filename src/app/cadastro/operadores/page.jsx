@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "../../../components/Sidebar"; // ✅ Importa o Sidebar
 import "../../../styles/operadores.css";
 import { FaEllipsisV, FaSearch } from "react-icons/fa";
+import ModalOptionsOperador from "@/components/ModalOptionsOperador";
 
 export default function OperadoresPage() {
   const router = useRouter();
@@ -123,7 +124,8 @@ export default function OperadoresPage() {
                   <input type="checkbox" />
                 </td>
                 <td className="col-nome">
-                  <FaEllipsisV className="action-icon" /> {operador.nome}
+                  <ModalOptionsOperador className="action-icon" />{" "}
+                  {operador.nome}
                 </td>
                 <td className="col-status">
                   <img

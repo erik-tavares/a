@@ -174,7 +174,8 @@ export default function NovaManutencao() {
             <div className="form-group">
               <label>Tipo da Manutenção</label>
               <select className="input-tipo-manu">
-                <option>Ajuste | Corretiva</option>
+                <option>Ajuste</option>
+                <option>Corretiva</option>
               </select>
             </div>
           </div>
@@ -197,7 +198,13 @@ export default function NovaManutencao() {
                       <th>Quantidade</th>
                       <th>Valor</th>
                       <th>Total</th>
-                      <th>Ações</th>
+                      <th
+                        style={{
+                          textAlign: "center",
+                        }}
+                      >
+                        Ações
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -254,13 +261,15 @@ export default function NovaManutencao() {
                       </td>
                       <td>{total}</td>
                       <td className="botoes-acoes">
-                        <button className="save-btn">salvar</button>
-                        <button
-                          className="delete-btn"
-                          onClick={() => excluirTabela(id)}
-                        >
-                          <FaTrash /> Excluir
-                        </button>
+                        <div className="button-container">
+                          <button className="save-btn">salvar</button>
+                          <button
+                            className="delete-btn"
+                            onClick={() => excluirTabela(id)}
+                          >
+                            <FaTrash /> Excluir
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   </tbody>

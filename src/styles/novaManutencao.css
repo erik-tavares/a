@@ -424,10 +424,30 @@ input[disabled] {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
+  margin-bottom: 10px;
 }
 
 .save-btn:hover {
   background-color: #2e365f;
+}
+
+/* ✅ Botão "Excluir" (estilização igual ao "Salvar", mas vermelho) */
+.delete-btn {
+  background-color: #d9534f; /* ✅ Cor vermelha para deletar */
+  color: white;
+  width: 70px; /* ✅ Mesmo tamanho do "Salvar" */
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px; /* Espaço entre os botões */
 }
 
 /* ✅ Botão "Adicionar Item" */

@@ -313,12 +313,14 @@ export default function NovoOperadorPage() {
                 <button className="add-item-btn" onClick={adicionarItem}>
                   <FaPlusCircle /> adicionar item
                 </button>
+                <hr className="hrButtons2" />
                 <div className="form-group regra-comissao-container">
                   <label htmlFor="regra-comissao">
                     Regra para liberação de comissões
                   </label>
                   <select id="regra-comissao" className="select-comissao">
-                    <option>Total produção | Média produção Operador</option>
+                    <option>Total produção</option>
+                    <option>Média produção Operador</option>
                   </select>
                 </div>
               </div>

@@ -11,8 +11,8 @@ export default function DetalhesProduto() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
   const [abaSelecionada, setAbaSelecionada] = useState("lançamentos");
-  const searchParams = useSearchParams();
-  const codigo = searchParams.get("codigo"); // Obtém o código da URL
+  const searchParams = typeof window !== "undefined" ? useSearchParams() : null;
+  const codigo = searchParams ? searchParams.get("codigo") : null;
   const [descricao, setDescricao] = useState("");
   const [exibirOpcoesOrdenacao, setExibirOpcoesOrdenacao] = useState(false); // ✅ Estado para exibir opções de ordenação
   const [exibirOpcoesSituacao, setExibirOpcoesSituacao] = useState(false); // ✅ Estado para exibir filtros de situação

@@ -806,9 +806,6 @@ select[name="porcentagem"] {
   opacity: 0;
 }
 
-.texto-sidebar {
-}
-
 /* Estilo do título "Lançamento estoque" */
 .texto-estoque {
   width: 274px; /* Largura conforme imagem */

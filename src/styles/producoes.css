@@ -189,6 +189,17 @@
   margin-bottom: 10px;
 }
 
+.section-title2 {
+  font-family: "Roboto Slab", serif; /* ✅ Fonte correta */
+  font-weight: 700; /* ✅ Peso da fonte */
+  font-size: 24px; /* ✅ Tamanho da fonte */
+  line-height: 31.65px; /* ✅ Altura da linha */
+  color: #3b447b; /* ✅ Cor exata */
+  height: 32px; /* ✅ Altura exata */
+  margin-bottom: 10px;
+  margin-top: 25px;
+}
+
 .tabs-dividerDisperdicio {
   background: linear-gradient(to right, #07aba0, #cccccc, #999999);
   margin-top: 100px;
@@ -222,6 +233,32 @@
   outline: none;
 }
 
+.containerProducao {
+  display: flex;
+  gap: 60px; /* Ajusta o espaçamento entre os textos */
+  align-items: center; /* Alinha verticalmente */
+}
+
+/* Informações da Máquina e Operador */
+.info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.info-operador {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.textoAbaixo,
+.textoProducao {
+  display: flex;
+  flex-direction: column; /* Mantém os spans um abaixo do outro */
+}
+
 .input-group .unit {
   position: absolute;
   right: 10px;
@@ -232,6 +269,7 @@
   padding: 5px 10px;
   border-radius: 5px;
 }
+
 /* ✅ Imagem centralizada à direita */
 .dimensoes-imagem {
   flex: 1; /* ✅ Garante que a imagem ocupe espaço proporcional */
@@ -589,6 +627,15 @@ select[name="porcentagem"] {
   text-align: left;
 }
 
+.divider-tabela {
+  width: 100%;
+  height: 1px;
+  margin-top: 250px;
+  background: linear-gradient(to right, #999999, #cccccc, #999999);
+  border: none;
+  display: block;
+}
+
 .form-group.porcentagem .unit {
   position: absolute;
   right: 10px;
@@ -598,6 +645,76 @@ select[name="porcentagem"] {
   background: #d9d9d9;
   padding: 5px 10px;
   border-radius: 5px;
+}
+
+.tabela-eventos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-eventos thead {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
+
+.tabela-eventos td {
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 23.74px;
+  color: #000000;
+  padding: 8px;
+  text-align: left;
+  width: 90px; /* Define uma largura padrão conforme a imagem */
+  height: 24px;
+  border-bottom: 2px solid #ddd;
+}
+
+.tabela-eventos th {
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 23.74px;
+  color: #676363;
+  text-align: left;
+  padding: 8px;
+  background-color: #f8f8f8;
+  border-bottom: 2px solid #ddd;
+}
+
+.tabela-eventos th input[type="checkbox"] {
+  margin: 0;
+}
+
+.tabela-eventos tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.tabela-eventos input[type="checkbox"] {
+  width: 21px;
+  height: 19px;
+  border: 2px solid #999999;
+  border-radius: 5px;
+  background-color: #ffffff;
+  cursor: pointer;
+  appearance: none; /* Remove o estilo padrão */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilo quando marcado */
+.tabela-eventos input[type="checkbox"]:checked {
+  background-color: #999999;
+  border-color: #999999;
+}
+
+/* Opcional: Adicionar um ícone ou estilizar o check */
+.tabela-eventos input[type="checkbox"]:checked::before {
+  content: "✔";
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 /* Fundo escurecido quando a modal estiver aberta */

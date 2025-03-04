@@ -19,6 +19,11 @@ export default function ListaDeProducao() {
   const [filtroPeriodo, setFiltroPeriodo] = useState("");
   const [statusSelecionado, setStatusSelecionado] = useState("todos");
   const [exibirOpcoesPeriodo, setExibirOpcoesPeriodo] = useState(false); // ✅ Estado para exibir as opções do período
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const togglePeriodo = () => {
     setExibirOpcoesPeriodo(!exibirOpcoesPeriodo);
@@ -158,10 +163,13 @@ export default function ListaDeProducao() {
                   <td>
                     <input type="checkbox" /> {producao.num}
                   </td>
-                  <td>
-                    <td className="col-nameProducao">
-                      <ModalOptionsProducao />
-                    </td>
+                  {/* ✅ Agora a modal abre ao clicar no TD */}
+                  <td className="acoes" onClick={toggleModal}>
+                    <img
+                      src="/3pontos.svg"
+                      alt="Opções"
+                      className="menu-acoes"
+                    />
                   </td>
                   <td>{producao.data}</td>
                   <td>{producao.maquina}</td>
@@ -182,6 +190,8 @@ export default function ListaDeProducao() {
           <span>→</span>
         </div>
       </div>
+      {/* ✅ Modal de Produção */}
+      <ModalOptionsProducao isOpen={isModalOpen} toggleModal={toggleModal} />
     </div>
   );
 }

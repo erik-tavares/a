@@ -129,6 +129,10 @@
   margin-bottom: 50px;
 }
 
+.acoes {
+  cursor: pointer;
+}
+
 /* ✅ Estilização dos status individuais */
 .status-filtros span {
   width: 141px;

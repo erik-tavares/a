@@ -12,6 +12,7 @@ import {
   FaEllipsisV,
 } from "react-icons/fa";
 import "../../styles/listarProducao.css";
+import { TbListDetails } from "react-icons/tb";
 
 export default function ListaDeProducao() {
   const router = useRouter();
@@ -70,12 +71,18 @@ export default function ListaDeProducao() {
       <div className="lista-producao-content">
         <div className="lista-producao-header">
           <h1 className="lista-producao-title">Produções</h1>
-          <button
-            className="print-button"
-            onClick={() => router.push("/producao/producoes")}
-          >
-            <FaPrint /> imprimir
-          </button>
+          <div className="btn-producao">
+            <button className="print-button">
+              <FaPrint /> imprimir
+            </button>
+            <button
+              className="btn-detalhes"
+              onClick={() => router.push("/producao/producoes")}
+            >
+              {" "}
+              <TbListDetails /> Detalhes produção
+            </button>
+          </div>
         </div>
 
         <div className="filtros">

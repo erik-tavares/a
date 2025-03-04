@@ -129,6 +129,31 @@
   margin-bottom: 50px;
 }
 
+.btn-producao {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-detalhes {
+  background-color: #3b447b;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  height: 38px;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-detalhes:hover {
+  background-color: #2e365f;
+}
+
 .acoes {
   cursor: pointer;
 }

@@ -19,6 +19,11 @@ export default function producoesPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [abaSelecionada, setAbaSelecionada] = useState("dados-gerais");
   const [preco, setPreco] = useState("0,00");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -117,9 +122,9 @@ export default function producoesPage() {
             <button onClick={() => router.back()} className="back-button">
               <FaArrowLeft /> voltar
             </button>
-            <button className="acoes-btnModal">
-              <ProducaoModal />
-            </button>
+            <button className="acoes-btnModal" onClick={toggleModal}></button>
+
+            <ProducaoModal isOpen={isModalOpen} toggleModal={toggleModal} />
           </div>
         </div>
 

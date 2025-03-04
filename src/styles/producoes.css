@@ -356,7 +356,6 @@
 
 .acoes-container {
   display: flex;
-  gap: 10px;
 }
 
 .acoes-btnModal {

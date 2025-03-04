@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaEllipsisV,
   FaBox,
@@ -7,11 +7,32 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 import { IoReloadOutline } from "react-icons/io5";
+import SidebarEstoque from "@/components/SidebarEstoque";
 
 export default function ProducaoModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const [shouldReopenModal, setShouldReopenModal] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const toggleModal = () => setIsOpen(!isOpen);
+  const toggleSidebar = () => {
+    if (!isSidebarOpen) {
+      setShouldReopenModal(isOpen); // Guarda o estado da modal antes de abrir o sidebar
+      setIsOpen(false); // Fecha a modal ao abrir o sidebar
+    }
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  // Quando o sidebar for fechado, reabre a modal apenas se ela estava aberta antes
+  useEffect(() => {
+    if (!isSidebarOpen && shouldReopenModal) {
+      setIsOpen(true);
+    }
+  }, [isSidebarOpen, shouldReopenModal]);
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+    setShouldReopenModal(false); // Resetar controle de reabertura
+  };
 
   return (
     <div className="acoes-dropdown">
@@ -30,7 +51,7 @@ export default function ProducaoModal() {
             <h3 className="motorista-titulo">
               <FaEllipsisV /> Mais ações
             </h3>
-            <button className="modal-option">
+            <button className="modal-option" onClick={toggleSidebar}>
               <FaBox /> Lançar estoque
             </button>
             <button className="modal-option">
@@ -45,6 +66,8 @@ export default function ProducaoModal() {
           </div>
         </div>
       )}
+      {/* Sidebar separado */}
+      <SidebarEstoque isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
     </div>
   );
 }

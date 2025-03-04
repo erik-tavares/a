@@ -775,3 +775,306 @@ select[name="porcentagem"] {
   background: #f0f0f0;
   border-radius: 5px;
 }
+
+/* Sidebar na DIREITA */
+.sidebar-right {
+  position: fixed;
+  top: 0;
+  right: -1075px; /* Sidebar começa totalmente fora da tela */
+  width: 710px;
+  height: 1024px;
+  background: #fff;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  z-index: 1000;
+  opacity: 0;
+  transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Quando o sidebar estiver aberto */
+.sidebar-right.open {
+  right: 0; /* Sidebar entra na tela */
+  opacity: 1;
+  width: 1075px;
+}
+
+/* Efeito de saída ao fechar */
+.sidebar-right.closing {
+  right: -1075px; /* Sidebar sai suavemente da tela */
+  opacity: 0;
+}
+
+.texto-sidebar {
+}
+
+/* Estilo do título "Lançamento estoque" */
+.texto-estoque {
+  width: 274px; /* Largura conforme imagem */
+  height: 37px; /* Altura conforme imagem */
+  font-family: "Roboto Slab", serif; /* Fonte conforme imagem */
+  font-weight: 700; /* Negrito */
+  font-size: 28px; /* Tamanho da fonte */
+  line-height: 36.93px; /* Altura da linha */
+  letter-spacing: 0%; /* Sem espaçamento extra */
+  color: #3b447b; /* Cor do texto */
+  text-align: left;
+  margin-top: 43px; /* Ajuste conforme a posição */
+}
+
+/* Cabeçalho */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.sidebar-header h2 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.subtexto {
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 19.78px;
+  color: #676363;
+  width: 492px;
+  height: 20px;
+  top: 76px;
+  left: 402px;
+}
+
+.sidebar-header p {
+  font-size: 14px;
+  color: #666;
+}
+.close-sidebar {
+  background: #3b447b;
+  color: white;
+  border: none;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 140px;
+  height: 38px;
+  top: 33px;
+  left: 1262px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.close-sidebar:hover {
+  background: #292d52;
+}
+
+/* Tabela */
+.sidebar-table {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+.sidebar-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sidebar-table td {
+  padding: 10px;
+  text-align: left;
+}
+
+/* Estilização dos cabeçalhos da tabela */
+.sidebar-table th {
+  width: 67px; /* Largura conforme imagem */
+  height: 24px; /* Altura conforme imagem */
+  font-family: "Roboto Slab", serif; /* Fonte conforme imagem */
+  font-weight: 400; /* Peso normal */
+  font-size: 18px; /* Tamanho da fonte */
+  line-height: 23.74px; /* Altura da linha */
+  letter-spacing: 0%; /* Sem espaçamento extra */
+  color: #676363; /* Cor do texto */
+  text-align: left;
+  padding: 10px;
+  background: #f4f4f4;
+  border-bottom: 2px solid #ccc;
+}
+
+.sidebar-table th {
+  background: #f4f4f4;
+  font-weight: bold;
+}
+
+.sidebar-table select {
+  width: 120px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* .sidebar-table input {
+  width: 100px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+} */
+
+/* Campo de Produto desabilitado */
+.disabled-inputproduto {
+  width: 372px; /* Largura conforme imagem */
+  height: 50px; /* Altura conforme imagem */
+  background: #d9d9d9; /* Cor de fundo conforme imagem */
+  border: 1px solid #999999; /* Borda inicial */
+  opacity: 0.5; /* Opacidade 50% */
+  font-weight: bold;
+  color: #666;
+  cursor: not-allowed;
+
+  /* Gradiente na borda */
+  border-image: linear-gradient(to bottom, #999999, #cccccc, #999999) 1;
+}
+
+/* Campo de Lote */
+.input-lote {
+  width: 167px; /* Largura conforme imagem */
+  height: 50px; /* Altura conforme imagem */
+  border: 1px solid #999999; /* Borda padrão */
+  font-weight: bold;
+  color: #333;
+  border-radius: 5px;
+
+  /* Gradiente na borda */
+  border-image: linear-gradient(to bottom, #999999, #cccccc, #999999) 1;
+}
+
+/* Campo de seleção Linha */
+.select-linha {
+  width: 119px; /* Largura conforme imagem */
+  height: 50px; /* Altura conforme imagem */
+  border: 1px solid #999999; /* Borda padrão */
+  text-align: center; /* Alinhamento do texto */
+  font-weight: bold;
+  color: #333;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+
+  /* Gradiente na borda */
+  border-image: linear-gradient(to bottom, #999999, #cccccc, #999999) 1;
+}
+
+/* Ajustando a aparência do select */
+.select-linha select {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  appearance: none; /* Remove a aparência padrão do select */
+  padding: 0 10px;
+}
+
+/* Campo de Quantidade */
+.input-quantidadesidebar {
+  width: 98px; /* Largura conforme imagem */
+  height: 50px; /* Altura conforme imagem */
+  border: 1px solid #999999; /* Borda padrão */
+  font-weight: bold;
+  color: #333;
+  border-radius: 5px;
+  background: #fff;
+
+  /* Gradiente na borda */
+  border-image: linear-gradient(to bottom, #999999, #cccccc, #999999) 1;
+}
+
+/* Ajuste para o input */
+.input-quantidadesidebar input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  padding: 0 5px;
+}
+
+/* Campo de seleção Depósito */
+.select-depositosidebar {
+  width: 119px; /* Largura conforme imagem */
+  height: 50px; /* Altura conforme imagem */
+  border: 1px solid #999999; /* Borda padrão */
+  font-weight: bold;
+  color: #333;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+
+  /* Gradiente na borda */
+  border-image: linear-gradient(to bottom, #999999, #cccccc, #999999) 1;
+}
+
+/* Ajustando a aparência do select */
+.select-depositosidebar select {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  appearance: none; /* Remove a aparência padrão do select */
+  padding: 0 10px;
+}
+
+/* Botão de adicionar linha */
+.add-row-btn {
+  background: #3d4373;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+.add-row-btn:hover {
+  background: #292d52;
+}
+
+/* Rodapé */
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 350px;
+}
+
+.save-btnSidebar {
+  background: #3d4373;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.save-btn:hover {
+  background: #292d52;
+}

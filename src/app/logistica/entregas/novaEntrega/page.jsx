@@ -18,6 +18,12 @@ export default function NovaEntrega() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [tabelas, setTabelas] = useState([1]); // Estado inicial com uma tabela
   const router = useRouter(); // Instancia o roteador
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -54,9 +60,12 @@ export default function NovaEntrega() {
               {" "}
               &larr; Voltar{" "}
             </button>
-            <button className="modalNovaEntrega">
-              <ModalOptionsNovaEntrega />
-            </button>
+            <button className="modalNovaEntrega" onClick={toggleModal}></button>
+
+            <ModalOptionsNovaEntrega
+              isOpen={isModalOpen}
+              toggleModal={toggleModal}
+            />
           </div>
         </div>
         <h2 className="dados-gerais-title">dados gerais</h2>

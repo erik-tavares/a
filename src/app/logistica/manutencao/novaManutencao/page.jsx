@@ -11,6 +11,11 @@ export default function NovaManutencao() {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [tabelas, setTabelas] = useState([{ id: Date.now() }]); // ✅ Estado inicial com uma tabela
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   useEffect(() => {
     const storedTables = JSON.parse(localStorage.getItem("tabelas")) || [
@@ -102,9 +107,12 @@ export default function NovaManutencao() {
               <button className="voltar-button" onClick={handleVoltar}>
                 <FaArrowLeft /> voltar
               </button>
-              <button className="acoes-button">
-                <ModalOptionsManutencao />
-              </button>
+              <button className="acoes-button" onClick={toggleModal}></button>
+
+              <ModalOptionsManutencao
+                isOpen={isModalOpen}
+                toggleModal={toggleModal}
+              />
             </div>
           </div>
         </div>

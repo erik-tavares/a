@@ -507,7 +507,6 @@ input[disabled] {
 .botoes-container {
   display: flex;
   align-items: center;
-  gap: 10px; /* Espaço entre os botões */
   margin-left: auto; /* Move os botões para a direita */
 }
 

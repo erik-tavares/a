@@ -28,7 +28,6 @@
 /* ✅ Botões de ação (Incluir Produto + Ações) */
 .acoes-container {
   display: flex;
-  gap: 10px;
 }
 
 /* ✅ Botões "Incluir Produto" e "Ações" */

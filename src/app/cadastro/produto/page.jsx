@@ -140,7 +140,7 @@ export default function ProdutosPage() {
         </div>
         {exibirOpcoesOrdenacao && (
           <div className="ordenacao-opcoes">
-            <p>Orndenar por:</p>
+            <label>Ordenar por:</label>
             <button className="ordenacao-btn">Ordenar por Nome</button>
             <button className="ordenacao-btn">Ordenar por Código</button>
           </div>
@@ -149,7 +149,7 @@ export default function ProdutosPage() {
         {/* ✅ Opções de filtro de situação */}
         {exibirOpcoesSituacao && (
           <div className="situacao-opcoes">
-            <p>Situação</p>
+            <label>Situação: </label>
             <button className="situacao-btn">Sem Filtro</button>
             <button className="situacao-btn">Ativos</button>
             <button className="situacao-btn">Inativos</button>

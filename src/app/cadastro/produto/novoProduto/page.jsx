@@ -209,9 +209,7 @@ export default function NovoProdutoPage() {
                 </div>
               </div>
               {/* ✅ Adicionando imagem à direita */}
-              <div className="dimensoes-imagem">
-                <img src="/pacote-caixa.svg" alt="Dimensões do Produto" />
-              </div>
+
               <div className="form-row2">
                 <div className="form-group">
                   <label>Largura</label>
@@ -233,6 +231,9 @@ export default function NovoProdutoPage() {
                     <input type="text" placeholder="0,0" />
                     <span className="unit">cm</span>
                   </div>
+                </div>
+                <div className="dimensoes-imagem">
+                  <img src="/pacote-caixa.svg" alt="Dimensões do Produto" />
                 </div>
               </div>
 

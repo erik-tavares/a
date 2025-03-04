@@ -233,11 +233,14 @@
 }
 /* ✅ Imagem centralizada à direita */
 .dimensoes-imagem {
-  flex: 1; /* ✅ Garante que a imagem ocupe espaço proporcional */
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* ✅ Centraliza a imagem */
+  position: relative;
+  top: -60px; /* Ajuste conforme necessário */
+  padding-left: 35px;
 }
+
 /* ✅ Botões */
 .form-actions {
   display: flex;

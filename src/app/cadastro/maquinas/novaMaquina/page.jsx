@@ -30,7 +30,7 @@ export default function NovaMaquinaPage() {
       <div className="nova-maquina-content">
         {/* ✅ Cabeçalho */}
         <div className="nova-maquina-header">
-          <h1 className="nova-maquina-title">Depósito</h1>
+          <h1 className="nova-maquina-title">Máquina</h1>
           <button className="voltar-button" onClick={() => router.back()}>
             <FaArrowLeft /> voltar
           </button>
@@ -41,7 +41,7 @@ export default function NovaMaquinaPage() {
         {/* ✅ Formulário */}
         <form className="nova-maquina-form">
           <div className="form-group">
-            <label htmlFor="nome">Nome</label>
+            <label htmlFor="nome">Modelo</label>
             <input
               type="text"
               id="nome"
@@ -58,8 +58,9 @@ export default function NovaMaquinaPage() {
               id="codigo"
               value={codigo}
               onChange={(e) => setCodigo(e.target.value)}
-              placeholder="Opcional"
+              placeholder="Auto"
               className="codigo-input"
+              disabled
             />
           </div>
 

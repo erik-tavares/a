@@ -199,7 +199,7 @@ export default function NovoVeiculoPage() {
               </div>
               <div className="form-group">
                 <label>Km</label>
-                <input type="text" className="input-km" />
+                <input type="text" className="input-km" disabled />
               </div>
             </div>
           )}

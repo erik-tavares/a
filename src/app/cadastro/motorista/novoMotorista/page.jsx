@@ -103,6 +103,7 @@ export default function NovoMotoristaPage() {
                       placeholder="Opcional"
                       value={formData.codigo}
                       onChange={handleChange}
+                      disabled
                     />
                   </div>
                   <div className="form-group tipo-group">

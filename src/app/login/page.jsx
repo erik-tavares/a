@@ -18,6 +18,11 @@ export default function LoginPage() {
       return;
     }
 
+    if (password.length < 10) {
+      setError("A senha deve ter no mínimo 10 caracteres.");
+      return;
+    }
+
     const isEmail = userInput.includes("@"); // Verifica se é e-mail
     const newUser = {
       username: isEmail ? null : userInput, // Salva username se não for e-mail
@@ -28,28 +33,14 @@ export default function LoginPage() {
     // Pega a lista de usuários cadastrados no localStorage
     let storedUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Verifica se já existe um usuário com esse e-mail ou nome de usuário
-    const existingUser = storedUsers.find(
-      (user) =>
-        user.email === newUser.email || user.username === newUser.username
-    );
+    // Adiciona o novo usuário
+    storedUsers.push(newUser);
+    localStorage.setItem("users", JSON.stringify(storedUsers));
 
-    if (existingUser) {
-      // Se o usuário já existe, validar a senha
-      if (existingUser.password === password) {
-        router.push("/home"); // Redireciona para a Home
-      } else {
-        setError("Usuário ou senha inválidos!");
-      }
-    } else {
-      // Se não existe, adiciona à lista e salva no localStorage
-      storedUsers.push(newUser);
-      localStorage.setItem("users", JSON.stringify(storedUsers));
+    alert("Conta criada com sucesso!");
+    router.push("/home"); // Redireciona para a Home
 
-      alert("Conta criada com sucesso!");
-      router.push("/home"); // Redireciona para a Home
-    }
-
+    // Reseta os campos
     setUserInput("");
     setPassword("");
   };

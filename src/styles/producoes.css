@@ -833,6 +833,10 @@ select[name="porcentagem"] {
   font-weight: bold;
 }
 
+.image {
+  cursor: pointer;
+}
+
 .subtexto {
   font-family: "Roboto Slab", serif;
   font-weight: 400;

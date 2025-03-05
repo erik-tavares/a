@@ -8,7 +8,7 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
       id: 1,
       produto: "PISO INTERTRAVADO H8 - 10X20X8",
       lote: "",
-      linha: "Primeira",
+      colaborador: "Primeira",
       quantidade: "",
       deposito: "",
     },
@@ -22,19 +22,19 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
   }, [isOpen]);
 
   // Função para adicionar uma nova linha à tabela
-  // const adicionarLinha = () => {
-  //   setRows([
-  //     ...rows,
-  //     {
-  //       id: Date.now(),
-  //       produto: "PISO INTERTRAVADO H8 - 10X20X8",
-  //       lote: "",
-  //       linha: "Primeira",
-  //       quantidade: "",
-  //       deposito: "",
-  //     },
-  //   ]);
-  // };
+  //   const adicionarLinha = () => {
+  //     setRows([
+  //       ...rows,
+  //       {
+  //         id: Date.now(),
+  //         produto: "PISO INTERTRAVADO H8 - 10X20X8",
+  //         lote: "",
+  //         colaborador: "Primeira",
+  //         quantidade: "",
+  //         deposito: "",
+  //       },
+  //     ]);
+  //   };
 
   // Função para atualizar os valores da tabela
   const atualizarLinha = (id, campo, valor) => {
@@ -53,10 +53,9 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
         {/* Cabeçalho */}
         <div className="sidebar-header">
           <div className="texto-sidebar">
-            <h2 className="texto-estoque">Lançamento estoque</h2>
+            <h2 className="texto-estoque">Lançamento paletização</h2>
             <span className="subtexto">
-              Informar as quantidades de primeira e segunda linha, parcial ou
-              total.
+              Informar as quantidades por colaborador
             </span>
           </div>
           <button className="close-sidebar" onClick={toggleSidebar}>
@@ -71,7 +70,7 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
               <tr>
                 <th>Produto</th>
                 <th>Lote</th>
-                <th>Linha</th>
+                <th>Colaborador</th>
                 <th>Quantidade</th>
                 <th>Depósito</th>
                 <th></th>
@@ -106,8 +105,9 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
                         atualizarLinha(row.id, "linha", e.target.value)
                       }
                     >
-                      <option>Primeira</option>
-                      <option>Segunda</option>
+                      <option>Marcelo</option>
+                      <option>Anderson</option>
+                      <option>Erik</option>
                     </select>
                   </td>
                   <td>

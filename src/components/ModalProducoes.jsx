@@ -8,26 +8,39 @@ import {
 } from "react-icons/fa";
 import { IoReloadOutline } from "react-icons/io5";
 import SidebarEstoque from "@/components/SidebarEstoque";
+import SidebarPaletizacao from "@/components/SidebarPaletizacao";
 
 export default function ProducaoModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [shouldReopenModal, setShouldReopenModal] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isEstoqueOpen, setIsEstoqueOpen] = useState(false);
+  const [isPaletizacaoOpen, setIsPaletizacaoOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    if (!isSidebarOpen) {
-      setShouldReopenModal(isOpen); // Guarda o estado da modal antes de abrir o sidebar
-      setIsOpen(false); // Fecha a modal ao abrir o sidebar
-    }
-    setIsSidebarOpen(!isSidebarOpen);
+  const openSidebarEstoque = () => {
+    setShouldReopenModal(isOpen); // Guarda o estado da modal antes de abrir o sidebar
+    setIsOpen(false); // Fecha a modal ao abrir o sidebar
+    setIsEstoqueOpen(true);
+    setIsPaletizacaoOpen(false); // Garante que só um sidebar esteja aberto
   };
 
-  // Quando o sidebar for fechado, reabre a modal apenas se ela estava aberta antes
+  const openSidebarPaletizacao = () => {
+    setShouldReopenModal(isOpen);
+    setIsOpen(false);
+    setIsPaletizacaoOpen(true);
+    setIsEstoqueOpen(false);
+  };
+
+  const closeSidebars = () => {
+    setIsEstoqueOpen(false);
+    setIsPaletizacaoOpen(false);
+  };
+
+  // Quando os sidebars forem fechados, reabre a modal apenas se ela estava aberta antes
   useEffect(() => {
-    if (!isSidebarOpen && shouldReopenModal) {
+    if (!isEstoqueOpen && !isPaletizacaoOpen && shouldReopenModal) {
       setIsOpen(true);
     }
-  }, [isSidebarOpen, shouldReopenModal]);
+  }, [isEstoqueOpen, isPaletizacaoOpen, shouldReopenModal]);
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -51,10 +64,10 @@ export default function ProducaoModal() {
             <h3 className="motorista-titulo">
               <FaEllipsisV /> Mais ações
             </h3>
-            <button className="modal-option" onClick={toggleSidebar}>
+            <button className="modal-option" onClick={openSidebarEstoque}>
               <FaBox /> Lançar estoque
             </button>
-            <button className="modal-option">
+            <button className="modal-option" onClick={openSidebarPaletizacao}>
               <FaClipboardList /> Lançar dados paletização
             </button>
             <button className="modal-option">
@@ -66,8 +79,13 @@ export default function ProducaoModal() {
           </div>
         </div>
       )}
-      {/* Sidebar separado */}
-      <SidebarEstoque isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+
+      {/* ✅ Sidebars separados */}
+      <SidebarEstoque isOpen={isEstoqueOpen} toggleSidebar={closeSidebars} />
+      <SidebarPaletizacao
+        isOpen={isPaletizacaoOpen}
+        toggleSidebar={closeSidebars}
+      />
     </div>
   );
 }

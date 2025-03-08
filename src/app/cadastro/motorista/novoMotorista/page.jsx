@@ -23,6 +23,48 @@ export default function NovoMotoristaPage() {
     senhaSistema: "",
   });
 
+  const handleCelularChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    // Limita o número a 11 dígitos (DDD + 9 números)
+    value = value.slice(0, 11);
+
+    // Formata como (99) 99999-9999
+    if (value.length > 6) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+    } else if (value.length > 2) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+    } else if (value.length > 0) {
+      value = `(${value}`;
+    }
+
+    setFormData((prev) => ({ ...prev, celular: value }));
+  };
+
+  const handleCNHChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    // Limita a 11 dígitos (máximo permitido para CNH)
+    value = value.slice(0, 11);
+
+    setFormData((prev) => ({ ...prev, cnh: value }));
+  };
+
+  const handleCategoriaCNHChange = (e) => {
+    let value = e.target.value.toUpperCase(); // Converte para maiúsculas automaticamente
+
+    // Permite apenas letras (A, B, C, D, E) e combinações como AB, AC, AD
+    value = value.replace(/[^A-E]/g, "");
+
+    setFormData((prev) => ({ ...prev, categoria: value }));
+  };
+
   const handleChange = (e) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -89,7 +131,7 @@ export default function NovoMotoristaPage() {
                       id="nome"
                       type="text"
                       name="nome"
-                      placeholder="Nome completo do operador"
+                      placeholder="Nome completo do motorista"
                       value={formData.nome}
                       onChange={handleChange}
                     />
@@ -114,8 +156,8 @@ export default function NovoMotoristaPage() {
                       value={formData.tipo}
                       onChange={handleChange}
                     >
-                      <option value="pista">Pista</option>
-                      <option value="lider">Líder</option>
+                      <option value="pista">Truck</option>
+                      <option value="lider">Toco</option>
                     </select>
                   </div>
                 </div>
@@ -138,9 +180,11 @@ export default function NovoMotoristaPage() {
                       type="text"
                       name="celular"
                       value={formData.celular}
-                      onChange={handleChange}
+                      onChange={handleCelularChange}
+                      placeholder="(99) 99999-9999"
                     />
                   </div>
+
                   <div className="form-group situacao-group">
                     <label htmlFor="situacao">Situação</label>
                     <select
@@ -164,9 +208,11 @@ export default function NovoMotoristaPage() {
                       type="text"
                       name="cnh"
                       value={formData.cnh}
-                      onChange={handleChange}
+                      onChange={handleCNHChange}
+                      maxLength="11"
                     />
                   </div>
+
                   <div className="form-group categoria-group">
                     <label htmlFor="categoria">Categoria</label>
                     <input
@@ -174,9 +220,11 @@ export default function NovoMotoristaPage() {
                       type="text"
                       name="categoria"
                       value={formData.categoria}
-                      onChange={handleChange}
+                      onChange={handleCategoriaCNHChange}
+                      maxLength="2"
                     />
                   </div>
+
                   <div className="form-group vencimento-group">
                     <label htmlFor="vencimento">Vencimento</label>
                     <input

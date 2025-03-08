@@ -20,6 +20,9 @@ export default function producoesPage() {
   const [abaSelecionada, setAbaSelecionada] = useState("dados-gerais");
   const [preco, setPreco] = useState("0,00");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    quantidadeTotal: "", // Adicionando campo Quantidade Total
+  });
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -63,14 +66,25 @@ export default function producoesPage() {
   };
 
   const atualizarQuantidade = (e, index) => {
-    const novasTabelas = [...tabelas];
-    novasTabelas[index].quantidade = e.target.value;
-    const quantidade = parseFloat(e.target.value.replace(",", ".")) || 0;
-    const custo = parseFloat(novasTabelas[index].custo.replace(",", ".")) || 0;
-    novasTabelas[index].total = (quantidade * custo)
-      .toFixed(2)
-      .replace(".", ",");
-    setTabelas(novasTabelas);
+    let value = e.target.value;
+
+    // 🔹 Remove tudo que não for número (impede letras, espaços e símbolos)
+    value = value.replace(/\D/g, "");
+
+    setTabelas((prevTabelas) => {
+      const novasTabelas = [...prevTabelas];
+      novasTabelas[index] = {
+        ...novasTabelas[index],
+        quantidade: value, // Garante que apenas números sejam armazenados
+        total: (
+          parseFloat(value || "0") *
+          parseFloat(novasTabelas[index].custo.replace(",", ".") || "0")
+        )
+          .toFixed(2)
+          .replace(".", ","),
+      };
+      return novasTabelas;
+    });
   };
 
   // ✅ Atualiza o estado do preço ao digitar
@@ -104,6 +118,233 @@ export default function producoesPage() {
     const novasTabelas = [...tabelas];
     novasTabelas[index].custo = formatarPreco(novoCusto);
     setTabelas(novasTabelas);
+  };
+
+  const handleQuantidadeTotalChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+    setFormData((prev) => ({ ...prev, quantidadeTotal: value || "" })); // Permite apagar tudo
+  };
+
+  const handlePorcentagemChange = (e) => {
+    let value = e.target.value.replace(/[^0-9,]/g, ""); // Apenas números e vírgula
+    if (value.includes(",")) {
+      const parts = value.split(",");
+      value = parts[0] + "," + (parts[1] ? parts[1].slice(0, 1) : ""); // Uma casa decimal no máximo
+    }
+    setFormData((prev) => ({ ...prev, indiceLinha: value || "" }));
+  };
+
+  const handleSegundaLinhaChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número ou vírgula
+    value = value.replace(/[^0-9,]/g, "");
+
+    // Impede múltiplas vírgulas
+    const parts = value.split(",");
+    if (parts.length > 2) {
+      value = parts[0] + "," + parts.slice(1).join("");
+    }
+
+    // Garante no máximo uma casa decimal
+    if (value.includes(",")) {
+      const [integer, decimal] = value.split(",");
+      value = integer + "," + (decimal.slice(0, 1) || "");
+    }
+
+    setFormData((prev) => ({ ...prev, segundaLinha: value }));
+  };
+
+  const handleUnidadeChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    // Atualiza o estado sem adicionar o "²" no input
+    setFormData((prev) => ({ ...prev, unidade: value }));
+  };
+
+  const handleMetaCiclosChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    setFormData((prev) => ({ ...prev, metaCiclos: value }));
+  };
+
+  const handleTempoChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    // Formata no padrão HH:MM
+    if (value.length > 2) {
+      value = value.slice(0, 2) + ":" + value.slice(2, 4);
+    }
+
+    // Garante que o valor máximo de horas seja 99 e minutos 59
+    const [horas, minutos] = value.split(":");
+    if (horas && parseInt(horas, 10) > 99) {
+      value = "99" + (minutos ? ":" + minutos : "");
+    }
+    if (minutos && parseInt(minutos, 10) > 59) {
+      value = horas + ":59";
+    }
+
+    setFormData((prev) => ({ ...prev, tempo: value }));
+  };
+
+  const handleSolicitacoesChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    setFormData((prev) => ({ ...prev, solicitacoes: value }));
+  };
+
+  const handleAreiaChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número ou vírgula
+    value = value.replace(/[^0-9,]/g, "");
+
+    // Impede múltiplas vírgulas
+    const parts = value.split(",");
+    if (parts.length > 2) {
+      value = parts[0] + "," + parts.slice(1).join("");
+    }
+
+    // Garante no máximo uma casa decimal
+    if (value.includes(",")) {
+      const [integer, decimal] = value.split(",");
+      value = integer + "," + (decimal.slice(0, 1) || "");
+    }
+
+    setFormData((prev) => ({ ...prev, areia: value }));
+  };
+
+  const handleAreiaIndustrialChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número ou vírgula
+    value = value.replace(/[^0-9,]/g, "");
+
+    // Impede múltiplas vírgulas
+    const parts = value.split(",");
+    if (parts.length > 2) {
+      value = parts[0] + "," + parts.slice(1).join("");
+    }
+
+    // Garante no máximo uma casa decimal
+    if (value.includes(",")) {
+      const [integer, decimal] = value.split(",");
+      value = integer + "," + (decimal.slice(0, 1) || "");
+    }
+
+    setFormData((prev) => ({ ...prev, areiaIndustrial: value }));
+  };
+
+  const handleTempoParadoChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    // Formata no padrão HH:MM
+    if (value.length > 2) {
+      value = value.slice(0, 2) + ":" + value.slice(2, 4);
+    }
+
+    // Garante que o valor máximo de horas seja 99 e minutos 59
+    const [horas, minutos] = value.split(":");
+    if (horas && parseInt(horas, 10) > 99) {
+      value = "99" + (minutos ? ":" + minutos : "");
+    }
+    if (minutos && parseInt(minutos, 10) > 59) {
+      value = horas + ":59";
+    }
+
+    setFormData((prev) => ({ ...prev, tempoParado: value }));
+  };
+
+  const handleCimentoChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número ou vírgula
+    value = value.replace(/[^0-9,]/g, "");
+
+    // Impede múltiplas vírgulas
+    const parts = value.split(",");
+    if (parts.length > 2) {
+      value = parts[0] + "," + parts.slice(1).join("");
+    }
+
+    // Garante no máximo uma casa decimal
+    if (value.includes(",")) {
+      const [integer, decimal] = value.split(",");
+      value = integer + "," + (decimal.slice(0, 1) || "");
+    }
+
+    setFormData((prev) => ({ ...prev, cimento: value }));
+  };
+
+  const handleBritaChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número ou vírgula
+    value = value.replace(/[^0-9,]/g, "");
+
+    // Impede múltiplas vírgulas
+    const parts = value.split(",");
+    if (parts.length > 2) {
+      value = parts[0] + "," + parts.slice(1).join("");
+    }
+
+    // Garante no máximo uma casa decimal
+    if (value.includes(",")) {
+      const [integer, decimal] = value.split(",");
+      value = integer + "," + (decimal.slice(0, 1) || "");
+    }
+
+    setFormData((prev) => ({ ...prev, brita: value }));
+  };
+
+  const handleAditivoChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número ou vírgula
+    value = value.replace(/[^0-9,]/g, "");
+
+    // Impede múltiplas vírgulas
+    const parts = value.split(",");
+    if (parts.length > 2) {
+      value = parts[0] + "," + parts.slice(1).join("");
+    }
+
+    // Garante no máximo uma casa decimal
+    if (value.includes(",")) {
+      const [integer, decimal] = value.split(",");
+      value = integer + "," + (decimal.slice(0, 1) || "");
+    }
+
+    setFormData((prev) => ({ ...prev, aditivo: value }));
+  };
+
+  const atualizarUnidade = (e, index) => {
+    let value = e.target.value.replace(/\D/g, ""); // 🔹 Remove tudo que não for número
+
+    setTabelas((prevTabelas) => {
+      const novasTabelas = [...prevTabelas];
+      novasTabelas[index] = {
+        ...novasTabelas[index],
+        unidade: value, // 🔹 Agora o campo unidade aceita apenas números
+      };
+      return novasTabelas;
+    });
   };
 
   return (
@@ -167,11 +408,26 @@ export default function producoesPage() {
                 </div>
                 <div className="form-group tipo">
                   <label>Quantidade Total</label>
-                  <input type="text" placeholder="700" />
+                  <input
+                    type="text"
+                    placeholder="700"
+                    value={formData.quantidadeTotal || ""}
+                    onChange={handleQuantidadeTotalChange}
+                  />
                 </div>
+
                 <div className="form-group tipo">
                   <label>Indice 2° Linha</label>
-                  <input type="text" placeholder="1,5 %" />
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      placeholder="1,5"
+                      value={formData.indiceLinha || ""}
+                      onChange={handlePorcentagemChange}
+                    />
+                    <span className="unit">%</span>{" "}
+                    {/* Mantém o % visualmente fora do input */}
+                  </div>
                 </div>
               </div>
               <div className="containerProducao">
@@ -189,12 +445,28 @@ export default function producoesPage() {
               <div className="form-row">
                 <div className="form-group unidade">
                   <label>Segunda Linha</label>
-                  <input type="text" placeholder="10,5" />
+                  <input
+                    type="text"
+                    placeholder="10,5"
+                    value={formData.segundaLinha || ""}
+                    onChange={handleSegundaLinhaChange}
+                  />
                 </div>
+
                 <div className="form-group unidade">
-                  <label htmlFor="">Unidade</label>
-                  <input type="text" placeholder="M²" />
+                  <label htmlFor="unidade">Unidade</label>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      placeholder="M²"
+                      value={formData.unidade || ""}
+                      onChange={handleUnidadeChange}
+                    />
+                    <span className="unit">²</span>{" "}
+                    {/* O "²" fica fora do input, sem impedir a remoção */}
+                  </div>
                 </div>
+
                 <div className="form-group preco">
                   <label>Comissão Operador</label>
                   <div className="input-group">
@@ -218,33 +490,62 @@ export default function producoesPage() {
                   <div className="form-group">
                     <label>Meta Ciclos</label>
                     <div className="input-group">
-                      <input type="text" placeholder="2000" />
+                      <input
+                        type="text"
+                        placeholder="2000"
+                        value={formData.metaCiclos || ""}
+                        onChange={handleMetaCiclosChange}
+                      />
                     </div>
                   </div>
+
                   <div className="form-group">
                     <label>Tempo Total de Produção</label>
                     <div className="input-group">
-                      <input type="text" placeholder="9.00" />
+                      <input
+                        type="text"
+                        placeholder="9:00"
+                        value={formData.tempo || ""}
+                        onChange={handleTempoChange}
+                        maxLength="5"
+                      />
                       <span className="unit">Hr</span>
                     </div>
                   </div>
                   <div className="form-group">
                     <label>Solicitações</label>
                     <div className="input-group">
-                      <input type="text" placeholder="Em Unidade" />
+                      <input
+                        type="text"
+                        placeholder="Em Unidade"
+                        value={formData.solicitacoes || ""}
+                        onChange={handleSolicitacoesChange}
+                      />
                     </div>
                   </div>
+
                   <div className="form-group">
                     <label>Areia</label>
                     <div className="input-group">
-                      <input type="text" placeholder="Areia" />
+                      <input
+                        type="text"
+                        placeholder="0,0"
+                        value={formData.areia || ""}
+                        onChange={handleAreiaChange}
+                      />
                       <span className="unit">Kg</span>
                     </div>
                   </div>
+
                   <div className="form-group">
                     <label>Areia Industrial</label>
                     <div className="input-group">
-                      <input type="text" placeholder="Areia Industrial" />
+                      <input
+                        type="text"
+                        placeholder="0,0"
+                        value={formData.areiaIndustrial || ""}
+                        onChange={handleAreiaIndustrialChange}
+                      />
                       <span className="unit">Kg</span>
                     </div>
                   </div>
@@ -267,28 +568,52 @@ export default function producoesPage() {
                   <div className="form-group">
                     <label>Tempo Parado</label>
                     <div className="input-group">
-                      <input type="text" placeholder="Tempo Parado" />
+                      <input
+                        type="text"
+                        placeholder="00:30"
+                        value={formData.tempoParado || ""}
+                        onChange={handleTempoParadoChange}
+                        maxLength="5"
+                      />
                       <span className="unit">Hr</span>
                     </div>
                   </div>
+
                   <div className="form-group">
                     <label>Cimento</label>
                     <div className="input-group">
-                      <input type="text" placeholder="Cimento" />
+                      <input
+                        type="text"
+                        placeholder="0,0"
+                        value={formData.cimento || ""}
+                        onChange={handleCimentoChange}
+                      />
                       <span className="unit">Kg</span>
                     </div>
                   </div>
+
                   <div className="form-group">
                     <label>Brita</label>
                     <div className="input-group">
-                      <input type="text" placeholder="Brita" />
+                      <input
+                        type="text"
+                        placeholder="0,0"
+                        value={formData.brita || ""}
+                        onChange={handleBritaChange}
+                      />
                       <span className="unit">Kg</span>
                     </div>
                   </div>
+
                   <div className="form-group">
                     <label>Aditivo</label>
                     <div className="input-group">
-                      <input type="text" placeholder="Aditivo" />
+                      <input
+                        type="text"
+                        placeholder="70"
+                        value={formData.aditivo || ""}
+                        onChange={handleAditivoChange}
+                      />
                       <span className="unit">L</span>
                     </div>
                   </div>
@@ -319,12 +644,20 @@ export default function producoesPage() {
                             <input
                               type="text"
                               className="input-unidade"
+                              value={tabelas[index]?.quantidade || ""} // Mantém sincronizado com o estado
                               onChange={(e) => atualizarQuantidade(e, index)}
                             />
                           </td>
+
                           <td>
-                            <input type="text" className="input-quantidade" />
+                            <input
+                              type="text"
+                              className="input-unidade"
+                              value={tabelas[index]?.unidade || ""}
+                              onChange={(e) => atualizarUnidade(e, index)}
+                            />
                           </td>
+
                           <td>
                             <div className="input-group input-custo">
                               <span className="prefix">R$</span>
@@ -351,7 +684,7 @@ export default function producoesPage() {
                                 className="delete-btn"
                                 onClick={() => removerTabela(index)}
                               >
-                                <FaTrash /> Excluir
+                                Excluir
                               </button>
                             </div>
                           </td>

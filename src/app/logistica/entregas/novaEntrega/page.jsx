@@ -19,6 +19,10 @@ export default function NovaEntrega() {
   const [tabelas, setTabelas] = useState([1]); // Estado inicial com uma tabela
   const router = useRouter(); // Instancia o roteador
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    distancia: "",
+    valorFrete: "", // Adicionando distância no estado
+  });
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -36,6 +40,65 @@ export default function NovaEntrega() {
   // ✅ Função para excluir uma tabela específica
   const excluirTabela = (id) => {
     setTabelas(tabelas.filter((tabela) => tabela !== id));
+  };
+
+  const handleUfChange = (e) => {
+    let value = e.target.value.toUpperCase().replace(/[^A-Z]/g, ""); // Permite apenas letras maiúsculas
+
+    setFormData((prev) => ({ ...prev, uf: value }));
+  };
+
+  const handleDistanciaChange = (e) => {
+    let value = e.target.value;
+
+    // 🔹 Permite apenas números e vírgula
+    value = value.replace(/[^0-9,]/g, "");
+
+    // 🔹 Garante que tenha apenas uma vírgula
+    const parts = value.split(",");
+    if (parts.length > 2) {
+      value = parts[0] + "," + parts.slice(1).join("");
+    }
+
+    // 🔹 Define no estado para atualizar o input
+    setFormData((prev) => ({ ...prev, distancia: value }));
+  };
+
+  const handleValorFreteChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+    if (!value) {
+      setFormData((prev) => ({ ...prev, valorFrete: "" })); // Evita exibir "R$ " quando vazio
+      return;
+    }
+
+    value = (parseFloat(value) / 100).toFixed(2).replace(".", ",");
+
+    setFormData((prev) => ({ ...prev, valorFrete: value }));
+  };
+
+  const handleNumPedidoChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+    setFormData((prev) => ({ ...prev, numPedido: value }));
+  };
+
+  const handleNfeChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+    setFormData((prev) => ({ ...prev, nfe: value }));
+  };
+
+  const handleUnidadeChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+    setFormData((prev) => ({ ...prev, unidade: value }));
+  };
+
+  const handleQuantidadeChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+    setFormData((prev) => ({ ...prev, quantidade: value }));
   };
 
   return (
@@ -91,12 +154,7 @@ export default function NovaEntrega() {
 
             <div className="form-group">
               <label htmlFor="marca">Marca</label>
-              <input
-                id="marca"
-                type="text"
-                className="input-marca"
-                placeholder="Marca"
-              />
+              <input id="marca" type="text" className="input-marca" disabled />
             </div>
 
             <div className="form-group">
@@ -105,7 +163,7 @@ export default function NovaEntrega() {
                 id="modelo"
                 type="text"
                 className="input-modelo"
-                placeholder="Modelo"
+                disabled
               />
             </div>
 
@@ -116,6 +174,7 @@ export default function NovaEntrega() {
                 type="text"
                 className="input-num-entrega"
                 placeholder="03"
+                disabled
               />
             </div>
 
@@ -138,27 +197,25 @@ export default function NovaEntrega() {
                 type="text"
                 className="input-distancia"
                 placeholder="Distância (Km)"
+                value={formData.distancia || ""}
+                onChange={handleDistanciaChange}
               />
             </div>
 
             <div className="form-group">
               <label htmlFor="tipo">Tipo</label>
-              <input
-                id="tipo"
-                type="text"
-                className="input-tipo"
-                placeholder="Tipo"
-              />
+              <input id="tipo" type="text" className="input-tipo" disabled />
             </div>
 
             <div className="form-group">
-              <label htmlFor="valor-frete">Valor do Frete (R$)</label>
+              <label htmlFor="valor-frete">Valor do Frete</label>
               <input
                 id="valor-frete"
                 type="text"
                 className="input-frete"
-                placeholder="R$ 1.500"
-                readOnly
+                placeholder="1.500"
+                value={formData.valorFrete ? `R$ ${formData.valorFrete}` : ""}
+                onChange={handleValorFreteChange}
               />
             </div>
           </div>
@@ -197,6 +254,9 @@ export default function NovaEntrega() {
                 type="text"
                 className="input-uf"
                 placeholder="UF"
+                value={formData.uf || ""}
+                onChange={handleUfChange}
+                maxLength={2} // Limita a 2 caracteres
               />
             </div>
 
@@ -219,6 +279,8 @@ export default function NovaEntrega() {
                   id="num-pedido"
                   className="input-num-pedido"
                   placeholder="Num Pedido"
+                  value={formData.numPedido || ""}
+                  onChange={handleNumPedidoChange}
                 />
               </div>
 
@@ -230,6 +292,8 @@ export default function NovaEntrega() {
                   type="text"
                   className="input-uf"
                   placeholder="NF-e"
+                  value={formData.nfe || ""}
+                  onChange={handleNfeChange}
                 />
               </div>
             </div>
@@ -255,11 +319,23 @@ export default function NovaEntrega() {
                     <input type="text" className="input-produto" />
                   </td>
                   <td>
-                    <input type="text" className="input-unidade" />
+                    <input
+                      type="text"
+                      className="input-unidade"
+                      value={formData.unidade || ""}
+                      onChange={handleUnidadeChange}
+                    />
                   </td>
+
                   <td>
-                    <input type="text" className="input-quantidade" />
+                    <input
+                      type="text"
+                      className="input-quantidade"
+                      value={formData.quantidade || ""}
+                      onChange={handleQuantidadeChange}
+                    />
                   </td>
+
                   <td>
                     <div className="select-lote">
                       <select className="lote">
@@ -274,7 +350,7 @@ export default function NovaEntrega() {
                         className="delete-btn"
                         onClick={() => excluirTabela(id)}
                       >
-                        <FaTrash /> Excluir
+                        Excluir
                       </button>
                     </div>
                   </td>

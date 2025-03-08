@@ -196,12 +196,6 @@ input[name="nome"] {
   opacity: 1;
 }
 
-/* Botões */
-.buttons {
-  display: flex;
-  gap: 35px;
-}
-
 /* Botão salvar */
 .save-btn {
   background-color: #3b447b;
@@ -219,6 +213,7 @@ input[name="nome"] {
   justify-content: center;
   text-align: center;
   transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+  gap: 10px;
 }
 
 .save-btn:hover {
@@ -574,6 +569,7 @@ input[name="nome"] {
   font-size: 14px;
   font-weight: bold;
   transition: background 0.3s;
+  gap: 10px;
 }
 
 .delete-btn:hover {

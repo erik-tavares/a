@@ -254,11 +254,11 @@
 }
 
 .input-tipo {
-  width: 50px;
+  width: 65px;
   height: 35px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 8px;
+  padding: 10px;
   text-align: center;
   font-size: 16px;
 }

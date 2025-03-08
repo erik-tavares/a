@@ -16,10 +16,150 @@ export default function NovoProdutoPage() {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [abaSelecionada, setAbaSelecionada] = useState("dados-gerais");
-  const [preco, setPreco] = useState("0,00");
+  const [pesoLiquido, setPesoLiquido] = useState("");
+  const [estoqueMaximo, setEstoqueMaximo] = useState("");
+  const [estoqueMinimo, setEstoqueMinimo] = useState("");
+  const [porcentagem, setPorcentagem] = useState("");
+  const [dimensoes, setDimensoes] = useState({
+    largura: "",
+    altura: "",
+    comprimento: "",
+  });
 
+  const handlePorcentagemChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número ou vírgula
+    value = value.replace(/[^0-9,]/g, "");
+
+    // Impede múltiplas vírgulas
+    const parts = value.split(",");
+    if (parts.length > 2) {
+      value = parts[0] + "," + parts.slice(1).join("");
+    }
+
+    // Garante no máximo uma casa decimal
+    if (value.includes(",")) {
+      const [integer, decimal] = value.split(",");
+      value = integer + "," + (decimal.slice(0, 1) || "");
+    }
+
+    setPorcentagem(value);
+  };
+
+  const handleEstoqueMinimoChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número (impede letras, símbolos, vírgulas e pontos)
+    value = value.replace(/\D/g, "");
+
+    setEstoqueMinimo(value);
+  };
+
+  const [largura, setLargura] = useState("");
+  const [numeroVolume, setNumeroVolume] = useState("");
+  const [pesos, setPesos] = useState({
+    pesoLiquido: "",
+    pesoBruto: "",
+  });
+
+  const [preco, setPreco] = useState("0,00");
+  const [formData, setFormData] = useState({
+    unidade: "", // Inicializando o campo unidade
+  });
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleEstoqueMaximoChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número ou vírgula
+    value = value.replace(/[^0-9,]/g, "");
+
+    // Impede múltiplas vírgulas
+    const parts = value.split(",");
+    if (parts.length > 2) {
+      value = parts[0] + "," + parts.slice(1).join("");
+    }
+
+    // Garante no máximo uma casa decimal
+    if (value.includes(",")) {
+      const [integer, decimal] = value.split(",");
+      value = integer + "," + (decimal.slice(0, 1) || "");
+    }
+
+    setEstoqueMaximo(value);
+  };
+
+  const handleDimensaoChange = (field, value) => {
+    // Remove tudo que não for número ou vírgula
+    value = value.replace(/[^0-9,]/g, "");
+
+    // Impede múltiplas vírgulas
+    const parts = value.split(",");
+    if (parts.length > 2) {
+      value = parts[0] + "," + parts.slice(1).join("");
+    }
+
+    // Garante no máximo uma casa decimal
+    if (value.includes(",")) {
+      const [integer, decimal] = value.split(",");
+      value = integer + "," + (decimal.slice(0, 1) || "");
+    }
+
+    setDimensoes((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleLarguraChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número ou vírgula
+    value = value.replace(/[^0-9,]/g, "");
+
+    // Impede múltiplas vírgulas
+    const parts = value.split(",");
+    if (parts.length > 2) {
+      value = parts[0] + "," + parts.slice(1).join("");
+    }
+
+    // Garante no máximo uma casa decimal
+    if (value.includes(",")) {
+      const [integer, decimal] = value.split(",");
+      value = integer + "," + (decimal.slice(0, 1) || "");
+    }
+
+    setLargura(value);
+  };
+
+  const handleNumeroVolumeChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    setNumeroVolume(value);
+  };
+
+  const handlePesoLiquidoChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número ou ponto
+    value = value.replace(/[^0-9.]/g, "");
+
+    // Impede múltiplos pontos decimais
+    const parts = value.split(".");
+    if (parts.length > 2) {
+      value = parts[0] + "." + parts.slice(1).join("");
+    }
+
+    // Limita a duas casas decimais
+    if (value.includes(".")) {
+      const [integer, decimal] = value.split(".");
+      value = integer + "." + (decimal.slice(0, 2) || "");
+    }
+
+    setPesoLiquido(value);
   };
 
   const formatarPreco = (valor) => {
@@ -55,14 +195,52 @@ export default function NovoProdutoPage() {
     setTabelas(novasTabelas);
   };
 
+  const handlePesoChange = (field, value) => {
+    // Remove tudo que não for número ou ponto decimal
+    value = value.replace(/[^0-9.]/g, "");
+
+    // Impede múltiplos pontos decimais
+    const parts = value.split(".");
+    if (parts.length > 2) {
+      value = parts[0] + "." + parts.slice(1).join("");
+    }
+
+    // Limita a duas casas decimais
+    if (value.includes(".")) {
+      const [integer, decimal] = value.split(".");
+      value = integer + "." + (decimal.slice(0, 2) || "");
+    }
+
+    setPesos((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleUnidadeChange = (e) => {
+    let value = e.target.value.toUpperCase(); // Converte para maiúsculas automaticamente
+
+    // Permite apenas números, letras, espaços e o caractere "²"
+    value = value.replace(/[^A-Z0-9²\s]/g, "");
+
+    setFormData((prev) => ({ ...prev, unidade: value }));
+  };
+
   const atualizarQuantidade = (e, index) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
     const novasTabelas = [...tabelas];
-    novasTabelas[index].quantidade = e.target.value;
-    const quantidade = parseFloat(e.target.value.replace(",", ".")) || 0;
+    if (!novasTabelas[index]) return; // Evita erro se o índice não existir
+
+    novasTabelas[index].quantidade = value || ""; // Garante que sempre há um valor definido
+
+    // Calcula o total corretamente
+    const quantidade = parseFloat(value.replace(",", ".")) || 0;
     const custo = parseFloat(novasTabelas[index].custo.replace(",", ".")) || 0;
     novasTabelas[index].total = (quantidade * custo)
       .toFixed(2)
       .replace(".", ",");
+
     setTabelas(novasTabelas);
   };
 
@@ -72,7 +250,7 @@ export default function NovoProdutoPage() {
   };
 
   const [tabelas, setTabelas] = useState([
-    { id: 1, custo: "0,00", total: "0,00" },
+    { id: 1, quantidade: "", custo: "0,00", total: "0,00" },
   ]);
 
   // ✅ Função para adicionar uma nova tabela
@@ -82,6 +260,17 @@ export default function NovoProdutoPage() {
       ...tabelas,
       { id: Date.now(), quantidade: "", custo: novoCusto, total: "0,00" },
     ]);
+  };
+  const handleQuantidadeChange = (e, index) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número (impede letras, símbolos, vírgulas e pontos)
+    value = value.replace(/\D/g, "");
+
+    // Atualiza a quantidade no array de tabelas
+    const novasTabelas = [...tabelas];
+    novasTabelas[index].quantidade = value || ""; // Garante que sempre há um valor definido
+    setTabelas(novasTabelas);
   };
 
   // ✅ Função para atualizar o custo da última tabela
@@ -166,7 +355,12 @@ export default function NovoProdutoPage() {
               <div className="form-row">
                 <div className="form-group unidade">
                   <label>Unidade</label>
-                  <input type="text" placeholder="Ex: UND, M²" />
+                  <input
+                    type="text"
+                    placeholder="Ex: UND, M²"
+                    value={formData.unidade}
+                    onChange={handleUnidadeChange}
+                  />
                 </div>
                 <div className="form-group preco">
                   <label>Preço de custo</label>
@@ -189,21 +383,40 @@ export default function NovoProdutoPage() {
                 <div className="form-group">
                   <label>Peso Líquido</label>
                   <div className="input-group">
-                    <input type="text" placeholder="Em Kg" />
+                    <input
+                      type="text"
+                      placeholder="Em Kg"
+                      value={pesos.pesoLiquido}
+                      onChange={(e) =>
+                        handlePesoChange("pesoLiquido", e.target.value)
+                      }
+                    />
                     <span className="unit">Kg</span>
                   </div>
                 </div>
                 <div className="form-group">
                   <label>Peso Bruto</label>
                   <div className="input-group">
-                    <input type="text" placeholder="Em Kg" />
+                    <input
+                      type="text"
+                      placeholder="Em Kg"
+                      value={pesos.pesoBruto}
+                      onChange={(e) =>
+                        handlePesoChange("pesoBruto", e.target.value)
+                      }
+                    />
                     <span className="unit">Kg</span>
                   </div>
                 </div>
                 <div className="form-group">
                   <label>N° de VOL. por embalagem</label>
                   <div className="input-group">
-                    <input type="text" placeholder="Em Unidade" />
+                    <input
+                      type="text"
+                      placeholder="Em Unidade"
+                      value={numeroVolume}
+                      onChange={handleNumeroVolumeChange}
+                    />
                     <span className="unit">un</span>
                   </div>
                 </div>
@@ -214,21 +427,42 @@ export default function NovoProdutoPage() {
                 <div className="form-group">
                   <label>Largura</label>
                   <div className="input-group">
-                    <input type="text" placeholder="0,0" />
+                    <input
+                      type="text"
+                      placeholder="0,0"
+                      value={dimensoes.largura}
+                      onChange={(e) =>
+                        handleDimensaoChange("largura", e.target.value)
+                      }
+                    />
                     <span className="unit">cm</span>
                   </div>
                 </div>
                 <div className="form-group">
                   <label>Altura</label>
                   <div className="input-group">
-                    <input type="text" placeholder="0,0" />
+                    <input
+                      type="text"
+                      placeholder="0,0"
+                      value={dimensoes.altura}
+                      onChange={(e) =>
+                        handleDimensaoChange("altura", e.target.value)
+                      }
+                    />
                     <span className="unit">cm</span>
                   </div>
                 </div>
                 <div className="form-group">
                   <label>Comprimento</label>
                   <div className="input-group">
-                    <input type="text" placeholder="0,0" />
+                    <input
+                      type="text"
+                      placeholder="0,0"
+                      value={dimensoes.comprimento}
+                      onChange={(e) =>
+                        handleDimensaoChange("comprimento", e.target.value)
+                      }
+                    />
                     <span className="unit">cm</span>
                   </div>
                 </div>
@@ -252,14 +486,24 @@ export default function NovoProdutoPage() {
                 <div className="form-group">
                   <label>Estoque mínimo</label>
                   <div className="input-group">
-                    <input type="text" placeholder="0,0" />
+                    <input
+                      type="text"
+                      placeholder="0"
+                      value={estoqueMinimo}
+                      onChange={handleEstoqueMinimoChange}
+                    />
                     <span className="unit">un</span>
                   </div>
                 </div>
                 <div className="form-group">
                   <label>Estoque máximo</label>
                   <div className="input-group">
-                    <input type="text" placeholder="0,0" />
+                    <input
+                      type="text"
+                      placeholder="0,0"
+                      value={estoqueMaximo}
+                      onChange={handleEstoqueMaximoChange}
+                    />
                     <span className="unit">cm</span>
                   </div>
                 </div>
@@ -302,12 +546,19 @@ export default function NovoProdutoPage() {
                         <td>
                           <input
                             type="text"
-                            className="input-unidade"
+                            className="input-quantidade"
+                            value={tabelas[index]?.quantidade || ""}
                             onChange={(e) => atualizarQuantidade(e, index)}
                           />
                         </td>
+
                         <td>
-                          <input type="text" className="input-quantidade" />
+                          <input
+                            type="text"
+                            className="input-quantidade"
+                            value={tabelas[index]?.quantidade || ""}
+                            onChange={(e) => handleQuantidadeChange(e, index)}
+                          />
                         </td>
                         <td>
                           <div className="input-group input-custo">
@@ -335,7 +586,7 @@ export default function NovoProdutoPage() {
                               className="delete-btn"
                               onClick={() => removerTabela(index)}
                             >
-                              <FaTrash /> Excluir
+                              Excluir
                             </button>
                           </div>
                         </td>
@@ -373,7 +624,13 @@ export default function NovoProdutoPage() {
                 <div className="form-group porcentagem">
                   <label>Porcentagem</label>
                   <div className="input-group">
-                    <input name="porcentagem" type="text" placeholder="0,0" />
+                    <input
+                      name="porcentagem"
+                      type="text"
+                      placeholder="0,0"
+                      value={porcentagem}
+                      onChange={handlePorcentagemChange}
+                    />
                     <span className="unit">%</span>
                   </div>
                 </div>

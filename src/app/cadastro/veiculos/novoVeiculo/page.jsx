@@ -9,6 +9,16 @@ export default function NovoVeiculoPage() {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("dados");
+  const [formData, setFormData] = useState({
+    modelo: "",
+    ano: "",
+    placa: "",
+    codigo: "Auto",
+    situacao: "Ativo",
+    marca: "",
+    tipo: "",
+    km: "",
+  });
 
   const registros = [
     {
@@ -123,6 +133,38 @@ export default function NovoVeiculoPage() {
     },
   ];
 
+  const handleAnoChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    // Limita a 4 dígitos
+    value = value.slice(0, 4);
+
+    setFormData((prev) => ({ ...prev, ano: value }));
+  };
+
+  const handlePlacaChange = (e) => {
+    let value = e.target.value.toUpperCase(); // Converte para maiúsculas automaticamente
+
+    // Remove tudo que não for letra ou número
+    value = value.replace(/[^A-Z0-9]/g, "");
+
+    if (value.length <= 3) {
+      // Mantém apenas letras na primeira parte
+      value = value.replace(/[^A-Z]/g, "");
+    } else if (value.length === 4) {
+      // Se for Mercosul, força um número na 4ª posição
+      value = value.replace(/^([A-Z]{3})([A-Z])/g, "$1-$2");
+    } else {
+      // Formata para AAA-0A00 (Mercosul) ou AAA-0000 (padrão antigo)
+      value = value.replace(/^([A-Z]{3})-?(\d)([A-Z]?)(\d{0,2})$/, "$1-$2$3$4");
+    }
+
+    setFormData((prev) => ({ ...prev, placa: value }));
+  };
+
   return (
     <div
       className={`novoVeiculo-container ${isSidebarOpen ? "sidebar-open" : ""}`}
@@ -167,12 +209,25 @@ export default function NovoVeiculoPage() {
               </div>
               <div className="form-group">
                 <label>Ano</label>
-                <input type="text" className="input-ano" />
+                <input
+                  type="text"
+                  className="input-ano"
+                  value={formData.ano}
+                  onChange={handleAnoChange}
+                />
               </div>
+
               <div className="form-group">
                 <label>Placa</label>
-                <input type="text" className="input-placa" />
+                <input
+                  type="text"
+                  className="input-placa"
+                  value={formData.placa || ""}
+                  onChange={handlePlacaChange}
+                  maxLength="8"
+                />
               </div>
+
               <div className="form-group">
                 <label>Código</label>
                 <input

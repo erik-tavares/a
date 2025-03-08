@@ -125,6 +125,7 @@
   padding: 8px;
   border-radius: 5px;
   outline: none;
+  text-align: center;
 }
 .form-group select {
   width: 100%;

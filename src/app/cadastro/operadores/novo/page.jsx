@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "../../../../components/Sidebar";
 import { FaSave, FaPlusCircle, FaTrash } from "react-icons/fa";
 import "../../../../styles/novoOperador.css";
+import InputMask from "react-input-mask-next";
 
 export default function NovoOperadorPage() {
   const router = useRouter();
@@ -67,6 +68,80 @@ export default function NovoOperadorPage() {
         item.id === id ? { ...item, [field]: value } : item
       )
     );
+  };
+
+  const handleValorChange = (id, value) => {
+    // Remove tudo que não for número
+    let numericValue = value.replace(/\D/g, "");
+
+    // Converte para número decimal
+    if (numericValue.length > 2) {
+      numericValue =
+        numericValue.slice(0, numericValue.length - 2) +
+        "." +
+        numericValue.slice(numericValue.length - 2);
+    } else if (numericValue.length === 2) {
+      numericValue = "0." + numericValue;
+    } else if (numericValue.length === 1) {
+      numericValue = "0.0" + numericValue;
+    } else {
+      numericValue = "0.00";
+    }
+
+    // Converte para formato de moeda brasileira (R$)
+    const formattedValue = parseFloat(numericValue).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+
+    handleProdutoChange(id, "valor", formattedValue);
+  };
+
+  const handleQuantidadeChange = (id, value) => {
+    // Remove tudo que não for número
+    let formattedValue = value.replace(/\D/g, "");
+
+    // Garante que o valor não comece com zero (exceto se for "0" sozinho)
+    if (formattedValue.length > 1 && formattedValue.startsWith("0")) {
+      formattedValue = formattedValue.slice(1);
+    }
+
+    handleProdutoChange(id, "quantidade", formattedValue);
+  };
+
+  const handleUnidadeChange = (id, value) => {
+    // Remove tudo que não for número ou ponto decimal
+    let formattedValue = value.replace(/[^0-9.]/g, "");
+
+    // Garante que haja no máximo um único ponto decimal
+    const parts = formattedValue.split(".");
+    if (parts.length > 2) {
+      formattedValue = parts[0] + "." + parts.slice(1).join("");
+    }
+
+    // Limita a duas casas decimais
+    if (formattedValue.includes(".")) {
+      const [integer, decimal] = formattedValue.split(".");
+      formattedValue = integer + "." + (decimal.slice(0, 2) || "");
+    }
+
+    handleProdutoChange(id, "unidade", formattedValue);
+  };
+
+  const handlePhoneChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+    if (value.length > 11) value = value.slice(0, 11); // Limita a 11 dígitos
+
+    // Formata para o padrão (XX) XXXXX-XXXX
+    if (value.length > 6) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+    } else if (value.length > 2) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+    } else if (value.length > 0) {
+      value = `(${value}`;
+    }
+
+    setFormData((prev) => ({ ...prev, celular: value }));
   };
 
   const removerItem = (id) => {
@@ -170,7 +245,9 @@ export default function NovoOperadorPage() {
                       type="text"
                       name="celular"
                       value={formData.celular}
-                      onChange={handleChange}
+                      onChange={handlePhoneChange}
+                      placeholder="(99) 99999-9999"
+                      maxLength={15}
                     />
                   </div>
                   <div className="form-group situacao-group">
@@ -253,11 +330,7 @@ export default function NovoOperadorPage() {
                             className="input-unidade"
                             value={item.unidade}
                             onChange={(e) =>
-                              handleProdutoChange(
-                                item.id,
-                                "unidade",
-                                e.target.value
-                              )
+                              handleUnidadeChange(item.id, e.target.value)
                             }
                           />
                         </td>
@@ -267,11 +340,7 @@ export default function NovoOperadorPage() {
                             className="input-quantidade"
                             value={item.quantidade}
                             onChange={(e) =>
-                              handleProdutoChange(
-                                item.id,
-                                "quantidade",
-                                e.target.value
-                              )
+                              handleQuantidadeChange(item.id, e.target.value)
                             }
                           />
                         </td>
@@ -281,11 +350,7 @@ export default function NovoOperadorPage() {
                             className="input-valor"
                             value={item.valor}
                             onChange={(e) =>
-                              handleProdutoChange(
-                                item.id,
-                                "valor",
-                                e.target.value
-                              )
+                              handleValorChange(item.id, e.target.value)
                             }
                           />
                         </td>

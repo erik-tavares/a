@@ -19,6 +19,51 @@ export default function NovoClientePage() {
     situacao: "ativo",
   });
 
+  const handleCnpjCpfChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    if (value.length <= 11) {
+      // CPF: 000.000.000-00
+      value = value
+        .replace(/^(\d{3})(\d)/, "$1.$2")
+        .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
+        .replace(/\.(\d{3})(\d)/, ".$1-$2");
+    } else {
+      // CNPJ: 00.000.000/0000-00
+      value = value
+        .replace(/^(\d{2})(\d)/, "$1.$2")
+        .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+        .replace(/\.(\d{3})(\d)/, ".$1/$2")
+        .replace(/(\d{4})(\d)/, "$1-$2");
+    }
+
+    setFormData((prev) => ({ ...prev, cnpjCpf: value }));
+  };
+
+  const handleCelularChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    // Limita o número a 11 dígitos (DDD + 9 números)
+    value = value.slice(0, 11);
+
+    // Formata como (99) 99999-9999
+    if (value.length > 6) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+    } else if (value.length > 2) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+    } else if (value.length > 0) {
+      value = `(${value}`;
+    }
+
+    setFormData((prev) => ({ ...prev, celular: value }));
+  };
+
   const handleChange = (e) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -219,7 +264,7 @@ export default function NovoClientePage() {
                       name="cnpjCpf"
                       className="input-cnpj-cpf"
                       value={formData.cnpjCpf}
-                      onChange={handleChange}
+                      onChange={handleCnpjCpfChange}
                     />
                   </div>
 
@@ -256,7 +301,8 @@ export default function NovoClientePage() {
                       name="celular"
                       className="input-celular"
                       value={formData.celular}
-                      onChange={handleChange}
+                      onChange={handleCelularChange}
+                      placeholder="(99) 99999-9999"
                     />
                   </div>
 

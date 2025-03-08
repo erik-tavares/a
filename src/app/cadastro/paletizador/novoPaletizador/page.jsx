@@ -28,6 +28,57 @@ export default function NovoPaletizadorPage() {
     }));
   };
 
+  const handleCelularChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    // Limita o número a 11 dígitos (DDD + 9 números)
+    value = value.slice(0, 11);
+
+    // Formata como (99) 99999-9999
+    if (value.length > 6) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+    } else if (value.length > 2) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+    } else if (value.length > 0) {
+      value = `(${value}`;
+    }
+
+    setFormData((prev) => ({ ...prev, celular: value }));
+  };
+
+  const handleSalarioChange = (e) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    // Converte para número decimal
+    let numericValue = parseFloat(value) / 100;
+
+    // Formata para moeda brasileira (R$ 1.234,56)
+    value = numericValue.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+
+    setFormData((prev) => ({ ...prev, salario: value }));
+  };
+
+  const handleQuantidadeChange = (e, index) => {
+    let value = e.target.value;
+
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
+
+    // Atualiza a quantidade no array de metas
+    const newMetas = [...metas];
+    newMetas[index].quantidade = value || ""; // Garante que o valor sempre seja uma string vazia quando apagado
+    setMetas(newMetas);
+  };
+
   const handleMetaChange = (index, e) => {
     const { name, value } = e.target;
     const newMetas = [...metas];
@@ -118,9 +169,11 @@ export default function NovoPaletizadorPage() {
                 name="celular"
                 className="input-celular"
                 value={formData.celular}
-                onChange={handleChange}
+                onChange={handleCelularChange}
+                placeholder="(99) 99999-9999"
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="salario">Salário</label>
               <input
@@ -129,7 +182,8 @@ export default function NovoPaletizadorPage() {
                 name="salario"
                 className="input-salario"
                 value={formData.salario}
-                onChange={handleChange}
+                onChange={handleSalarioChange}
+                placeholder="R$ 0,00"
               />
             </div>
           </div>
@@ -171,9 +225,11 @@ export default function NovoPaletizadorPage() {
                     <input
                       type="text"
                       className="input-quantidade"
-                      placeholder="Palete"
+                      value={metas[index]?.quantidade || ""}
+                      onChange={(e) => handleQuantidadeChange(e, index)}
                     />
                   </td>
+
                   <td>
                     <button className="salvar-meta">salvar</button>
                   </td>

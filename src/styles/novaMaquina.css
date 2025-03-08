@@ -161,6 +161,10 @@
 .botoes-container {
   flex: 2;
   margin-top: 500px;
+  gap: 25px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 /* ✅ Botão "Salvar" */

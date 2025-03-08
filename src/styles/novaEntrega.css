@@ -147,6 +147,7 @@ input[type="date"] {
   font-family: "Roboto Slab", serif;
   color: #676363;
   gap: 10px;
+  cursor: pointer;
 }
 
 /* ✅ Ajuste para o campo de Valor do Frete */
@@ -449,11 +450,10 @@ select option {
 .input-nome {
   width: 513px;
   height: 50px;
-  border: 1px solid #999999;
+  border: 1px solid;
   border-radius: 5px;
   padding: 8px;
   font-size: 16px;
-  color: #676363;
 }
 
 .input-distancia {
@@ -530,23 +530,21 @@ select option {
 .input-cidade {
   width: 273px;
   height: 50px;
-  border: 1px solid #999999;
+  border: 1px solid;
   border-radius: 5px;
   padding: 8px;
   font-size: 16px;
-  color: #676363;
 }
 
 /* ✅ UF */
 /* ✅ Ajuste específico para o input UF */
 .input-uf {
-  width: 91px;
-  height: 50px;
-  border: 1px solid #999999;
+  width: 110px;
+  height: 55px;
+  border: 1px solid;
   border-radius: 5px;
   padding: 8px;
   font-size: 16px;
-  color: #676363;
 }
 
 /* ✅ Localização GPS */

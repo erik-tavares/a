@@ -9,6 +9,7 @@ export default function NovoMotoristaPage() {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [abaSelecionada, setAbaSelecionada] = useState("dados-gerais"); // Estado para controlar a aba ativa
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     nome: "",
     codigo: "",
@@ -22,6 +23,24 @@ export default function NovoMotoristaPage() {
     usuarioSistema: "",
     senhaSistema: "",
   });
+
+  const validarCampos = () => {
+    let newErrors = {};
+
+    if (!formData.nome || formData.nome.trim() === "")
+      newErrors.nome = "Campo obrigatório";
+    if (!formData.email || formData.email.trim() === "")
+      if (!formData.cnh || formData.cnh.trim() === "")
+        newErrors.cnh = "Campo obrigatório";
+    newErrors.email = "Campo obrigatório";
+    if (!formData.categoria || formData.categoria.trim() === "")
+      newErrors.categoria = "Campo obrigatório";
+    if (!formData.vencimento || formData.vencimento.trim() === "")
+      newErrors.vencimento = "Campo obrigatório";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Retorna "true" se não houver erros
+  };
 
   const handleCelularChange = (e) => {
     let value = e.target.value;
@@ -45,49 +64,51 @@ export default function NovoMotoristaPage() {
   };
 
   const handleCNHChange = (e) => {
-    let value = e.target.value;
-
-    // Remove tudo que não for número
-    value = value.replace(/\D/g, "");
-
-    // Limita a 11 dígitos (máximo permitido para CNH)
-    value = value.slice(0, 11);
-
+    let value = e.target.value.replace(/\D/g, ""); // Apenas números
     setFormData((prev) => ({ ...prev, cnh: value }));
+
+    if (value.trim() !== "") {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.cnh;
+        return newErrors;
+      });
+    }
   };
 
   const handleCategoriaCNHChange = (e) => {
     let value = e.target.value.toUpperCase(); // Converte para maiúsculas automaticamente
-
-    // Permite apenas letras (A, B, C, D, E) e combinações como AB, AC, AD
-    value = value.replace(/[^A-E]/g, "");
+    value = value.replace(/[^A-E]/g, ""); // Apenas letras permitidas
 
     setFormData((prev) => ({ ...prev, categoria: value }));
+
+    if (value.trim() !== "") {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.categoria;
+        return newErrors;
+      });
+    }
   };
 
   const handleChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (value.trim() !== "") {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name]; // Remove erro ao preencher
+        return newErrors;
+      });
+    }
   };
 
   const handleSave = () => {
-    if (
-      !formData.nome ||
-      !formData.email ||
-      !formData.celular ||
-      !formData.cnh ||
-      !formData.categoria ||
-      !formData.vencimento ||
-      !formData.usuarioSistema ||
-      !formData.senhaSistema
-    ) {
-      alert("Por favor, preencha todos os campos obrigatórios!");
-      return;
+    if (validarCampos()) {
+      console.log("Formulário válido! Enviar dados ao backend...");
+      setErrors({}); // ✅ Limpa todos os erros após salvar com sucesso
     }
-
-    router.push("/cadastro/motorista/novoMotorista");
   };
 
   return (
@@ -134,7 +155,11 @@ export default function NovoMotoristaPage() {
                       placeholder="Nome completo do motorista"
                       value={formData.nome}
                       onChange={handleChange}
+                      className={errors.nome ? "input-error" : ""}
                     />
+                    {errors.nome && (
+                      <span className="error-message">{errors.nome}</span>
+                    )}
                   </div>
                   <div className="form-group codigo-group">
                     <label htmlFor="codigo">Código</label>
@@ -171,7 +196,11 @@ export default function NovoMotoristaPage() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      className={errors.email ? "input-error" : ""}
                     />
+                    {errors.email && (
+                      <span className="error-message">{errors.email}</span>
+                    )}
                   </div>
                   <div className="form-group celular-group">
                     <label htmlFor="celular">Celular</label>
@@ -210,7 +239,11 @@ export default function NovoMotoristaPage() {
                       value={formData.cnh}
                       onChange={handleCNHChange}
                       maxLength="11"
+                      className={errors.cnh ? "input-error" : ""}
                     />
+                    {errors.cnh && (
+                      <span className="error-message">{errors.cnh}</span>
+                    )}
                   </div>
 
                   <div className="form-group categoria-group">
@@ -222,7 +255,11 @@ export default function NovoMotoristaPage() {
                       value={formData.categoria}
                       onChange={handleCategoriaCNHChange}
                       maxLength="2"
+                      className={errors.categoria ? "input-error" : ""}
                     />
+                    {errors.categoria && (
+                      <span className="error-message">{errors.categoria}</span>
+                    )}
                   </div>
 
                   <div className="form-group vencimento-group">
@@ -233,7 +270,11 @@ export default function NovoMotoristaPage() {
                       name="vencimento"
                       value={formData.vencimento}
                       onChange={handleChange}
+                      className={errors.vencimento ? "input-error" : ""}
                     />
+                    {errors.vencimento && (
+                      <span className="error-message">{errors.vencimento}</span>
+                    )}
                   </div>
                 </div>
               </div>

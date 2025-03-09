@@ -11,6 +11,7 @@ export default function ControleDeEstoques() {
   const router = useRouter(); // Hook para navegação
   const [exibirOpcoesOrdenacao, setExibirOpcoesOrdenacao] = useState(false); // ✅ Estado para exibir opções de ordenação
   const [exibirOpcoesSituacao, setExibirOpcoesSituacao] = useState(false); // ✅ Estado para exibir filtros de situação
+  const [paginaAtual, setPaginaAtual] = useState(1);
 
   // ✅ Alternar exibição dos botões de ordenação
   const toggleOrdenacao = () => {
@@ -124,6 +125,14 @@ export default function ControleDeEstoques() {
     router.push(`/suprimentos/detalhes?codigo=${codigo}`);
   };
 
+  // Configuração da paginação
+  const itensPorPagina = 10;
+  const totalPaginas = 2; // Definimos 2 páginas fixas: 01 (com dados) e 02 (vazia)
+  const inicio = (paginaAtual - 1) * itensPorPagina;
+  const fim = inicio + itensPorPagina;
+  const produtosPaginados =
+    paginaAtual === 1 ? produtos.slice(inicio, fim) : [];
+
   return (
     <div
       className={`lista-producao-container ${
@@ -198,36 +207,58 @@ export default function ControleDeEstoques() {
               </tr>
             </thead>
             <tbody>
-              {produtos.map((produto, index) => (
-                <tr key={index}>
-                  <td>
-                    <input type="checkbox" />
+              {produtosPaginados.length > 0 ? (
+                produtosPaginados.map((produto, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td className="acoes">
+                      <img
+                        src="/3pontos.svg"
+                        alt="Opções"
+                        className="menu-acoes"
+                        onClick={() => handleClick(produto.codigo)}
+                      />
+                      {produto.descricao}
+                    </td>
+                    <td>{produto.codigo}</td>
+                    <td>{produto.custo}</td>
+                    <td>{produto.unidade}</td>
+                    <td>{produto.primeira}</td>
+                    <td>{produto.segunda}</td>
+                    <td>{produto.total}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="8"
+                    style={{ textAlign: "center", padding: "20px" }}
+                  >
+                    Nenhum produto disponível.
                   </td>
-                  <td className="acoes">
-                    <img
-                      src="\3pontos.svg"
-                      alt="Opções"
-                      className="menu-acoes"
-                      onClick={() => handleClick(produto.codigo)} // Adicionando evento de clique
-                    />
-                    {produto.descricao}
-                  </td>
-                  <td>{produto.codigo}</td>
-                  <td>{produto.custo}</td>
-                  <td>{produto.unidade}</td>
-                  <td>{produto.primeira}</td>
-                  <td>{produto.segunda}</td>
-                  <td>{produto.total}</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
 
+        {/* Paginação fixa com seta "→" */}
         <div className="paginacao">
-          <span>01</span>
-          <span>02</span>
-          <span>→</span>
+          <span
+            className={paginaAtual === 1 ? "ativo" : ""}
+            onClick={() => setPaginaAtual(1)}
+          >
+            01
+          </span>
+          <span
+            className={paginaAtual === 2 ? "ativo" : ""}
+            onClick={() => setPaginaAtual(2)}
+          >
+            02
+          </span>
+          <span className="seta">→</span>
         </div>
       </div>
     </div>

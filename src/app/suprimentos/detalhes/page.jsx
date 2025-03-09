@@ -16,6 +16,7 @@ export default function DetalhesProduto() {
   const [descricao, setDescricao] = useState("");
   const [exibirOpcoesOrdenacao, setExibirOpcoesOrdenacao] = useState(false); // ✅ Estado para exibir opções de ordenação
   const [exibirOpcoesSituacao, setExibirOpcoesSituacao] = useState(false); // ✅ Estado para exibir filtros de situação
+  const [paginaAtual, setPaginaAtual] = useState(1);
 
   // ✅ Alternar exibição dos botões de ordenação
   const toggleOrdenacao = () => {
@@ -74,6 +75,20 @@ export default function DetalhesProduto() {
     segundaLinha: "12000",
     estoqueTotal: "12000",
   }));
+
+  // Configuração da paginação
+  const itensPorPagina = 10;
+  const totalPaginas = 2; // Duas páginas fixas: 01 (com dados) e 02 (vazia)
+  const inicio = (paginaAtual - 1) * itensPorPagina;
+  const fim = inicio + itensPorPagina;
+  const dadosPaginados =
+    abaSelecionada === "lançamentos"
+      ? paginaAtual === 1
+        ? lancamentos.slice(inicio, fim)
+        : []
+      : paginaAtual === 1
+      ? lotes.slice(inicio, fim)
+      : [];
 
   return (
     <div
@@ -147,75 +162,97 @@ export default function DetalhesProduto() {
 
       <hr className="status-divider" />
 
-      {/* ✅ Conteúdo Dinâmico das Abas */}
-      {abaSelecionada === "lançamentos" ? (
-        <div className="tabela-lancamentos-container">
-          {/* ✅ Saldo Atual */}
-          <span className="vinte">20</span>
-          <div className="saldo-atual">saldo atual</div>
-          <table className="tabela-lancamentos">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Data e hora</th>
-                <th>Entrada</th>
-                <th>Saída</th>
-                <th>Custo</th>
-                <th>Observação</th>
-              </tr>
-            </thead>
-            <tbody>
-              {lancamentos.map((lancamento, index) => (
+      {/* ✅ Renderização dinâmica da tabela conforme aba selecionada */}
+      <div className="tabela-lancamentos-container">
+        {/* ✅ Exibe o saldo apenas na aba "lançamentos" */}
+        {abaSelecionada === "lançamentos" && (
+          <div className="saldoHeader">
+            <span className="vinte">20</span>
+            <label>Saldo Atual</label>
+          </div>
+        )}
+        <table className="tabela-lancamentos">
+          <thead>
+            <tr>
+              {abaSelecionada === "lançamentos" ? (
+                <>
+                  <th></th>
+                  <th>Data e hora</th>
+                  <th>Entrada</th>
+                  <th>Saída</th>
+                  <th>Custo</th>
+                  <th>Observação</th>
+                </>
+              ) : (
+                <>
+                  <th>Data da Fabricação</th>
+                  <th>Número do lote</th>
+                  <th>Primeira Linha</th>
+                  <th>Segunda Linha</th>
+                  <th>Estoque Total</th>
+                </>
+              )}
+            </tr>
+          </thead>
+          <tbody>
+            {dadosPaginados.length > 0 ? (
+              dadosPaginados.map((item, index) => (
                 <tr key={index}>
-                  <td>
-                    <img
-                      src="/3pontos.svg"
-                      alt="Opções"
-                      className="menu-acoes"
-                    />
-                  </td>
-                  <td>{lancamento.dataHora}</td>
-                  <td>{lancamento.entrada}</td>
-                  <td>{lancamento.saida}</td>
-                  <td>{lancamento.custo}</td>
-                  <td>{lancamento.observacao}</td>
+                  {abaSelecionada === "lançamentos" ? (
+                    <>
+                      <td>
+                        <img
+                          src="/3pontos.svg"
+                          alt="Opções"
+                          className="menu-acoes"
+                        />
+                      </td>
+                      <td>{item.dataHora}</td>
+                      <td>{item.entrada}</td>
+                      <td>{item.saida}</td>
+                      <td>{item.custo}</td>
+                      <td>{item.observacao}</td>
+                    </>
+                  ) : (
+                    <>
+                      <td>{item.dataFabricacao}</td>
+                      <td>{item.numeroLote}</td>
+                      <td>{item.primeiraLinha}</td>
+                      <td>{item.segundaLinha}</td>
+                      <td>{item.estoqueTotal}</td>
+                    </>
+                  )}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <div className="tabela-lancamentos-container">
-          <table className="tabela-lancamentos">
-            <thead>
+              ))
+            ) : (
               <tr>
-                <th>Data da Fabricação</th>
-                <th>Número do lote</th>
-                <th>Primeira Linha</th>
-                <th>Segunda Linha</th>
-                <th>Estoque Total</th>
+                <td
+                  colSpan={abaSelecionada === "lançamentos" ? "6" : "5"}
+                  style={{ textAlign: "center", padding: "20px" }}
+                >
+                  Nenhum dado disponível.
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {lotes.map((lote, index) => (
-                <tr key={index}>
-                  <td>{lote.dataFabricacao}</td>
-                  <td>{lote.numeroLote}</td>
-                  <td>{lote.primeiraLinha}</td>
-                  <td>{lote.segundaLinha}</td>
-                  <td>{lote.estoqueTotal}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+            )}
+          </tbody>
+        </table>
+      </div>
 
-      {/* ✅ Rodapé de paginação e totais */}
+      {/* ✅ Paginação dinâmica */}
       <div className="paginacao">
-        <span>01</span>
-        <span>02</span>
-        <span>→</span>
+        <span
+          className={paginaAtual === 1 ? "ativo" : ""}
+          onClick={() => setPaginaAtual(1)}
+        >
+          01
+        </span>
+        <span
+          className={paginaAtual === 2 ? "ativo" : ""}
+          onClick={() => setPaginaAtual(2)}
+        >
+          02
+        </span>
+        <span className="seta">→</span>
       </div>
     </div>
   );

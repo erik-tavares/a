@@ -33,7 +33,7 @@ export default function OperadoresPage() {
   });
   // ✅ Função para redirecionar para a tela de cadastro de operadores
   const handleAddOperator = () => {
-    router.push("/cadastro/operadores/novo");
+    router.push("/cadastro/operadores/novoOperador");
   };
   return (
     <div

@@ -347,6 +347,11 @@ export default function producoesPage() {
     });
   };
 
+  const handleNumeroChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+    setFormData((prev) => ({ ...prev, valor: value }));
+  };
+
   return (
     <div
       className={`novo-producoes-container ${
@@ -562,7 +567,12 @@ export default function producoesPage() {
                   <div className="form-group">
                     <label>Ciclos Atingidos</label>
                     <div className="input-group">
-                      <input type="text" placeholder="Ciclos Atingidos" />
+                      <input
+                        type="text"
+                        placeholder="2300"
+                        value={formData.valor || ""}
+                        onChange={handleNumeroChange}
+                      />
                     </div>
                   </div>
                   <div className="form-group">

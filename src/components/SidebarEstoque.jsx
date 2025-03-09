@@ -51,7 +51,7 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
     >
       <div className="sidebar-content">
         {/* Cabeçalho */}
-        <div className="sidebar-header">
+        <div className="sidebar-header2">
           <div className="texto-sidebar">
             <h2 className="texto-estoque">Lançamento estoque</h2>
             <span className="subtexto">
@@ -112,14 +112,19 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
                   </td>
                   <td>
                     <input
-                      type="number"
+                      type="text" // Mantém "text" para controle da máscara
                       value={row.quantidade}
                       className="input-quantidadesidebar"
                       onChange={(e) =>
-                        atualizarLinha(row.id, "quantidade", e.target.value)
+                        atualizarLinha(
+                          row.id,
+                          "quantidade",
+                          e.target.value.replace(/\D/g, "")
+                        )
                       }
                     />
                   </td>
+
                   <td>
                     <select
                       value={row.deposito}
@@ -127,6 +132,7 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
                       onChange={(e) =>
                         atualizarLinha(row.id, "deposito", e.target.value)
                       }
+                      disabled
                     >
                       <option>Selecione</option>
                     </select>

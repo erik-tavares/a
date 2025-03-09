@@ -51,7 +51,7 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
     >
       <div className="sidebar-content">
         {/* Cabeçalho */}
-        <div className="sidebar-header">
+        <div className="sidebar-header2">
           <div className="texto-sidebar">
             <h2 className="texto-estoque">Lançamento paletização</h2>
             <span className="subtexto">
@@ -95,6 +95,7 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
                       onChange={(e) =>
                         atualizarLinha(row.id, "lote", e.target.value)
                       }
+                      disabled
                     />
                   </td>
                   <td>
@@ -112,14 +113,21 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
                   </td>
                   <td>
                     <input
-                      type="number"
+                      type="text" // Mantém "text" para controle da máscara
                       value={row.quantidade}
                       className="input-quantidadesidebar"
                       onChange={(e) =>
-                        atualizarLinha(row.id, "quantidade", e.target.value)
+                        atualizarLinha(
+                          row.id,
+                          "quantidade",
+                          e.target.value.replace(/\D/g, "")
+                        )
                       }
+                      inputMode="numeric" // Melhora experiência no mobile (teclado numérico)
+                      pattern="[0-9]*" // Ajuda a reforçar apenas números
                     />
                   </td>
+
                   <td>
                     <select
                       value={row.deposito}
@@ -127,9 +135,8 @@ export default function SidebarEstoque({ isOpen, toggleSidebar }) {
                       onChange={(e) =>
                         atualizarLinha(row.id, "deposito", e.target.value)
                       }
-                    >
-                      <option>Selecione</option>
-                    </select>
+                      disabled
+                    ></select>
                   </td>
                   <td>
                     <img className="image" src="/3pontos.svg" alt="" />

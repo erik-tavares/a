@@ -809,7 +809,6 @@ select[name="porcentagem"] {
 
 /* Estilo do título "Lançamento estoque" */
 .texto-estoque {
-  width: 274px; /* Largura conforme imagem */
   height: 37px; /* Altura conforme imagem */
   font-family: "Roboto Slab", serif; /* Fonte conforme imagem */
   font-weight: 700; /* Negrito */
@@ -822,7 +821,7 @@ select[name="porcentagem"] {
 }
 
 /* Cabeçalho */
-.sidebar-header {
+.sidebar-header2 {
   display: flex;
   justify-content: space-between;
   align-items: center;

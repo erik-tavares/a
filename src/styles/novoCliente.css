@@ -454,3 +454,18 @@ input[type="checkbox"]:checked::after {
     padding: 8px;
   }
 }
+
+/* Adiciona borda vermelha nos inputs com erro */
+.input-error {
+  border: 2px solid red !important;
+  background-color: #ffe6e6;
+  transition: border 0.3s ease-in-out;
+}
+
+/* Mensagem de erro em vermelho abaixo do campo */
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}

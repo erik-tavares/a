@@ -10,6 +10,7 @@ export default function NovoClientePage() {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [abaSelecionada, setAbaSelecionada] = useState("dados-gerais"); // Estado para controlar a aba ativa
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     nome: "",
     cnpjCpf: "",
@@ -18,6 +19,22 @@ export default function NovoClientePage() {
     celular: "",
     situacao: "ativo",
   });
+
+  const validarCampos = () => {
+    let newErrors = {};
+
+    if (!formData.nome || formData.nome.trim() === "")
+      newErrors.nome = "Campo obrigatório";
+    if (!formData.cnpjCpf || formData.cnpjCpf.trim() === "")
+      newErrors.cnpjCpf = "Campo obrigatório";
+    if (!formData.email || formData.email.trim() === "")
+      newErrors.email = "Campo obrigatório";
+    if (!formData.celular || formData.celular.trim() === "")
+      newErrors.celular = "Campo obrigatório";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Retorna "true" se não houver erros
+  };
 
   const handleCnpjCpfChange = (e) => {
     let value = e.target.value;
@@ -65,24 +82,23 @@ export default function NovoClientePage() {
   };
 
   const handleChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (value.trim() !== "") {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name]; // Remove erro ao preencher
+        return newErrors;
+      });
+    }
   };
 
   const handleSave = () => {
-    if (
-      !formData.nome ||
-      !formData.cnpjCpf ||
-      !formData.email ||
-      !formData.celular
-    ) {
-      alert("Por favor, preencha todos os campos obrigatórios!");
-      return;
+    if (validarCampos()) {
+      console.log("Formulário válido! Enviar dados ao backend...");
+      setErrors({}); // ✅ Limpa todos os erros após salvar com sucesso
     }
-
-    router.push("/cadastro/cliente/novoCliente");
   };
 
   // Dados da tabela de entregas (mockados para teste)
@@ -250,11 +266,16 @@ export default function NovoClientePage() {
                       id="nome"
                       type="text"
                       name="nome"
-                      className="input-nome"
+                      className={`input-nome ${
+                        errors.nome ? "input-error" : ""
+                      }`}
                       placeholder="Razão ou Fantasia"
                       value={formData.nome}
                       onChange={handleChange}
                     />
+                    {errors.nome && (
+                      <span className="error-message">{errors.nome}</span>
+                    )}
                   </div>
                   <div className="form-group">
                     <label htmlFor="cnpjCpf">CNPJ/CPF</label>
@@ -262,10 +283,15 @@ export default function NovoClientePage() {
                       id="cnpjCpf"
                       type="text"
                       name="cnpjCpf"
-                      className="input-cnpj-cpf"
+                      className={`input-cnpj-cpf ${
+                        errors.cnpjCpf ? "input-error" : ""
+                      }`}
                       value={formData.cnpjCpf}
                       onChange={handleCnpjCpfChange}
                     />
+                    {errors.cnpjCpf && (
+                      <span className="error-message">{errors.cnpjCpf}</span>
+                    )}
                   </div>
 
                   <div className="form-group">
@@ -288,10 +314,15 @@ export default function NovoClientePage() {
                       id="email"
                       type="email"
                       name="email"
-                      className="input-email"
+                      className={`input-email ${
+                        errors.email ? "input-error" : ""
+                      }`}
                       value={formData.email}
                       onChange={handleChange}
                     />
+                    {errors.email && (
+                      <span className="error-message">{errors.email}</span>
+                    )}
                   </div>
                   <div className="form-group">
                     <label htmlFor="celular">Celular</label>
@@ -299,11 +330,16 @@ export default function NovoClientePage() {
                       id="celular"
                       type="text"
                       name="celular"
-                      className="input-celular"
+                      className={`input-celular ${
+                        errors.celular ? "input-error" : ""
+                      }`}
                       value={formData.celular}
                       onChange={handleCelularChange}
                       placeholder="(99) 99999-9999"
                     />
+                    {errors.celular && (
+                      <span className="error-message">{errors.celular}</span>
+                    )}
                   </div>
 
                   <div className="form-group">

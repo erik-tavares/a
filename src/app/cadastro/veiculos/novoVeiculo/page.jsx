@@ -9,6 +9,7 @@ export default function NovoVeiculoPage() {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("dados");
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     modelo: "",
     ano: "",
@@ -19,6 +20,24 @@ export default function NovoVeiculoPage() {
     tipo: "",
     km: "",
   });
+
+  const validarCampos = () => {
+    let newErrors = {};
+
+    if (!formData.modelo || formData.modelo.trim() === "")
+      newErrors.modelo = "Campo obrigatório";
+    if (!formData.ano || formData.ano.trim() === "")
+      newErrors.ano = "Campo obrigatório";
+    if (!formData.placa || formData.placa.trim() === "")
+      newErrors.placa = "Campo obrigatório";
+    if (!formData.marca || formData.marca.trim() === "")
+      newErrors.marca = "Campo obrigatório";
+    if (!formData.tipo || formData.tipo.trim() === "")
+      newErrors.tipo = "Campo obrigatório";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Retorna "true" se não houver erros
+  };
 
   const registros = [
     {
@@ -134,35 +153,65 @@ export default function NovoVeiculoPage() {
   ];
 
   const handleAnoChange = (e) => {
-    let value = e.target.value;
-
-    // Remove tudo que não for número
-    value = value.replace(/\D/g, "");
+    let value = e.target.value.replace(/\D/g, ""); // Apenas números
 
     // Limita a 4 dígitos
     value = value.slice(0, 4);
 
     setFormData((prev) => ({ ...prev, ano: value }));
+
+    if (value.trim() !== "") {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.ano;
+        return newErrors;
+      });
+    }
   };
 
   const handlePlacaChange = (e) => {
-    let value = e.target.value.toUpperCase(); // Converte para maiúsculas automaticamente
+    let value = e.target.value.toUpperCase();
 
     // Remove tudo que não for letra ou número
     value = value.replace(/[^A-Z0-9]/g, "");
 
     if (value.length <= 3) {
-      // Mantém apenas letras na primeira parte
-      value = value.replace(/[^A-Z]/g, "");
+      value = value.replace(/[^A-Z]/g, ""); // Mantém apenas letras na primeira parte
     } else if (value.length === 4) {
-      // Se for Mercosul, força um número na 4ª posição
-      value = value.replace(/^([A-Z]{3})([A-Z])/g, "$1-$2");
+      value = value.replace(/^([A-Z]{3})([A-Z])/g, "$1-$2"); // Se for Mercosul, adiciona o hífen
     } else {
-      // Formata para AAA-0A00 (Mercosul) ou AAA-0000 (padrão antigo)
-      value = value.replace(/^([A-Z]{3})-?(\d)([A-Z]?)(\d{0,2})$/, "$1-$2$3$4");
+      value = value.replace(/^([A-Z]{3})-?(\d)([A-Z]?)(\d{0,2})$/, "$1-$2$3$4"); // Mantém o formato correto
     }
 
     setFormData((prev) => ({ ...prev, placa: value }));
+
+    if (value.trim() !== "") {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.placa;
+        return newErrors;
+      });
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (value.trim() !== "") {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name]; // Remove erro ao preencher
+        return newErrors;
+      });
+    }
+  };
+
+  const handleSave = () => {
+    if (validarCampos()) {
+      console.log("Formulário válido! Enviar dados ao backend...");
+      setErrors({}); // ✅ Limpa todos os erros após salvar com sucesso
+    }
   };
 
   return (
@@ -205,27 +254,47 @@ export default function NovoVeiculoPage() {
             <div className="form-grid">
               <div className="form-group">
                 <label>Modelo</label>
-                <input type="text" className="input-modelo" />
+                <input
+                  type="text"
+                  className={`input-modelo ${
+                    errors.modelo ? "input-error" : ""
+                  }`}
+                  name="modelo"
+                  value={formData.modelo}
+                  onChange={handleChange}
+                />
+                {errors.modelo && (
+                  <span className="error-message">{errors.modelo}</span>
+                )}
               </div>
               <div className="form-group">
                 <label>Ano</label>
                 <input
                   type="text"
-                  className="input-ano"
+                  className={`input-ano ${errors.ano ? "input-error" : ""}`}
+                  name="ano"
                   value={formData.ano}
                   onChange={handleAnoChange}
+                  maxLength="4"
                 />
+                {errors.ano && (
+                  <span className="error-message">{errors.ano}</span>
+                )}
               </div>
 
               <div className="form-group">
                 <label>Placa</label>
                 <input
                   type="text"
-                  className="input-placa"
-                  value={formData.placa || ""}
+                  className={`input-placa ${errors.placa ? "input-error" : ""}`}
+                  name="placa"
+                  value={formData.placa}
                   onChange={handlePlacaChange}
                   maxLength="8"
                 />
+                {errors.placa && (
+                  <span className="error-message">{errors.placa}</span>
+                )}
               </div>
 
               <div className="form-group">
@@ -246,11 +315,29 @@ export default function NovoVeiculoPage() {
               </div>
               <div className="form-group">
                 <label>Marca</label>
-                <input type="text" className="input-marca" />
+                <input
+                  type="text"
+                  className={`input-marca ${errors.marca ? "input-error" : ""}`}
+                  name="marca"
+                  value={formData.marca}
+                  onChange={handleChange}
+                />
+                {errors.marca && (
+                  <span className="error-message">{errors.marca}</span>
+                )}
               </div>
               <div className="form-group">
                 <label>Tipo</label>
-                <input type="text" className="input-tipo" />
+                <input
+                  type="text"
+                  className={`input-tipo ${errors.tipo ? "input-error" : ""}`}
+                  name="tipo"
+                  value={formData.tipo}
+                  onChange={handleChange}
+                />
+                {errors.tipo && (
+                  <span className="error-message">{errors.tipo}</span>
+                )}
               </div>
               <div className="form-group">
                 <label>Km</label>
@@ -301,7 +388,9 @@ export default function NovoVeiculoPage() {
         <hr className="status-dividerBottom" />
 
         <div className="novoVeiculo-footer">
-          <button className="btn-salvar">salvar</button>
+          <button className="btn-salvar" onClick={handleSave}>
+            salvar
+          </button>
           <button className="btn-cancelar">cancelar</button>
         </div>
       </div>

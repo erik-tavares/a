@@ -8,6 +8,7 @@ import { IoMdAddCircle } from "react-icons/io";
 export default function NovoPaletizadorPage() {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     nome: "",
     codigo: "Auto",
@@ -17,15 +18,37 @@ export default function NovoPaletizadorPage() {
     salario: "",
   });
 
+  const validarCampos = () => {
+    let newErrors = {};
+
+    if (!formData.nome || formData.nome.trim() === "")
+      newErrors.nome = "Campo obrigatório";
+    if (!formData.email || formData.email.trim() === "")
+      newErrors.email = "Campo obrigatório";
+    if (!formData.celular || formData.celular.trim() === "")
+      newErrors.celular = "Campo obrigatório";
+    if (!formData.salario || formData.salario.trim() === "")
+      newErrors.salario = "Campo obrigatório";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Retorna "true" se não houver erros
+  };
+
   const [metas, setMetas] = useState([
     { produto: "", tipo: "Palete", quantidade: "Palete" },
   ]);
 
   const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (value.trim() !== "") {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name]; // Remove erro ao preencher
+        return newErrors;
+      });
+    }
   };
 
   const handleCelularChange = (e) => {
@@ -50,21 +73,30 @@ export default function NovoPaletizadorPage() {
   };
 
   const handleSalarioChange = (e) => {
-    let value = e.target.value;
-
-    // Remove tudo que não for número
-    value = value.replace(/\D/g, "");
-
-    // Converte para número decimal
+    let value = e.target.value.replace(/\D/g, ""); // Apenas números
     let numericValue = parseFloat(value) / 100;
 
-    // Formata para moeda brasileira (R$ 1.234,56)
     value = numericValue.toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
     });
 
     setFormData((prev) => ({ ...prev, salario: value }));
+
+    if (value.trim() !== "R$ 0,00") {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.salario;
+        return newErrors;
+      });
+    }
+  };
+
+  const handleSave = () => {
+    if (validarCampos()) {
+      console.log("Formulário válido! Enviar dados ao backend...");
+      setErrors({}); // ✅ Limpa todos os erros após salvar com sucesso
+    }
   };
 
   const handleQuantidadeChange = (e, index) => {
@@ -117,11 +149,14 @@ export default function NovoPaletizadorPage() {
                 id="nome"
                 type="text"
                 name="nome"
-                className="input-nome"
+                className={`input-nome ${errors.nome ? "input-error" : ""}`}
                 placeholder="Nome completo do paletizador"
                 value={formData.nome}
                 onChange={handleChange}
               />
+              {errors.nome && (
+                <span className="error-message">{errors.nome}</span>
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="codigo">Código</label>
@@ -156,10 +191,13 @@ export default function NovoPaletizadorPage() {
                 id="email"
                 type="email"
                 name="email"
-                className="input-email"
+                className={`input-email ${errors.email ? "input-error" : ""}`}
                 value={formData.email}
                 onChange={handleChange}
               />
+              {errors.email && (
+                <span className="error-message">{errors.email}</span>
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="celular">Celular</label>
@@ -167,11 +205,16 @@ export default function NovoPaletizadorPage() {
                 id="celular"
                 type="text"
                 name="celular"
-                className="input-celular"
+                className={`input-celular ${
+                  errors.celular ? "input-error" : ""
+                }`}
                 value={formData.celular}
                 onChange={handleCelularChange}
                 placeholder="(99) 99999-9999"
               />
+              {errors.celular && (
+                <span className="error-message">{errors.celular}</span>
+              )}
             </div>
 
             <div className="form-group">
@@ -180,11 +223,16 @@ export default function NovoPaletizadorPage() {
                 id="salario"
                 type="text"
                 name="salario"
-                className="input-salario"
+                className={`input-salario ${
+                  errors.salario ? "input-error" : ""
+                }`}
                 value={formData.salario}
                 onChange={handleSalarioChange}
                 placeholder="R$ 0,00"
               />
+              {errors.salario && (
+                <span className="error-message">{errors.salario}</span>
+              )}
             </div>
           </div>
         </div>
@@ -250,7 +298,9 @@ export default function NovoPaletizadorPage() {
 
         <hr className="linha-divisoria2" />
         <div className="buttons">
-          <button className="save-btn">salvar</button>
+          <button className="save-btn" onClick={handleSave}>
+            salvar
+          </button>
           <button className="cancel-btn">cancelar</button>
         </div>
       </div>

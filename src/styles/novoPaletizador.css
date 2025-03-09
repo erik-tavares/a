@@ -139,7 +139,6 @@
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
-  background: #f0f0f0;
   color: #888;
   text-align: center;
 }
@@ -345,4 +344,19 @@
 
 .cancel-btn:hover {
   color: #2e365f; /* Tom mais escuro ao passar o mouse */
+}
+
+/* Adiciona borda vermelha nos inputs com erro */
+.input-error {
+  border: 2px solid red !important;
+  background-color: #ffe6e6;
+  transition: border 0.3s ease-in-out;
+}
+
+/* Mensagem de erro em vermelho abaixo do campo */
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
 }

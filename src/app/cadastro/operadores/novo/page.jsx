@@ -355,14 +355,12 @@ export default function NovoOperadorPage() {
                           />
                         </td>
                         <td className="acoes">
-                          <button className="save-btn">
-                            salvar <FaSave />
-                          </button>
+                          <button className="salvar-btn">salvar</button>
                           <button
-                            className="delete-btn"
+                            className="deletar-btn"
                             onClick={() => removerItem(item.id)}
                           >
-                            excluir <FaTrash />
+                            excluir
                           </button>
                         </td>
                       </tr>

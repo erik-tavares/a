@@ -21,6 +21,7 @@ export default function ListaDeProducao() {
   const [statusSelecionado, setStatusSelecionado] = useState("todos");
   const [exibirOpcoesPeriodo, setExibirOpcoesPeriodo] = useState(false); // ✅ Estado para exibir as opções do período
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [paginaAtual, setPaginaAtual] = useState(1);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -60,6 +61,15 @@ export default function ListaDeProducao() {
     const periodoMatch = !filtroPeriodo || p.data === filtroPeriodo;
     return statusMatch && periodoMatch;
   });
+
+  const itensPorPagina = 10;
+  const totalPaginas = 2; // Duas páginas fixas: 01 (com dados) e 02 (vazia)
+  const inicio = (paginaAtual - 1) * itensPorPagina;
+  const fim = inicio + itensPorPagina;
+
+  // Aplica a lógica correta da paginação
+  const producoesPaginadas =
+    paginaAtual === 1 ? producoesFiltradas.slice(inicio, fim) : [];
 
   return (
     <div
@@ -165,36 +175,57 @@ export default function ListaDeProducao() {
               </tr>
             </thead>
             <tbody>
-              {producoesFiltradas.map((producao) => (
-                <tr key={producao.num}>
-                  <td>
-                    <input type="checkbox" /> {producao.num}
+              {producoesPaginadas.length > 0 ? (
+                producoesPaginadas.map((producao) => (
+                  <tr key={producao.num}>
+                    <td>
+                      <input type="checkbox" /> {producao.num}
+                    </td>
+                    <td className="acoes" onClick={toggleModal}>
+                      <img
+                        src="/3pontos.svg"
+                        alt="Opções"
+                        className="menu-acoes"
+                      />
+                    </td>
+                    <td>{producao.data}</td>
+                    <td>{producao.maquina}</td>
+                    <td>{producao.operador}</td>
+                    <td>{producao.receita}</td>
+                    <td>{producao.quantidade}</td>
+                    <td>{producao.unidade}</td>
+                    <td>{producao.indice}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="9"
+                    style={{ textAlign: "center", padding: "20px" }}
+                  >
+                    Nenhum dado disponível
                   </td>
-                  {/* ✅ Agora a modal abre ao clicar no TD */}
-                  <td className="acoes" onClick={toggleModal}>
-                    <img
-                      src="/3pontos.svg"
-                      alt="Opções"
-                      className="menu-acoes"
-                    />
-                  </td>
-                  <td>{producao.data}</td>
-                  <td>{producao.maquina}</td>
-                  <td>{producao.operador}</td>
-                  <td>{producao.receita}</td>
-                  <td>{producao.quantidade}</td>
-                  <td>{producao.unidade}</td>
-                  <td>{producao.indice}</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
 
+        {/* Paginação fixa com "01" selecionado inicialmente */}
         <div className="paginacao">
-          <span>01</span>
-          <span>02</span>
-          <span>→</span>
+          <span
+            className={paginaAtual === 1 ? "ativo" : ""}
+            onClick={() => setPaginaAtual(1)}
+          >
+            01
+          </span>
+          <span
+            className={paginaAtual === 2 ? "ativo" : ""}
+            onClick={() => setPaginaAtual(2)}
+          >
+            02
+          </span>
+          <span className="seta">→</span>
         </div>
       </div>
       {/* ✅ Modal de Produção */}

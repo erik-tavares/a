@@ -12,6 +12,36 @@ export default function NovaManutencao() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [tabelas, setTabelas] = useState([{ id: Date.now() }]); // ✅ Estado inicial com uma tabela
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    valorManutencao: "",
+    kmHodometro: "", // 🔥 Garante que sempre inicia como string vazia
+  });
+
+  const handleValorManutencaoChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+    if (!value) {
+      setFormData((prev) => ({ ...prev, valorManutencao: "" })); // Evita exibir "R$ " quando vazio
+      return;
+    }
+
+    value = (parseFloat(value) / 100).toFixed(2).replace(".", ",");
+
+    setFormData((prev) => ({ ...prev, valorManutencao: value }));
+  };
+
+  const handleKmHodometroChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+    if (!value) {
+      setFormData((prev) => ({ ...prev, kmHodometro: "" })); // Evita exibir "Km" quando vazio
+      return;
+    }
+
+    value = parseInt(value, 10).toLocaleString("pt-BR"); // Formata com separação de milhares
+
+    setFormData((prev) => ({ ...prev, kmHodometro: value }));
+  };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -65,6 +95,14 @@ export default function NovaManutencao() {
   };
 
   const atualizarTabela = (id, campo, valor) => {
+    if (campo === "valor") {
+      valor = valor.replace(/\D/g, ""); // 🔥 Remove tudo que não for número
+
+      if (valor) {
+        valor = (parseFloat(valor) / 100).toFixed(2).replace(".", ","); // Formata como moeda (ex: 1.500,00)
+      }
+    }
+
     const novasTabelas = tabelas.map((tabela) =>
       tabela.id === id
         ? {
@@ -158,23 +196,34 @@ export default function NovaManutencao() {
             </div>
             <div className="form-group">
               <label>Km hodômetro</label>
-              <input type="text" className="input-km-hodometro" />
+              <input
+                type="text"
+                className="input-km-hodometro"
+                placeholder="1.500"
+                value={formData.kmHodometro}
+                onChange={handleKmHodometroChange}
+              />
             </div>
             <div className="form-group">
               <label>Tipo</label>
               <input type="text" className="input-tipo" disabled />
             </div>
             <div className="form-group">
-              <label>Valor Manutenção (R$)</label>
-              <div className="valor-manutencao">
-                <span className="icone-moeda">R$</span>
-                <input
-                  type="text"
-                  className="input-valor-manu"
-                  placeholder="1.500,00"
-                />
-              </div>
+              <label htmlFor="valor-manutencao">Valor Manutenção</label>
+              <input
+                id="valor-manutencao"
+                type="text"
+                className="input-valor-manu"
+                placeholder="1.500"
+                value={
+                  formData.valorManutencao
+                    ? `R$ ${formData.valorManutencao}`
+                    : ""
+                }
+                onChange={handleValorManutencaoChange}
+              />
             </div>
+
             <div className="form-group">
               <label>Componente</label>
               <input type="text" className="input-componente" />
@@ -247,9 +296,10 @@ export default function NovaManutencao() {
                           }
                         />
                       </td>
+
                       <td>
                         <input
-                          type="number"
+                          type="text" // 🔥 Mantendo como "text"
                           className="input-quantidade"
                           value={quantidade}
                           onChange={(e) =>
@@ -257,16 +307,22 @@ export default function NovaManutencao() {
                           }
                         />
                       </td>
+
                       <td>
                         <input
-                          type="number"
+                          type="text"
                           className="input-valor"
-                          value={valor}
+                          value={
+                            valor !== undefined && valor !== null
+                              ? `R$ ${valor}`
+                              : ""
+                          }
                           onChange={(e) =>
                             atualizarTabela(id, "valor", e.target.value)
                           }
                         />
                       </td>
+
                       <td>{total}</td>
                       <td className="botoes-acoes">
                         <div className="button-container">

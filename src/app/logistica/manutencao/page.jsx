@@ -11,6 +11,7 @@ export default function Manutencao() {
   const [statusSelecionado, setStatusSelecionado] = useState("todos");
   const [exibirOpcoesPeriodo, setExibirOpcoesPeriodo] = useState(false); // ✅ Estado para exibir as opções do período
   const [placaPesquisa, setPlacaPesquisa] = useState("");
+  const [paginaAtual, setPaginaAtual] = useState(1);
   const router = useRouter(); // ✅ Instanciando o roteador
 
   const togglePeriodo = () => {
@@ -52,12 +53,19 @@ export default function Manutencao() {
         : "pendente",
   }));
 
-  // 🛠 Filtragem por status e placa
   const manutencoesFiltradas = manutencoes
     .filter(
       (m) => statusSelecionado === "todos" || m.status === statusSelecionado
     )
     .filter((m) => m.placa.toLowerCase().includes(placaPesquisa.toLowerCase()));
+
+  // Configuração da paginação
+  const itensPorPagina = 10;
+  const totalPaginas = 2; // Definimos 2 páginas fixas: 01 (com dados) e 02 (vazia)
+  const inicio = (paginaAtual - 1) * itensPorPagina;
+  const fim = inicio + itensPorPagina;
+  const manutencoesPaginadas =
+    paginaAtual === 1 ? manutencoesFiltradas.slice(inicio, fim) : [];
 
   return (
     <div
@@ -155,8 +163,8 @@ export default function Manutencao() {
               </tr>
             </thead>
             <tbody>
-              {manutencoesFiltradas.length > 0 ? (
-                manutencoesFiltradas.map((manutencao, index) => (
+              {manutencoesPaginadas.length > 0 ? (
+                manutencoesPaginadas.map((manutencao, index) => (
                   <tr key={index}>
                     <td>
                       <input type="checkbox" />
@@ -171,24 +179,13 @@ export default function Manutencao() {
                     <td>{manutencao.motorista}</td>
                     <td>{manutencao.componente}</td>
                     <td>{manutencao.tipo}</td>
-                    <td>
-                      {manutencao.valor}{" "}
-                      <span
-                        className={`status-indicador ${
-                          manutencao.status === "finalizada"
-                            ? "verde"
-                            : manutencao.status === "em andamento"
-                            ? "azul"
-                            : "vermelho"
-                        }`}
-                      ></span>
-                    </td>
+                    <td>{manutencao.valor}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
                   <td colSpan="10" className="sem-resultados">
-                    Nenhuma manutenção encontrada para este filtro.
+                    Nenhuma manutenção disponível.
                   </td>
                 </tr>
               )}
@@ -196,11 +193,21 @@ export default function Manutencao() {
           </table>
         </div>
 
-        {/* ✅ Paginação */}
+        {/* Paginação fixa com seta "→" */}
         <div className="paginacao">
-          <span>01</span>
-          <span>02</span>
-          <span>→</span>
+          <span
+            className={paginaAtual === 1 ? "ativo" : ""}
+            onClick={() => setPaginaAtual(1)}
+          >
+            01
+          </span>
+          <span
+            className={paginaAtual === 2 ? "ativo" : ""}
+            onClick={() => setPaginaAtual(2)}
+          >
+            02
+          </span>
+          <span className="seta">→</span>
         </div>
       </div>
     </div>

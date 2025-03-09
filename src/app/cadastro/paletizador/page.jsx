@@ -45,7 +45,7 @@ export default function PaletizadorPage() {
       <div className="paletizador-content">
         {/* ✅ Cabeçalho */}
         <div className="paletizador-header">
-          <h1 className="paletizador-title">Paletizador </h1>
+          <h1 className="paletizador-title">Paletizadores </h1>
 
           {/* ✅ Campo de pesquisa */}
           <div className="paletizador-form">

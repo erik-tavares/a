@@ -51,7 +51,7 @@ export default function ProducaoModal() {
     <div className="acoes-dropdown">
       {/* ✅ Botão que abre a modal */}
       <button className="acoes-btn" onClick={toggleModal}>
-        <FaEllipsisV /> Ações
+        Ações <img src="/ponto-azul.svg" alt="" />
       </button>
 
       {/* ✅ Modal - Só aparece quando isOpen for true */}

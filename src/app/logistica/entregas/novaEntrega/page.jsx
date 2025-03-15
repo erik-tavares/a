@@ -10,7 +10,6 @@ import {
 } from "react-icons/fa";
 import Sidebar from "@/components/Sidebar";
 import "../../../../styles/novaEntrega.css";
-import "../../../../styles/produto.css";
 import { useRouter } from "next/navigation"; // Importa o roteador do Next.js
 import ModalOptionsNovaEntrega from "@/components/ModalNovaEntrega";
 
@@ -110,20 +109,19 @@ export default function NovaEntrega() {
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="nova-entrega-content">
         {/* ✅ Cabeçalho */}
-        <div className="produtos-header">
+        <div className="novaEntrega-header">
           {/* Título */}
-          <h1 className="produtos-title">Nova Entrega</h1>
+          <h1 className="novaEntrega-title">Nova Entrega</h1>
 
           {/* Botões de ação alinhados à direita */}
           <div className="acoes-container">
             <button
-              className="add-produto-btn"
+              className="add-novaEntrega-btn"
               onClick={() => router.push("/logistica/entregas")}
             >
               {" "}
               &larr; Voltar{" "}
             </button>
-            <button className="modalNovaEntrega" onClick={toggleModal}></button>
 
             <ModalOptionsNovaEntrega
               isOpen={isModalOpen}
@@ -222,11 +220,11 @@ export default function NovaEntrega() {
         </div>
 
         <hr className="status-divider" />
-        <h2 className="cliente-produtos-title">Cliente | Produtos</h2>
+        <h2 className="cliente-novaEntrega-title">Cliente | Produtos</h2>
 
         {/* ✅ Seção Cliente | Produtos */}
-        <div className="cliente-produtos">
-          <div className="cliente-produtos-grid">
+        <div className="cliente-novaEntrega">
+          <div className="cliente-novaEntrega-grid">
             <div className="form-group nome">
               <label htmlFor="nome">Nome</label>
               <input
@@ -302,8 +300,8 @@ export default function NovaEntrega() {
 
         {/* ✅ Renderização dinâmica das tabelas */}
         {tabelas.map((id) => (
-          <div key={id} className="tabela-produtos-container">
-            <table className="tabela-produtos">
+          <div key={id} className="tabela-novaEntrega-container">
+            <table className="tabela-novaEntrega">
               <thead>
                 <tr>
                   <th>Produto</th>

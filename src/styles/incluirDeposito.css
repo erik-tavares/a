@@ -19,7 +19,7 @@
 .incluir-deposito-title {
   font-family: "Roboto Slab", serif;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 28px;
   color: #3b447b;
 }
 /* ✅ Input Nome */
@@ -97,6 +97,11 @@
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
+}
+
+.botoesOrganizar {
+  display: flex;
+  gap: 15px;
 }
 
 .voltar-button:hover {

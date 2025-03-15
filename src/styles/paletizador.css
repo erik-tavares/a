@@ -350,3 +350,10 @@ input[type="checkbox"]:checked::after {
   background: #f0f0f0;
   border-radius: 5px;
 }
+
+.motorista-titulo {
+  display: flex;
+  align-items: center; /* 🔹 Alinha a imagem com o texto */
+  gap: 8px; /* 🔹 Espaço entre a imagem e o texto */
+  justify-content: center;
+}

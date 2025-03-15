@@ -79,10 +79,12 @@ export default function IncluirDeposito() {
         {/* ✅ Botões */}
         <div className="botoes-container">
           <hr className="status-divider" />
-          <button className="salvar-button">salvar</button>
-          <button className="cancelar-button" onClick={() => router.back()}>
-            cancelar
-          </button>
+          <div className="botoesOrganizar">
+            <button className="salvar-button">salvar</button>
+            <button className="cancelar-button" onClick={() => router.back()}>
+              cancelar
+            </button>
+          </div>
         </div>
       </div>
     </div>

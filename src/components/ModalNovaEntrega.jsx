@@ -9,8 +9,8 @@ export default function MotoristaModal({ entrega }) {
   return (
     <>
       {/* ✅ Botão que abre a modal */}
-      <button className="acoes-btn" onClick={toggleModal}>
-        ações <FaEllipsisV />
+      <button className="acoes-novaEntrega-btn" onClick={toggleModal}>
+        ações <img src="/ponto-azul.svg" alt="" />
       </button>
 
       {/* ✅ Modal - só exibe se isOpen for true */}

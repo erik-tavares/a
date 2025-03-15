@@ -110,7 +110,7 @@ export default function ProdutosPage() {
               incluir produto
             </button>
             <button className="acoes-btn">
-              ações <FaEllipsisV />
+              ações <img src="/ponto-azul.svg" alt="" />
             </button>
           </div>
         </div>

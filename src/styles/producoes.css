@@ -409,10 +409,18 @@
   border-radius: 50px;
   cursor: pointer;
   height: 35px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 15px;
 }
 
 .acoes-btn:hover {
-  background-color: #07aba0;
+  background: linear-gradient(
+    180deg,
+    #777777,
+    #bbbbbb
+  ); /* Gradiente mais escuro no hover */
 }
 
 /* ✅ Estilização dos cabeçalhos (th) */

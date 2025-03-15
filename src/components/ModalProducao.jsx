@@ -10,7 +10,10 @@ export default function ModalProducao({ isOpen, toggleModal }) {
         <button className="close-btn" onClick={toggleModal}>
           <FaTimes />
         </button>
-        <h3 className="motorista-titulo"> Produção</h3>
+        <h2 className="motorista-titulo">
+          {" "}
+          <img src="/ponto-azul.svg" alt="" /> Produção
+        </h2>
         <button className="modal-option">
           <FaBox /> Lançar estoque
         </button>

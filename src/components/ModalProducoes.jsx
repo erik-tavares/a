@@ -61,9 +61,9 @@ export default function ProducaoModal() {
             <button className="close-btn" onClick={toggleModal}>
               <FaTimes />
             </button>
-            <h3 className="motorista-titulo">
-              <FaEllipsisV /> Mais ações
-            </h3>
+            <h2 className="motorista-titulo">
+              <img src="/ponto-azul.svg" alt="" /> Mais ações
+            </h2>
             <button className="modal-option" onClick={openSidebarEstoque}>
               <FaBox /> Lançar estoque
             </button>

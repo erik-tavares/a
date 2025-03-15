@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "../../../components/Sidebar"; // ✅ Importa o Sidebar
 import "../../../styles/deposito.css";
 import { FaEllipsisV, FaSearch } from "react-icons/fa";
+import ModalOptionsDeposito from "@/components/ModalOptionsDeposito";
 
 export default function depositoPage() {
   const router = useRouter();
@@ -44,7 +45,7 @@ export default function depositoPage() {
       <div className="operadores-content">
         {/* ✅ Cabeçalho */}
         <div className="operadores-header">
-          <h1 className="operadores-title">Depósito</h1>
+          <h1 className="operadores-title">Depósitos</h1>
 
           {/* ✅ Campo de pesquisa */}
           <div className="operadores-form">
@@ -123,7 +124,8 @@ export default function depositoPage() {
                   <input type="checkbox" />
                 </td>
                 <td className="col-nome">
-                  <FaEllipsisV className="action-icon" /> {operador.nome}
+                  <ModalOptionsDeposito className="action-icon" />{" "}
+                  {operador.nome}
                 </td>
                 <td className="col-status">
                   <img

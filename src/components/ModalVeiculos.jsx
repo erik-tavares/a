@@ -18,7 +18,10 @@ export default function MotoristaModal({ motorista }) {
             <button className="close-btn" onClick={toggleModal}>
               <FaTimes />
             </button>
-            <h3 className="motorista-titulo"> Veículos </h3>
+            <h3 className="motorista-titulo">
+              {" "}
+              <img src="/ponto-azul.svg" alt="" /> Veículos{" "}
+            </h3>
             <button className="modal-option">
               <FaTrash /> Excluir Veículo
             </button>

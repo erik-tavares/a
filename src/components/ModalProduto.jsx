@@ -19,7 +19,10 @@ export default function MotoristaModal({ motorista }) {
             <button className="close-btn" onClick={toggleModal}>
               <FaTimes />
             </button>
-            <h3 className="motorista-titulo"> Produto</h3>
+            <h3 className="motorista-titulo">
+              {" "}
+              <img src="/ponto-azul.svg" alt="" /> Produto
+            </h3>
             <button className="modal-option">
               <BsBoxSeam /> Gerenciar Estoque
             </button>

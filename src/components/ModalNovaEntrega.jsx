@@ -36,7 +36,7 @@ export default function MotoristaModal({ entrega }) {
 
             {/* ✅ Conteúdo da modal */}
             <h3 id="modal-title" className="entrega-titulo">
-              <FaEllipsisV /> Ações
+              <img src="/ponto-azul.svg" alt="" /> Ações
             </h3>
             <button className="modal-option">
               <FaTrash /> Excluir Entrega

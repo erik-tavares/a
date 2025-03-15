@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaEllipsisV, FaTrash, FaEdit, FaTimes } from "react-icons/fa";
 
-export default function MotoristaModal({ motorista }) {
+export default function DepositoModal({ motorista }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = () => setIsOpen(!isOpen);
@@ -20,10 +20,10 @@ export default function MotoristaModal({ motorista }) {
             </button>
             <h3 className="motorista-titulo">
               {" "}
-              <img src="/ponto-azul.svg" alt="" /> Máquinas{" "}
+              <img src="/ponto-azul.svg" alt="" /> Depósito
             </h3>
             <button className="modal-option">
-              <FaTrash /> Excluir Máquina
+              <FaTrash /> Excluir depósito
             </button>
             <button className="modal-option">
               <FaEdit /> Alterar cadastro

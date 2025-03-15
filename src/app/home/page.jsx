@@ -86,34 +86,10 @@ export default function HomePage() {
         </button>
       </div>
 
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            {/* Botão de fechar */}
-            <button className="close-button" onClick={toggleModal}>
-              <FiX size={18} />
-            </button>
-            {/* Opções dentro da modal */}
-            <ul className="modal-options">
-              <li>
-                <FaBuilding /> Dados da Empresa
-              </li>
-              <li>
-                <FaUser /> Dados do Usuário
-              </li>
-              <li onClick={handleLogout}>
-                <FaSignOutAlt /> Sair
-              </li>
-            </ul>
-          </div>
-        </div>
-      )}
+      {/* ✅ Oculta todo o conteúdo quando a modal está aberta */}
+      <div className={`home-container ${isModalOpen ? "hidden-content" : ""}`}>
+        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-      {/* Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-
-      <div className={`home-container ${isSidebarOpen ? "sidebar-open" : ""}`}>
         <div className="home-greeting-container">
           <h1 className="home-greeting">
             {greeting}, {displayName}
@@ -138,6 +114,30 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+
+      {/* ✅ Modal */}
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            {/* Botão de fechar */}
+            <button className="close-button" onClick={toggleModal}>
+              <FiX size={18} />
+            </button>
+            {/* Opções dentro da modal */}
+            <ul className="modal-options">
+              <li>
+                <FaBuilding /> Dados da Empresa
+              </li>
+              <li>
+                <FaUser /> Dados do Usuário
+              </li>
+              <li onClick={handleLogout}>
+                <FaSignOutAlt /> Sair
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
     </>
   );
 }

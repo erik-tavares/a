@@ -47,6 +47,11 @@
   padding: 10px;
 }
 
+/* ✅ Esconde o conteúdo principal quando a modal está aberta */
+.hidden-content {
+  display: none;
+}
+
 .modal-content {
   width: clamp(250px, 40vw, 309px); /* Ajustável conforme a tela */
   height: clamp(180px, 30vh, 213px);

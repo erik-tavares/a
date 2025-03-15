@@ -81,7 +81,7 @@ export default function HomePage() {
       {/* Header com botão do menu e ícone de configurações */}
       <div className="home-header">
         {/* Ícone no canto superior direito */}
-        <button className="modal-button" onClick={toggleModal}>
+        <button className="modalHome-button" onClick={toggleModal}>
           <MdFormatListBulleted size={20} />
         </button>
       </div>
@@ -117,14 +117,14 @@ export default function HomePage() {
 
       {/* ✅ Modal */}
       {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="modalHome-overlay">
+          <div className="modalHome-content">
             {/* Botão de fechar */}
             <button className="close-button" onClick={toggleModal}>
               <FiX size={18} />
             </button>
             {/* Opções dentro da modal */}
-            <ul className="modal-options">
+            <ul className="modalHome-options">
               <li>
                 <FaBuilding /> Dados da Empresa
               </li>

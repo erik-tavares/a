@@ -33,7 +33,7 @@
 /* ===================== */
 /*  MODAL RESPONSIVA */
 /* ===================== */
-.modal-overlay {
+.modalHome-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -52,7 +52,7 @@
   display: none;
 }
 
-.modal-content {
+.modalHome-content {
   width: clamp(250px, 40vw, 309px); /* Ajustável conforme a tela */
   height: clamp(180px, 30vh, 213px);
   background: #3b447b;
@@ -81,7 +81,7 @@
 }
 
 /* Lista de opções */
-.modal-options {
+.modalHome-options {
   list-style: none;
   padding: 0;
   display: flex;
@@ -93,7 +93,7 @@
 }
 
 /* Ajuste do alinhamento dos itens */
-.modal-options li {
+.modalHome-options li {
   display: flex;
   align-items: center;
   justify-content: center; /* Centraliza ícone e texto */
@@ -106,17 +106,17 @@
 }
 
 /* Ícones dentro da modal */
-.modal-options li svg {
+.modalHome-options li svg {
   font-size: clamp(16px, 2vw, 18px);
 }
 
 /* Ajuste para alinhar o botão "Sair" corretamente */
-.modal-options li:last-child {
+.modalHome-options li:last-child {
   margin-top: 0;
 }
 
 /* Efeito ao passar o mouse */
-.modal-options li:hover {
+.modalHome-options li:hover {
   opacity: 0.8;
 }
 
@@ -124,21 +124,21 @@
 /*  RESPONSIVIDADE EXTRA  */
 /* ===================== */
 @media (max-width: 480px) {
-  .modal-content {
+  .modalHome-content {
     width: 90%;
     height: auto;
     padding: 15px;
   }
 
-  .modal-options {
+  .modalHome-options {
     gap: 10px;
   }
 
-  .modal-options li {
+  .modalHome-options li {
     font-size: 14px;
   }
 
-  .modal-options li svg {
+  .modalHome-options li svg {
     font-size: 16px;
   }
 
@@ -166,7 +166,7 @@
 }
 
 /* Ícone de configurações (canto superior direito) */
-.modal-button {
+.modalHome-button {
   background: none;
   border: solid 1px;
   border-radius: 10px;
@@ -179,7 +179,7 @@
 }
 
 /* Efeito hover */
-.modal-button:hover {
+.modalHome-button:hover {
   transform: scale(1.1);
 }
 
@@ -193,7 +193,7 @@
     padding: 10px 20px;
   }
 
-  .modal-button {
+  .modalHome-button {
     font-size: 22px;
   }
 }
@@ -203,7 +203,7 @@
     padding: 10px 16px;
   }
 
-  .modal-button {
+  .modalHome-button {
     font-size: 20px;
   }
 }
@@ -213,7 +213,7 @@
     padding: 8px 12px;
   }
 
-  .modal-button {
+  .modalHome-button {
     font-size: 18px;
   }
 }

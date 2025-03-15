@@ -156,12 +156,42 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
     setOpenMenus((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
+  // Função para filtrar os menus com base na pesquisa
+  const filterMenuItems = (query) => {
+    if (!query) return menuItems; // Se a pesquisa estiver vazia, retorna todos os itens
+
+    const filtered = menuItems
+      .map((item) => {
+        // Filtra os submenus que correspondem à pesquisa
+        const filteredSubmenu = item.submenu
+          ? item.submenu.filter((sub) =>
+              sub.title.toLowerCase().includes(query.toLowerCase())
+            )
+          : [];
+
+        // Retorna o item do menu apenas se ele ou seus submenus corresponderem à pesquisa
+        if (
+          item.title.toLowerCase().includes(query.toLowerCase()) ||
+          filteredSubmenu.length > 0
+        ) {
+          return {
+            ...item,
+            submenu: filteredSubmenu,
+          };
+        }
+        return null;
+      })
+      .filter((item) => item !== null); // Remove itens nulos
+
+    return filtered;
+  };
+
   // ✅ Mantém a ordem original dos menus, mas destaca os submenus certos
   let filteredMenu;
 
   // ✅ Se estiver na Home, mostra todos os menus principais
   if (pathname === "/home") {
-    filteredMenu = menuItems;
+    filteredMenu = filterMenuItems(searchQuery); // Filtra os menus com base na pesquisa
   } else {
     // ✅ Para outras páginas, exibe apenas o menu principal correspondente e o submenu certo
     const activeMenu = menuItems.find((menu) =>

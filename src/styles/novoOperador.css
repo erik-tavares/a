@@ -622,9 +622,59 @@ input[name="nome"] {
 .add-item-btn:hover {
   color: #055e57;
 }
-
 /* Responsividade */
+@media (max-width: 1024px) {
+  .novo-operador-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .form-row.three-cols {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .select-comissao {
+    width: 100%;
+  }
+
+  .input-produto {
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
+  .novo-operador-container {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .tabs {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tabs span {
+    width: 100%;
+  }
+
+  .novo-operador-header h1 {
+    font-size: 28px;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+  }
+
+  .input-unidade,
+  .input-quantidade,
+  .input-valor {
+    width: 70px;
+    height: 45px;
+    font-size: 14px;
+  }
+
   .tabela-produtos th,
   .tabela-produtos td {
     padding: 8px;
@@ -644,9 +694,48 @@ input[name="nome"] {
   .add-item-btn {
     font-size: 14px;
   }
+
+  .regra-comissao-container {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .select-comissao {
+    height: 42px;
+    font-size: 16px;
+    padding: 5px 8px;
+  }
 }
 
 @media (max-width: 480px) {
+  .novo-operador-header h1 {
+    font-size: 22px;
+  }
+
+  .back-button {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .input-unidade,
+  .input-quantidade,
+  .input-valor {
+    width: 60px;
+    height: 40px;
+    font-size: 12px;
+  }
+
   .tabela-produtos-container {
     padding: 10px;
   }
@@ -669,5 +758,24 @@ input[name="nome"] {
 
   .add-item-btn {
     font-size: 12px;
+  }
+
+  .regra-comissao-container {
+    padding: 8px;
+  }
+
+  .select-comissao {
+    height: 38px;
+    font-size: 14px;
+    padding: 4px 6px;
+    border-radius: 3px;
+  }
+}
+
+@media (max-width: 360px) {
+  .select-comissao {
+    height: 35px;
+    font-size: 13px;
+    padding: 3px 5px;
   }
 }

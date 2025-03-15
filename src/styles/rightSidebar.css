@@ -192,3 +192,144 @@
 .cancelar:hover {
   background-color: #f5f5f5;
 }
+
+/* ===================== */
+/*    RESPONSIVIDADE     */
+/* ===================== */
+
+@media (max-width: 1200px) {
+  .right-sidebar {
+    width: 700px; /* Reduz a largura da sidebar */
+    right: -700px;
+  }
+
+  .right-sidebar.open {
+    right: 0;
+  }
+
+  .form-row {
+    gap: 20px; /* Reduz o espaçamento entre os campos */
+  }
+
+  .input-deposito,
+  .input-linha,
+  .input-tipo,
+  .input-lote {
+    width: 160px; /* Reduz a largura dos inputs */
+  }
+
+  .input-hora,
+  .input-date,
+  .input-quantidade {
+    width: 160px; /* Reduz a largura dos inputs */
+  }
+
+  .form-group textarea {
+    width: 90%; /* Ajusta a largura do textarea */
+  }
+}
+
+@media (max-width: 1024px) {
+  .right-sidebar {
+    width: 600px; /* Reduz ainda mais a largura da sidebar */
+    right: -600px;
+  }
+
+  .right-sidebar.open {
+    right: 0;
+  }
+
+  .form-row {
+    flex-direction: column; /* Coloca os campos em coluna */
+    gap: 15px;
+  }
+
+  .input-deposito,
+  .input-linha,
+  .input-tipo,
+  .input-lote,
+  .input-hora,
+  .input-date,
+  .input-quantidade {
+    width: 100%; /* Faz os inputs ocuparem 100% da largura */
+  }
+
+  .form-group textarea {
+    width: 100%; /* Faz o textarea ocupar 100% da largura */
+  }
+
+  .form-buttons {
+    flex-direction: column; /* Coloca os botões em coluna */
+    gap: 10px;
+  }
+
+  .salvar,
+  .cancelar {
+    width: 100%; /* Faz os botões ocuparem 100% da largura */
+  }
+}
+
+@media (max-width: 768px) {
+  .right-sidebar {
+    width: 100%; /* Ocupa toda a largura da tela */
+    height: 100vh; /* Ocupa toda a altura da tela */
+    right: -100%;
+    padding: 15px;
+  }
+
+  .right-sidebar.open {
+    right: 0;
+  }
+
+  .close-sidebar {
+    width: 120px; /* Reduz a largura do botão de fechar */
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .sidebar-content h2 {
+    font-size: 20px; /* Reduz o tamanho do título */
+  }
+
+  .form-group label {
+    font-size: 16px; /* Reduz o tamanho da fonte dos labels */
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 14px; /* Reduz o tamanho da fonte dos inputs */
+  }
+}
+
+@media (max-width: 480px) {
+  .right-sidebar {
+    padding: 10px;
+  }
+
+  .close-sidebar {
+    width: 100px; /* Reduz ainda mais a largura do botão de fechar */
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .sidebar-content h2 {
+    font-size: 18px; /* Reduz o tamanho do título */
+  }
+
+  .form-group label {
+    font-size: 14px; /* Reduz o tamanho da fonte dos labels */
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 12px; /* Reduz o tamanho da fonte dos inputs */
+  }
+
+  .salvar,
+  .cancelar {
+    font-size: 14px; /* Reduz o tamanho da fonte dos botões */
+    padding: 8px 15px; /* Reduz o padding dos botões */
+  }
+}

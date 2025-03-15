@@ -304,49 +304,39 @@
 }
 
 /* 📲 Responsividade */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .lista-producao-container {
-    max-width: 100%;
-    padding: 10px;
+    max-width: 90%;
+    padding: 0 15px;
   }
 
-  .tabela-produtos th,
-  .tabela-produtos td {
-    font-size: 14px;
-    padding: 8px;
+  .lista-producao-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
   }
 
-  .procurar {
-    width: 100%;
-    font-size: 14px;
-  }
-
-  .print-button {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
-  .status-filtros {
-    font-size: 14px;
-  }
-
-  .paginacao span {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
   .lista-producao-title {
-    font-size: 24px;
+    font-size: 28px;
+  }
+
+  .print-button {
+    width: 150px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .filtros {
+    flex-direction: column;
+    gap: 10px;
   }
 
   .procurar {
     width: 100%;
   }
 
-  .print-button {
+  .filtro-botao {
     width: 100%;
-    justify-content: center;
   }
 
   .status-filtros {
@@ -355,7 +345,53 @@
   }
 
   .tabela-produtos-container {
-    padding: 10px;
+    overflow-x: auto; /* Adiciona rolagem horizontal */
+    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
+  }
+
+  .tabela-produtos {
+    min-width: 600px; /* Define uma largura mínima para a tabela */
+  }
+
+  .tabela-produtos th,
+  .tabela-produtos td {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .paginacao {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .lista-producao-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .lista-producao-title {
+    font-size: 24px;
+  }
+
+  .print-button {
+    width: 120px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .procurar {
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .filtro-botao {
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .status-filtros span {
+    font-size: 16px;
   }
 
   .tabela-produtos th,
@@ -364,7 +400,43 @@
     padding: 6px;
   }
 
-  .paginacao {
-    justify-content: center;
+  .paginacao span {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lista-producao-title {
+    font-size: 20px;
+  }
+
+  .print-button {
+    width: 100px;
+    height: 25px;
+    font-size: 10px;
+  }
+
+  .procurar {
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .filtro-botao {
+    height: 25px;
+    font-size: 10px;
+  }
+
+  .status-filtros span {
+    font-size: 14px;
+  }
+
+  .tabela-produtos th,
+  .tabela-produtos td {
+    font-size: 10px;
+    padding: 4px;
+  }
+
+  .paginacao span {
+    font-size: 10px;
   }
 }

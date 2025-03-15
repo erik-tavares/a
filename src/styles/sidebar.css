@@ -37,24 +37,6 @@
 }
 
 /* ===================== */
-/*   RESPONSIVIDADE      */
-/* ===================== */
-@media (max-width: 480px) {
-  .sidebar-header {
-    padding: 10px; /* Reduz o padding em telas menores */
-    gap: 8px; /* Reduz espaço entre ícone e título */
-  }
-
-  .menu-icon {
-    font-size: 18px; /* Ícone menor para telas pequenas */
-  }
-
-  .sidebar-title {
-    font-size: 16px; /* Tamanho menor do título em telas pequenas */
-  }
-}
-
-/* ===================== */
 /*      DIVIDER          */
 /* ===================== */
 .sidebar-divider {
@@ -309,9 +291,10 @@
 /* ===================== */
 /*    RESPONSIVIDADE     */
 /* ===================== */
-@media (max-width: 768px) {
+
+@media (max-width: 1024px) {
   .sidebar {
-    width: 240px;
+    width: 240px; /* Reduz a largura da sidebar */
     left: -240px;
   }
 
@@ -320,26 +303,39 @@
   }
 
   .toggle-btn {
-    left: 240px;
-  }
-
-  .sidebar-menu li a {
-    font-size: 16px;
-    padding: 10px;
+    left: 240px; /* Ajusta a posição do botão de toggle */
   }
 
   .sidebar-title {
-    font-size: 20px;
+    font-size: clamp(16px, 2vw, 20px); /* Ajusta o tamanho do título */
+  }
+
+  .sidebar-menu li a {
+    font-size: clamp(
+      14px,
+      2vw,
+      16px
+    ); /* Ajusta o tamanho da fonte dos itens do menu */
+    padding: 10px;
+  }
+
+  .search-container {
+    width: 90%; /* Aumenta a largura do container de busca */
+    padding: 10px;
   }
 
   .sidebar-button {
-    font-size: 16px;
+    font-size: clamp(
+      14px,
+      2vw,
+      16px
+    ); /* Ajusta o tamanho da fonte dos botões */
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .sidebar {
-    width: 220px;
+    width: 220px; /* Reduz ainda mais a largura da sidebar */
     left: -220px;
   }
 
@@ -348,25 +344,168 @@
   }
 
   .toggle-btn {
-    left: 220px;
+    left: 220px; /* Ajusta a posição do botão de toggle */
   }
 
-  .search-container {
-    width: 95%;
-    padding: 10px;
+  .sidebar-header {
+    padding: 10px; /* Reduz o padding do cabeçalho */
+    gap: 8px; /* Reduz o espaço entre o ícone e o título */
   }
 
-  .sidebar-menu li a {
-    font-size: 14px;
-    padding: 10px;
+  .menu-icon {
+    font-size: 16px; /* Reduz o tamanho do ícone */
   }
 
   .sidebar-title {
-    font-size: 18px;
+    font-size: clamp(14px, 2vw, 18px); /* Ajusta o tamanho do título */
+  }
+
+  .sidebar-menu li a {
+    font-size: clamp(
+      12px,
+      2vw,
+      14px
+    ); /* Ajusta o tamanho da fonte dos itens do menu */
+    padding: 8px;
+  }
+
+  .search-container {
+    width: 95%; /* Aumenta a largura do container de busca */
+    padding: 8px;
   }
 
   .sidebar-button {
-    width: 100%;
-    font-size: 14px;
+    font-size: clamp(
+      12px,
+      2vw,
+      14px
+    ); /* Ajusta o tamanho da fonte dos botões */
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 200px; /* Reduz a largura da sidebar para telas muito pequenas */
+    left: -200px;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .toggle-btn {
+    left: 200px; /* Ajusta a posição do botão de toggle */
+    top: 10px; /* Ajusta a posição vertical */
+    padding: 8px; /* Reduz o padding do botão */
+  }
+
+  .sidebar-header {
+    padding: 8px; /* Reduz o padding do cabeçalho */
+    gap: 6px; /* Reduz o espaço entre o ícone e o título */
+  }
+
+  .menu-icon {
+    font-size: 14px; /* Reduz o tamanho do ícone */
+  }
+
+  .sidebar-title {
+    font-size: clamp(12px, 2vw, 16px); /* Ajusta o tamanho do título */
+  }
+
+  .sidebar-menu li a {
+    font-size: clamp(
+      10px,
+      2vw,
+      12px
+    ); /* Ajusta o tamanho da fonte dos itens do menu */
+    padding: 6px;
+  }
+
+  .search-container {
+    width: 100%; /* Ocupa toda a largura disponível */
+    padding: 6px;
+  }
+
+  .search-input {
+    font-size: 14px; /* Reduz o tamanho da fonte do input de busca */
+  }
+
+  .sidebar-button {
+    font-size: clamp(
+      10px,
+      2vw,
+      12px
+    ); /* Ajusta o tamanho da fonte dos botões */
+    padding: 8px; /* Reduz o padding dos botões */
+  }
+
+  .submenu li a {
+    font-size: clamp(
+      10px,
+      1.8vw,
+      12px
+    ); /* Ajusta o tamanho da fonte do submenu */
+    padding: 8px;
+  }
+}
+
+@media (max-width: 320px) {
+  .sidebar {
+    width: 180px; /* Reduz a largura da sidebar para telas muito pequenas */
+    left: -180px;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .toggle-btn {
+    left: 180px; /* Ajusta a posição do botão de toggle */
+    top: 8px; /* Ajusta a posição vertical */
+    padding: 6px; /* Reduz o padding do botão */
+  }
+
+  .sidebar-header {
+    padding: 6px; /* Reduz o padding do cabeçalho */
+    gap: 4px; /* Reduz o espaço entre o ícone e o título */
+  }
+
+  .menu-icon {
+    font-size: 12px; /* Reduz o tamanho do ícone */
+  }
+
+  .sidebar-title {
+    font-size: clamp(10px, 2vw, 14px); /* Ajusta o tamanho do título */
+  }
+
+  .sidebar-menu li a {
+    font-size: clamp(
+      8px,
+      2vw,
+      10px
+    ); /* Ajusta o tamanho da fonte dos itens do menu */
+    padding: 4px;
+  }
+
+  .search-container {
+    padding: 4px;
+  }
+
+  .search-input {
+    font-size: 12px; /* Reduz o tamanho da fonte do input de busca */
+  }
+
+  .sidebar-button {
+    font-size: clamp(8px, 2vw, 10px); /* Ajusta o tamanho da fonte dos botões */
+    padding: 6px; /* Reduz o padding dos botões */
+  }
+
+  .submenu li a {
+    font-size: clamp(
+      8px,
+      1.8vw,
+      10px
+    ); /* Ajusta o tamanho da fonte do submenu */
+    padding: 6px;
   }
 }

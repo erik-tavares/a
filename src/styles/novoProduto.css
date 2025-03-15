@@ -493,46 +493,223 @@
 }
 
 /* 📲 Responsividade */
-@media (max-width: 768px) {
-  .estrutura-actions {
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
+@media (max-width: 1024px) {
+  .novo-produto-container {
+    max-width: 90%;
+    padding: 0 15px;
   }
 
-  .add-item-btn,
-  .update-cost-btn {
-    font-size: 14px; /* ✅ Redução para telas menores */
+  .novo-produto-title {
+    font-size: 28px;
   }
-}
 
-@media (max-width: 480px) {
-  .add-item-btn,
-  .update-cost-btn {
-    font-size: 12px; /* ✅ Ajuste extra para telas muito pequenas */
+  .tabs {
+    gap: 15px;
   }
-}
 
-/* 📲 Responsividade */
-@media (max-width: 768px) {
-  .tabela-produtos th,
-  .tabela-produtos td {
-    font-size: 14px;
+  .tab {
+    font-size: 18px;
+  }
+
+  .form-row,
+  .form-row2 {
+    gap: 15px;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+  }
+
+  .input-group input {
+    width: calc(100% - 50px);
+  }
+
+  .input-group .unit {
+    right: 5px;
+  }
+
+  .tabela-produtos-container {
+    overflow-x: auto; /* Adiciona rolagem horizontal */
+    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
+  }
+
+  .tabela-produtos {
+    min-width: 600px; /* Define uma largura mínima para a tabela */
   }
 
   .input-produto {
     width: 100%;
   }
 
-  .save-btn {
+  .input-unidade,
+  .input-quantidade {
+    width: 70px;
+  }
+
+  .input-group.input-custo {
+    width: 80px;
+  }
+
+  .input-total {
+    width: 70px;
+  }
+
+  .save-btn,
+  .delete-btn {
+    width: 60px;
+    font-size: 12px;
+  }
+
+  .estrutura-actions {
+    gap: 15px;
+  }
+
+  .add-item-btn,
+  .update-cost-btn {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .novo-produto-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .novo-produto-title {
+    font-size: 24px;
+  }
+
+  .tabs {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tab {
+    font-size: 16px;
+  }
+
+  .form-row,
+  .form-row2 {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-group input,
+  .form-group select {
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .input-group input {
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .input-group .unit {
+    font-size: 14px;
+  }
+
+  .tabela-produtos th,
+  .tabela-produtos td {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+
+  .input-produto {
     width: 100%;
+  }
+
+  .input-unidade,
+  .input-quantidade {
+    width: 60px;
+  }
+
+  .input-group.input-custo {
+    width: 70px;
+  }
+
+  .input-total {
+    width: 60px;
+  }
+
+  .save-btn,
+  .delete-btn {
+    width: 50px;
+    font-size: 10px;
   }
 
   .estrutura-actions {
     flex-direction: column;
     gap: 10px;
   }
+
+  .add-item-btn,
+  .update-cost-btn {
+    font-size: 12px;
+  }
 }
+
+@media (max-width: 480px) {
+  .novo-produto-title {
+    font-size: 20px;
+  }
+
+  .tab {
+    font-size: 14px;
+  }
+
+  .form-group input,
+  .form-group select {
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .input-group input {
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .input-group .unit {
+    font-size: 12px;
+  }
+
+  .tabela-produtos th,
+  .tabela-produtos td {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+
+  .input-produto {
+    width: 100%;
+  }
+
+  .input-unidade,
+  .input-quantidade {
+    width: 50px;
+  }
+
+  .input-group.input-custo {
+    width: 60px;
+  }
+
+  .input-total {
+    width: 50px;
+  }
+
+  .save-btn,
+  .delete-btn {
+    width: 40px;
+    font-size: 8px;
+  }
+
+  .add-item-btn,
+  .update-cost-btn {
+    font-size: 10px;
+  }
+}
+
 /* ✅ Índice de Desperdício */
 .indice-desperdicio {
   margin-top: 75px;

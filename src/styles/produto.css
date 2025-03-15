@@ -244,6 +244,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 23.74px;
+  white-space: nowrap; /* Impede que o texto quebre em várias linhas */
   color: #676363;
   white-space: nowrap;
   text-align: left;
@@ -257,6 +258,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 23.74px;
+  white-space: nowrap; /* Impede que o texto quebre em várias linhas */
   color: #000000;
   white-space: nowrap;
   overflow: hidden;
@@ -312,10 +314,69 @@
 }
 
 /* 📲 Melhor responsividade */
+@media (max-width: 1024px) {
+  .produtos-container {
+    max-width: 90%;
+    padding: 0 15px;
+  }
+
+  .produtos-title {
+    font-size: 28px;
+  }
+
+  .produtos-form {
+    width: 100%;
+  }
+
+  .acoes-container {
+    gap: 8px;
+  }
+
+  .add-produto-btn,
+  .acoes-btn {
+    font-size: 12px;
+    padding: 4px 12px;
+  }
+
+  .filtro-btn {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .status-filters {
+    gap: 20px;
+  }
+
+  .status-filters span {
+    font-size: 16px;
+    padding: 4px 8px;
+  }
+
+  .produtos-table th,
+  .produtos-table td {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+
+  .pagination {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 768px) {
+  .produtos-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .produtos-title {
+    font-size: 24px;
+  }
+
   .produtos-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
   }
 
   .pesquisa-e-filtros {
@@ -324,12 +385,23 @@
   }
 
   .produtos-form {
-    max-width: 100%;
+    width: 100%;
+    height: 35px;
+  }
+
+  .produtos-form input {
+    font-size: 14px;
   }
 
   .acoes-container {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .add-produto-btn,
+  .acoes-btn {
+    font-size: 12px;
+    padding: 4px 10px;
   }
 
   .filtros {
@@ -338,8 +410,116 @@
   }
 
   .filtro-btn {
-    width: auto;
-    max-width: 180px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .status-filters {
+    gap: 10px;
+  }
+
+  .status-filters span {
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+
+  .produtos-table th,
+  .produtos-table td {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+
+  .pagination {
+    font-size: 12px;
+  }
+
+  .modal-content {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .modal-option {
+    font-size: 16px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .produtos-title {
+    font-size: 20px;
+  }
+
+  .produtos-form {
+    height: 30px;
+  }
+
+  .produtos-form input {
+    font-size: 12px;
+  }
+
+  .add-produto-btn,
+  .acoes-btn {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .filtro-btn {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .status-filters {
+    gap: 5px;
+  }
+
+  .status-filters span {
+    font-size: 12px;
+    padding: 3px 6px;
+  }
+
+  .produtos-table th,
+  .produtos-table td {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+
+  .pagination {
+    font-size: 10px;
+  }
+
+  .modal-content {
+    width: 90%;
+    max-width: 250px;
+  }
+
+  .modal-option {
+    font-size: 14px;
+    height: 25px;
+  }
+}
+
+/* ✅ Responsividade da tabela */
+@media (max-width: 768px) {
+  .produtos-table th,
+  .produtos-table td {
+    font-size: 14px; /* Reduz o tamanho da fonte */
+    padding: 6px 10px; /* Reduz o padding */
+  }
+
+  .produtos-table {
+    min-width: 100%; /* Ajusta a largura mínima para ocupar 100% do contêiner */
+  }
+}
+
+@media (max-width: 480px) {
+  .produtos-table th,
+  .produtos-table td {
+    font-size: 12px; /* Reduz ainda mais o tamanho da fonte */
+    padding: 4px 8px; /* Reduz o padding */
+  }
+
+  .produtos-table-container {
+    overflow-x: scroll; /* Garante que a rolagem horizontal funcione */
   }
 }
 

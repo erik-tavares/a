@@ -319,19 +319,53 @@
 }
 
 /* 📲 Responsividade */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .manutencao-container {
-    max-width: 100%;
-    padding: 10px;
+    max-width: 90%;
+    padding: 0 15px;
+  }
+
+  .manutencao-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
   }
 
   .manutencao-title {
-    font-size: 24px;
+    font-size: 28px;
   }
 
   .incluir-manutencao {
+    width: 150px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .filtros {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .input-busca-placa {
     width: 100%;
-    justify-content: center;
+  }
+
+  .filtro-botao {
+    width: 100%;
+  }
+
+  .status-filtros {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tabela-manutencao-container {
+    overflow-x: auto; /* Adiciona rolagem horizontal */
+    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
+  }
+
+  .tabela-manutencao {
+    min-width: 600px; /* Define uma largura mínima para a tabela */
   }
 
   .tabela-manutencao th,
@@ -340,21 +374,75 @@
     padding: 8px;
   }
 
-  .procurar,
+  .paginacao {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .manutencao-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .manutencao-title {
+    font-size: 24px;
+  }
+
+  .incluir-manutencao {
+    width: 120px;
+    height: 30px;
+    font-size: 12px;
+  }
+
   .filtro-botao {
-    font-size: 14px;
-  }
-
-  .paginacao span {
-    font-size: 14px;
-  }
-
-  .status-filtros {
-    gap: 30px;
+    height: 30px;
+    font-size: 12px;
   }
 
   .status-filtros span {
     font-size: 16px;
+  }
+
+  .tabela-manutencao th,
+  .tabela-manutencao td {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .paginacao span {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .manutencao-title {
+    font-size: 20px;
+  }
+
+  .incluir-manutencao {
+    width: 100px;
+    height: 25px;
+    font-size: 10px;
+  }
+
+  .filtro-botao {
+    height: 25px;
+    font-size: 10px;
+  }
+
+  .status-filtros span {
+    font-size: 14px;
+  }
+
+  .tabela-manutencao th,
+  .tabela-manutencao td {
+    font-size: 10px;
+    padding: 4px;
+  }
+
+  .paginacao span {
+    font-size: 10px;
   }
 }
 

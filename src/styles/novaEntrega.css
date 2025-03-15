@@ -455,8 +455,23 @@ select option {
   background-color: #056f63;
 }
 
-/* ✅ Responsividade */
+/* 📲 Responsividade */
 @media (max-width: 1024px) {
+  .nova-entrega-container {
+    max-width: 90%;
+    padding: 0 15px;
+  }
+
+  .nova-entrega-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .nova-entrega-title {
+    font-size: 24px;
+  }
+
   .grid-container {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -464,29 +479,40 @@ select option {
   .cliente-novaEntrega .grid-container {
     grid-template-columns: repeat(2, 1fr);
   }
-}
 
-@media (max-width: 768px) {
-  .grid-container,
-  .cliente-novaEntrega .grid-container {
-    grid-template-columns: repeat(1, 1fr);
+  .input-nome,
+  .input-cidade,
+  .input-gps {
+    width: 100%;
   }
 
-  .nova-entrega-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  .input-uf {
+    width: 100%;
   }
 
-  .botoes-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+  .input-num-pedido,
+  .input-nf-e {
+    width: 100%;
+  }
+
+  .tabela-novaEntrega-container {
+    overflow-x: auto; /* Adiciona rolagem horizontal */
+    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
+  }
+
+  .tabela-novaEntrega {
+    min-width: 600px; /* Define uma largura mínima para a tabela */
   }
 
   .tabela-novaEntrega th,
   .tabela-novaEntrega td {
     font-size: 14px;
+    padding: 8px;
+  }
+
+  .botoes-container {
+    flex-direction: column;
+    gap: 10px;
   }
 
   .salvar-button,
@@ -494,6 +520,72 @@ select option {
     width: 100%;
   }
 }
+
+@media (max-width: 768px) {
+  .nova-entrega-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .nova-entrega-title {
+    font-size: 20px;
+  }
+
+  .grid-container,
+  .cliente-novaEntrega .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .input-nome,
+  .input-cidade,
+  .input-gps,
+  .input-uf,
+  .input-num-pedido,
+  .input-nf-e {
+    width: 100%;
+  }
+
+  .tabela-novaEntrega th,
+  .tabela-novaEntrega td {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .salvar-button,
+  .finalizar-button {
+    height: 35px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nova-entrega-title {
+    font-size: 18px;
+  }
+
+  .input-nome,
+  .input-cidade,
+  .input-gps,
+  .input-uf,
+  .input-num-pedido,
+  .input-nf-e {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .tabela-novaEntrega th,
+  .tabela-novaEntrega td {
+    font-size: 10px;
+    padding: 4px;
+  }
+
+  .salvar-button,
+  .finalizar-button {
+    height: 30px;
+    font-size: 12px;
+  }
+}
+
 .cliente-novaEntrega {
   background-color: white;
   padding: 20px;

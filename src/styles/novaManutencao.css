@@ -574,23 +574,100 @@ input[disabled] {
 /* ✅ Responsividade */
 @media (max-width: 1024px) {
   .grid-container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* Reduz para 3 colunas */
+    gap: 20px; /* Ajusta o espaçamento entre os itens */
+  }
+
+  .input-tipo-manu,
+  .input-produto,
+  .input-valor-manu,
+  .input-tipo,
+  .input-km-hodometro,
+  .input-data-final,
+  .input-data-inicial,
+  .input-num-manu,
+  .input-modelo,
+  .input-marca,
+  .input-motorista,
+  .input-placa,
+  .input-valor,
+  .input-quantidade,
+  .input-unidade,
+  .input-aplicacao {
+    width: 100%; /* Faz os inputs ocuparem 100% da largura */
+  }
+
+  .textarea-custom {
+    width: 100%; /* Ajusta a largura do textarea */
+  }
+
+  .nova-manutencao-header {
+    flex-direction: column; /* Coloca os elementos em coluna */
+    align-items: flex-start; /* Alinha os itens à esquerda */
+  }
+
+  .botoes-container {
+    flex-direction: column; /* Coloca os botões em coluna */
+    gap: 10px; /* Adiciona espaçamento entre os botões */
+  }
+
+  .salvar-button,
+  .finalizar-button {
+    width: 100%; /* Faz os botões ocuparem 100% da largura */
   }
 }
 
 @media (max-width: 768px) {
   .grid-container {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* Reduz para 2 colunas */
+    gap: 15px; /* Ajusta o espaçamento entre os itens */
   }
 
-  .botoes-container {
-    flex-direction: column;
-    gap: 10px;
+  .nova-manutencao-title {
+    font-size: 24px; /* Reduz o tamanho do título */
   }
 
-  .salvar-button,
-  .finalizar-button {
-    width: 100%;
+  .tabela-produtos-container {
+    overflow-x: auto; /* Permite rolagem horizontal na tabela */
+  }
+
+  .tabela-produtos th,
+  .tabela-produtos td {
+    font-size: 14px; /* Reduz o tamanho da fonte da tabela */
+    padding: 8px; /* Ajusta o padding */
+  }
+
+  .adicionar-item {
+    font-size: 14px; /* Reduz o tamanho da fonte do botão */
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-container {
+    grid-template-columns: repeat(1, 1fr); /* Reduz para 1 coluna */
+    gap: 10px; /* Ajusta o espaçamento entre os itens */
+  }
+
+  .nova-manutencao-title {
+    font-size: 20px; /* Reduz ainda mais o tamanho do título */
+  }
+
+  .dados-gerais-title,
+  .cliente-title {
+    font-size: 18px; /* Reduz o tamanho dos títulos das seções */
+  }
+
+  .cliente-produtos-title {
+    font-size: 16px; /* Reduz o tamanho do título dos produtos */
+  }
+
+  .save-btn,
+  .delete-btn {
+    width: 100%; /* Faz os botões ocuparem 100% da largura */
+  }
+
+  .modal-content {
+    width: 90%; /* Ajusta a largura da modal para telas pequenas */
   }
 }
 /* Fundo escurecido quando a modal estiver aberta */

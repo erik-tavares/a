@@ -360,3 +360,148 @@
   margin-top: 4px;
   display: block;
 }
+
+/* 📲 Responsividade */
+@media (max-width: 1024px) {
+  .paletizadorNovo-container {
+    max-width: 90%;
+    padding: 0 15px;
+  }
+
+  .paletizador-title {
+    font-size: 24px;
+  }
+
+  .form-row {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .input-salario,
+  .input-celular,
+  .input-email,
+  .input-nome,
+  .input-codigo,
+  .input-situacao {
+    width: 100%;
+  }
+
+  .metas-table {
+    overflow-x: auto; /* Adiciona rolagem horizontal */
+    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
+  }
+
+  .metas-table th,
+  .metas-table td {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .input-quantidade,
+  .input-produto,
+  .input-tipo {
+    width: 100%;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .paletizadorNovo-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .paletizador-title {
+    font-size: 20px;
+  }
+
+  .form-row {
+    gap: 10px;
+  }
+
+  .input-salario,
+  .input-celular,
+  .input-email,
+  .input-nome,
+  .input-codigo,
+  .input-situacao {
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .metas-table th,
+  .metas-table td {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .input-quantidade,
+  .input-produto,
+  .input-tipo {
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .add-meta-btn {
+    font-size: 16px;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    height: 35px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .paletizador-title {
+    font-size: 18px;
+  }
+
+  .form-row {
+    gap: 5px;
+  }
+
+  .input-salario,
+  .input-celular,
+  .input-email,
+  .input-nome,
+  .input-codigo,
+  .input-situacao {
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .metas-table th,
+  .metas-table td {
+    font-size: 10px;
+    padding: 4px;
+  }
+
+  .input-quantidade,
+  .input-produto,
+  .input-tipo {
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .add-meta-btn {
+    font-size: 14px;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    height: 30px;
+    font-size: 14px;
+  }
+}

@@ -274,19 +274,52 @@
 }
 
 /* 📲 Responsividade */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .detalhes-container {
-    max-width: 100%;
-    padding: 10px;
+    max-width: 90%;
+    padding: 0 15px;
+  }
+
+  .detalhes-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
   }
 
   .detalhes-title {
-    font-size: 24px;
+    font-size: 28px;
   }
 
   .incluir-lancamento {
+    width: 150px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .filtros {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filtro-botao {
     width: 100%;
-    justify-content: center;
+  }
+
+  .tabs {
+    gap: 20px;
+  }
+
+  .tab {
+    font-size: 18px;
+  }
+
+  .tabela-lancamentos-container {
+    overflow-x: auto; /* Adiciona rolagem horizontal */
+    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
+  }
+
+  .tabela-lancamentos {
+    min-width: 600px; /* Define uma largura mínima para a tabela */
   }
 
   .tabela-lancamentos th,
@@ -295,31 +328,82 @@
     padding: 8px;
   }
 
-  .filtro-botao {
-    font-size: 14px;
-  }
-
-  .paginacao span {
-    font-size: 14px;
-  }
-
-  .totais {
-    flex-wrap: wrap;
-    gap: 10px;
-    font-size: 14px;
+  .paginacao {
+    justify-content: center;
   }
 }
 
-@media (max-width: 480px) {
-  .filtros {
-    flex-wrap: wrap;
+@media (max-width: 768px) {
+  .detalhes-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .detalhes-title {
+    font-size: 24px;
+  }
+
+  .incluir-lancamento {
+    width: 120px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .filtro-botao {
+    height: 30px;
+    font-size: 12px;
   }
 
   .tab {
     font-size: 16px;
   }
 
-  .paginacao {
-    justify-content: center;
+  .tabela-lancamentos th,
+  .tabela-lancamentos td {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .paginacao span {
+    font-size: 12px;
+  }
+
+  .totais {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .detalhes-title {
+    font-size: 20px;
+  }
+
+  .incluir-lancamento {
+    width: 100px;
+    height: 25px;
+    font-size: 10px;
+  }
+
+  .filtro-botao {
+    height: 25px;
+    font-size: 10px;
+  }
+
+  .tab {
+    font-size: 14px;
+  }
+
+  .tabela-lancamentos th,
+  .tabela-lancamentos td {
+    font-size: 10px;
+    padding: 4px;
+  }
+
+  .paginacao span {
+    font-size: 10px;
+  }
+
+  .totais {
+    font-size: 12px;
   }
 }

@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Sidebar from "../../../../components/Sidebar";
 import { FaSave, FaPlusCircle, FaTrash } from "react-icons/fa";
 import "../../../../styles/novoOperador.css";
-import InputMask from "react-input-mask-next";
 
 export default function NovoOperadorPage() {
   const router = useRouter();

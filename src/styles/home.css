@@ -18,18 +18,6 @@
   margin-left: min(260px, 25vw);
 }
 
-@media (max-width: 768px) {
-  .home-container.sidebar-open {
-    margin-left: min(200px, 20vw);
-  }
-}
-
-@media (max-width: 480px) {
-  .home-container.sidebar-open {
-    margin-left: 0;
-  }
-}
-
 /* ===================== */
 /*  MODAL RESPONSIVA */
 /* ===================== */
@@ -121,35 +109,6 @@
 }
 
 /* ===================== */
-/*  RESPONSIVIDADE EXTRA  */
-/* ===================== */
-@media (max-width: 480px) {
-  .modalHome-content {
-    width: 90%;
-    height: auto;
-    padding: 15px;
-  }
-
-  .modalHome-options {
-    gap: 10px;
-  }
-
-  .modalHome-options li {
-    font-size: 14px;
-  }
-
-  .modalHome-options li svg {
-    font-size: 16px;
-  }
-
-  .close-button {
-    top: 6px;
-    right: 6px;
-    font-size: 14px;
-  }
-}
-
-/* ===================== */
 /*      CABEÇALHO (HEADER) */
 /* ===================== */
 .home-header {
@@ -185,37 +144,6 @@
 
 .home-header.sidebar-open {
   margin-left: min(260px, 25vw);
-}
-
-/* RESPONSIVIDADE */
-@media (max-width: 1024px) {
-  .home-header {
-    padding: 10px 20px;
-  }
-
-  .modalHome-button {
-    font-size: 22px;
-  }
-}
-
-@media (max-width: 768px) {
-  .home-header {
-    padding: 10px 16px;
-  }
-
-  .modalHome-button {
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .home-header {
-    padding: 8px 12px;
-  }
-
-  .modalHome-button {
-    font-size: 18px;
-  }
 }
 
 /* ===================== */
@@ -257,12 +185,6 @@
   margin-top: 10px;
 }
 
-@media (max-width: 768px) {
-  .subtitle-line {
-    width: 90%;
-  }
-}
-
 /* ===================== */
 /*      SEÇÃO DE AJUDA   */
 /* ===================== */
@@ -277,18 +199,6 @@
 
 .sidebar-open .help-container {
   margin-left: min(450px, 25vw);
-}
-
-@media (max-width: 768px) {
-  .sidebar-open .help-container {
-    margin-left: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .sidebar-open .help-container {
-    margin-left: 0;
-  }
 }
 
 /* ===================== */
@@ -342,26 +252,6 @@
 }
 
 /* ===================== */
-/*    RESPONSIVIDADE DOS CARDS  */
-/* ===================== */
-@media (max-width: 768px) {
-  .help-options {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .help-card {
-    width: 90%; /* Ocupa mais espaço em telas menores */
-  }
-}
-
-@media (max-width: 480px) {
-  .help-card {
-    width: 100%; /* Em telas muito pequenas, ocupa toda a largura */
-  }
-}
-
-/* ===================== */
 /*      BOTÃO DE LOGOUT  */
 /* ===================== */
 .logout-button {
@@ -383,24 +273,168 @@
 }
 
 /* ===================== */
-/*    AJUSTES EXTRAS PARA RESPONSIVIDADE   */
+/*  RESPONSIVIDADE EXTRA  */
 /* ===================== */
 @media (max-width: 1024px) {
+  .home-container.sidebar-open {
+    margin-left: min(200px, 20vw); /* Reduz o espaço da sidebar */
+  }
+
+  .home-greeting-container {
+    padding-right: 100px; /* Reduz o padding para telas menores */
+  }
+
   .help-options {
-    gap: 30px;
+    gap: 15px; /* Reduz o espaçamento entre os cards */
+  }
+
+  .help-card {
+    padding: 15px; /* Reduz o padding interno dos cards */
+  }
+
+  .modalHome-content {
+    width: clamp(200px, 50vw, 309px); /* Ajusta a largura da modal */
+    height: auto; /* Altura automática para telas menores */
+  }
+
+  .modalHome-options li {
+    font-size: clamp(16px, 2vw, 18px); /* Ajusta o tamanho da fonte */
   }
 }
 
 @media (max-width: 768px) {
+  .home-container.sidebar-open {
+    margin-left: 0; /* Remove o margin-left em telas menores */
+  }
+
+  .home-greeting-container {
+    padding-right: 20px; /* Reduz ainda mais o padding */
+  }
+
+  .home-greeting {
+    font-size: clamp(20px, 5vw, 28px); /* Ajusta o tamanho da fonte */
+    text-align: center; /* Centraliza o texto */
+  }
+
+  .home-subtitle {
+    font-size: clamp(12px, 2vw, 14px); /* Ajusta o tamanho da fonte */
+  }
+
   .help-options {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+    flex-direction: column; /* Coloca os cards em coluna */
+    gap: 10px; /* Reduz o espaçamento entre os cards */
   }
 
   .help-card {
-    width: 100%;
-    max-width: 100%;
-    margin: 10px 0;
+    width: 100%; /* Faz os cards ocuparem 100% da largura */
+    margin: 10px 0; /* Ajusta a margem */
+  }
+
+  .modalHome-content {
+    width: 80%; /* Aumenta a largura da modal */
+    padding: 15px; /* Reduz o padding interno */
+  }
+
+  .modalHome-options li {
+    font-size: clamp(14px, 2vw, 16px); /* Ajusta o tamanho da fonte */
+  }
+
+  .modalHome-options li svg {
+    font-size: clamp(14px, 2vw, 16px); /* Ajusta o tamanho dos ícones */
+  }
+
+  .close-button {
+    top: 5px;
+    right: 5px;
+    font-size: 14px; /* Reduz o tamanho do botão de fechar */
+  }
+
+  .logout-button {
+    width: 100%; /* Faz o botão ocupar 100% da largura */
+    margin-top: 10px; /* Ajusta a margem */
+  }
+}
+
+@media (max-width: 480px) {
+  .home-greeting {
+    font-size: clamp(18px, 5vw, 24px); /* Ajusta o tamanho da fonte */
+  }
+
+  .home-subtitle {
+    font-size: clamp(10px, 2vw, 12px); /* Ajusta o tamanho da fonte */
+  }
+
+  .help-title {
+    font-size: clamp(18px, 3vw, 22px); /* Ajusta o tamanho da fonte */
+    text-align: center; /* Centraliza o texto */
+  }
+
+  .help-card {
+    padding: 10px; /* Reduz o padding interno */
+  }
+
+  .modalHome-content {
+    width: 90%; /* Aumenta a largura da modal */
+    padding: 10px; /* Reduz o padding interno */
+  }
+
+  .modalHome-options li {
+    font-size: clamp(12px, 2vw, 14px); /* Ajusta o tamanho da fonte */
+  }
+
+  .modalHome-options li svg {
+    font-size: clamp(12px, 2vw, 14px); /* Ajusta o tamanho dos ícones */
+  }
+
+  .close-button {
+    top: 4px;
+    right: 4px;
+    font-size: 12px; /* Reduz o tamanho do botão de fechar */
+  }
+
+  .logout-button {
+    font-size: clamp(10px, 3vw, 14px); /* Ajusta o tamanho da fonte */
+    padding: 8px 16px; /* Ajusta o padding */
+  }
+}
+
+/* ===================== */
+/*  AJUSTES ESPECÍFICOS PARA TELAS MUITO PEQUENAS */
+/* ===================== */
+@media (max-width: 320px) {
+  .home-greeting {
+    font-size: clamp(16px, 5vw, 20px); /* Ajusta o tamanho da fonte */
+  }
+
+  .home-subtitle {
+    font-size: clamp(8px, 2vw, 10px); /* Ajusta o tamanho da fonte */
+  }
+
+  .help-title {
+    font-size: clamp(16px, 3vw, 20px); /* Ajusta o tamanho da fonte */
+  }
+
+  .modalHome-content {
+    width: 95%; /* Aumenta a largura da modal */
+    padding: 8px; /* Reduz o padding interno */
+  }
+
+  .modalHome-options li {
+    font-size: clamp(10px, 2vw, 12px); /* Ajusta o tamanho da fonte */
+  }
+
+  .modalHome-options li svg {
+    font-size: clamp(10px, 2vw, 12px); /* Ajusta o tamanho dos ícones */
+  }
+
+  .close-button {
+    top: 3px;
+    right: 3px;
+    font-size: 10px; /* Reduz o tamanho do botão de fechar */
+  }
+
+  .logout-button {
+    font-size: clamp(8px, 3vw, 12px); /* Ajusta o tamanho da fonte */
+    padding: 6px 12px; /* Ajusta o padding */
   }
 }

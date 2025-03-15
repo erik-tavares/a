@@ -68,6 +68,34 @@
   padding-bottom: 10px;
 }
 
+/* ✅ Ajuste do campo de senha e ícone */
+.password-container {
+  position: relative;
+  width: 300px; /* Mantém a largura fixa */
+  margin: 15px auto;
+}
+
+/* Ícone de mostrar/ocultar senha */
+.password-toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+  transition: color 0.2s ease-in-out;
+}
+
+.password-toggle-icon:hover {
+  color: #000;
+}
+
+/* Ajuste para manter o alinhamento correto */
+.password-input {
+  padding-right: 40px; /* Espaço para o ícone */
+}
+
 /* Ajuste para telas menores */
 @media (max-width: 480px) {
   .input-container,

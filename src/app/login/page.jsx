@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // Para redirecionamento
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Ícones para mostrar/ocultar senha
 import "../../styles/login.css";
 
 export default function LoginPage() {
   const [userInput, setUserInput] = useState(""); // Pode ser e-mail ou usuário
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // Estado para exibir/ocultar senha
   const [error, setError] = useState(""); // Estado para mensagens de erro
   const router = useRouter(); // Hook para redirecionamento
 
@@ -76,7 +78,7 @@ export default function LoginPage() {
 
           <div className="password-container">
             <input
-              type="password"
+              type={showPassword ? "text" : "password"} // Troca entre texto e senha
               id="password"
               className="password-input"
               placeholder=" " /* ⚠ Necessário para a animação funcionar */
@@ -86,6 +88,14 @@ export default function LoginPage() {
             <label htmlFor="password" className="password-label">
               Senha
             </label>
+
+            {/* Ícone de Mostrar/Ocultar Senha */}
+            <span
+              className="password-toggle-icon"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
           </div>
 
           {/* Botão */}

@@ -20,6 +20,7 @@ export default function producoesPage() {
   const [abaSelecionada, setAbaSelecionada] = useState("dados-gerais");
   const [preco, setPreco] = useState("0,00");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     quantidadeTotal: "", // Adicionando campo Quantidade Total
   });
@@ -30,13 +31,6 @@ export default function producoesPage() {
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const formatarPreco = (valor) => {
-    if (!valor) return "0,00"; // Se valor for undefined ou null, retorna "0,00"
-    valor = valor.toString().replace(/\D/g, ""); // Remove tudo que não for número
-    valor = (parseFloat(valor) / 100).toFixed(2).replace(".", ","); // Formata para moeda
-    return valor;
   };
 
   const removerTabela = (index) => {
@@ -88,8 +82,21 @@ export default function producoesPage() {
   };
 
   // ✅ Atualiza o estado do preço ao digitar
+  const formatarPreco = (valor) => {
+    if (!valor) return "0,00";
+    valor = valor.toString().replace(/\D/g, ""); // Remove tudo que não for número
+    valor = (parseFloat(valor) / 100).toFixed(2).replace(".", ",");
+    return valor;
+  };
+
   const handlePrecoChange = (e) => {
-    setPreco(formatarPreco(e.target.value));
+    let value = formatarPreco(e.target.value);
+    setPreco(value);
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors.preco;
+      return newErrors;
+    });
   };
 
   const [tabelas, setTabelas] = useState([
@@ -120,9 +127,15 @@ export default function producoesPage() {
     setTabelas(novasTabelas);
   };
 
-  const handleQuantidadeTotalChange = (e) => {
+  const handleQuantidadeChange = (e, field) => {
     let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
-    setFormData((prev) => ({ ...prev, quantidadeTotal: value || "" })); // Permite apagar tudo
+
+    setFormData((prev) => {
+      const newErrors = { ...errors };
+      delete newErrors[field];
+
+      return { ...prev, [field]: value };
+    });
   };
 
   const handlePorcentagemChange = (e) => {
@@ -155,6 +168,35 @@ export default function producoesPage() {
     setFormData((prev) => ({ ...prev, segundaLinha: value }));
   };
 
+  const handleSave = () => {
+    let newErrors = {};
+
+    // Valida cada campo obrigatório
+    if (!formData.segundaLinha) newErrors.segundaLinha = "Campo obrigatório";
+    if (!formData.unidade) newErrors.unidade = "Campo obrigatório";
+    if (!formData.metaCiclos) newErrors.metaCiclos = "Campo obrigatório";
+    if (!formData.tempo) newErrors.tempo = "Campo obrigatório";
+    if (!formData.solicitacoes) newErrors.solicitacoes = "Campo obrigatório";
+    if (!formData.areia) newErrors.areia = "Campo obrigatório";
+    if (!formData.areiaIndustrial)
+      newErrors.areiaIndustrial = "Campo obrigatório";
+    if (!formData.valor) newErrors.valor = "Campo obrigatório"; // Ciclos atingidos
+    if (!formData.tempoParado) newErrors.tempoParado = "Campo obrigatório";
+    if (!formData.cimento) newErrors.cimento = "Campo obrigatório";
+    if (!formData.brita) newErrors.brita = "Campo obrigatório";
+    if (!formData.aditivo) newErrors.aditivo = "Campo obrigatório";
+    if (!formData.preco) newErrors.preco = "Campo obrigatório";
+    if (!formData.quantidadeTotal)
+      newErrors.quantidadeTotal = "Campo obrigatório";
+    if (!formData.indiceLinha) newErrors.indiceLinha = "Campo obrigatório";
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      console.log("Dados salvos:", formData);
+    }
+  };
+
   const handleUnidadeChange = (e) => {
     let value = e.target.value;
 
@@ -174,27 +216,25 @@ export default function producoesPage() {
     setFormData((prev) => ({ ...prev, metaCiclos: value }));
   };
 
-  const handleTempoChange = (e) => {
-    let value = e.target.value;
+  const handleTempoChange = (e, field) => {
+    let value = e.target.value.replace(/\D/g, ""); // Apenas números
 
-    // Remove tudo que não for número
-    value = value.replace(/\D/g, "");
-
-    // Formata no padrão HH:MM
     if (value.length > 2) {
       value = value.slice(0, 2) + ":" + value.slice(2, 4);
     }
 
-    // Garante que o valor máximo de horas seja 99 e minutos 59
-    const [horas, minutos] = value.split(":");
-    if (horas && parseInt(horas, 10) > 99) {
-      value = "99" + (minutos ? ":" + minutos : "");
-    }
-    if (minutos && parseInt(minutos, 10) > 59) {
-      value = horas + ":59";
+    if (value.includes(":")) {
+      const [horas, minutos] = value.split(":");
+      if (parseInt(horas, 10) > 99) value = "99:" + minutos;
+      if (parseInt(minutos, 10) > 59) value = horas + ":59";
     }
 
-    setFormData((prev) => ({ ...prev, tempo: value }));
+    setFormData((prev) => {
+      const newErrors = { ...errors };
+      delete newErrors[field];
+
+      return { ...prev, [field]: value };
+    });
   };
 
   const handleSolicitacoesChange = (e) => {
@@ -225,6 +265,12 @@ export default function producoesPage() {
     }
 
     setFormData((prev) => ({ ...prev, areia: value }));
+
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors.areia; // Remove o erro ao digitar
+      return newErrors;
+    });
   };
 
   const handleAreiaIndustrialChange = (e) => {
@@ -246,13 +292,16 @@ export default function producoesPage() {
     }
 
     setFormData((prev) => ({ ...prev, areiaIndustrial: value }));
+
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors.areiaIndustrial; // Remove o erro ao digitar
+      return newErrors;
+    });
   };
 
   const handleTempoParadoChange = (e) => {
-    let value = e.target.value;
-
-    // Remove tudo que não for número
-    value = value.replace(/\D/g, "");
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
 
     // Formata no padrão HH:MM
     if (value.length > 2) {
@@ -268,7 +317,16 @@ export default function producoesPage() {
       value = horas + ":59";
     }
 
-    setFormData((prev) => ({ ...prev, tempoParado: value }));
+    setFormData((prev) => ({
+      ...prev,
+      tempoParado: value, // Atualiza o campo corretamente
+    }));
+
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors.tempoParado; // Remove o erro quando o usuário digita
+      return newErrors;
+    });
   };
 
   const handleCimentoChange = (e) => {
@@ -290,6 +348,12 @@ export default function producoesPage() {
     }
 
     setFormData((prev) => ({ ...prev, cimento: value }));
+
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors.cimento; // Remove o erro ao digitar
+      return newErrors;
+    });
   };
 
   const handleBritaChange = (e) => {
@@ -311,6 +375,12 @@ export default function producoesPage() {
     }
 
     setFormData((prev) => ({ ...prev, brita: value }));
+
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors.brita; // Remove o erro ao digitar
+      return newErrors;
+    });
   };
 
   const handleAditivoChange = (e) => {
@@ -332,6 +402,12 @@ export default function producoesPage() {
     }
 
     setFormData((prev) => ({ ...prev, aditivo: value }));
+
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors.aditivo; // Remove o erro ao digitar
+      return newErrors;
+    });
   };
 
   const atualizarUnidade = (e, index) => {
@@ -349,7 +425,71 @@ export default function producoesPage() {
 
   const handleNumeroChange = (e) => {
     let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
-    setFormData((prev) => ({ ...prev, valor: value }));
+
+    setFormData((prev) => ({
+      ...prev,
+      valor: value, // Atualiza o campo Ciclos Atingidos corretamente
+    }));
+
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors.valor; // Remove o erro quando o usuário digita
+      return newErrors;
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // Remove tudo que não for número
+    const numericValue = value.replace(/\D/g, "");
+
+    setFormData((prev) => ({ ...prev, [name]: numericValue }));
+
+    // Remove o erro quando o usuário digita algo
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors[name];
+      return newErrors;
+    });
+  };
+
+  const validarCampos = () => {
+    let newErrors = {};
+
+    if (!formData.quantidadeTotal || formData.quantidadeTotal.trim() === "")
+      newErrors.quantidadeTotal = "Campo obrigatório";
+    if (!formData.indiceLinha || formData.indiceLinha.trim() === "")
+      newErrors.indiceLinha = "Campo obrigatório";
+    if (!formData.segundaLinha || formData.segundaLinha.trim() === "")
+      newErrors.segundaLinha = "Campo obrigatório";
+    if (!formData.unidade || formData.unidade.trim() === "")
+      newErrors.unidade = "Campo obrigatório";
+    if (!preco || preco.trim() === "0,00")
+      newErrors.preco = "Campo obrigatório";
+    if (!formData.metaCiclos || formData.metaCiclos.trim() === "")
+      newErrors.metaCiclos = "Campo obrigatório";
+    if (!formData.tempo || formData.tempo.trim() === "")
+      newErrors.tempo = "Campo obrigatório";
+    if (!formData.solicitacoes || formData.solicitacoes.trim() === "")
+      newErrors.solicitacoes = "Campo obrigatório";
+    if (!formData.areia || formData.areia.trim() === "")
+      newErrors.areia = "Campo obrigatório";
+    if (!formData.areiaIndustrial || formData.areiaIndustrial.trim() === "")
+      newErrors.areiaIndustrial = "Campo obrigatório";
+    if (!formData.valor || formData.valor.trim() === "")
+      newErrors.valor = "Campo obrigatório";
+    if (!formData.tempoParado || formData.tempoParado.trim() === "")
+      newErrors.tempoParado = "Campo obrigatório";
+    if (!formData.cimento || formData.cimento.trim() === "")
+      newErrors.cimento = "Campo obrigatório";
+    if (!formData.brita || formData.brita.trim() === "")
+      newErrors.brita = "Campo obrigatório";
+    if (!formData.aditivo || formData.aditivo.trim() === "")
+      newErrors.aditivo = "Campo obrigatório";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Retorna "true" se não houver erros
   };
 
   return (
@@ -405,6 +545,7 @@ export default function producoesPage() {
                   <input
                     type="text"
                     placeholder="PISO INTERTRAVADO H8 - 10X20X8"
+                    disabled
                   />
                 </div>
                 <div className="form-group codigo">
@@ -417,8 +558,16 @@ export default function producoesPage() {
                     type="text"
                     placeholder="700"
                     value={formData.quantidadeTotal || ""}
-                    onChange={handleQuantidadeTotalChange}
+                    onChange={(e) =>
+                      handleQuantidadeChange(e, "quantidadeTotal")
+                    }
+                    className={errors.quantidadeTotal ? "input-error" : ""}
                   />
+                  {errors.quantidadeTotal && (
+                    <span className="error-message">
+                      {errors.quantidadeTotal}
+                    </span>
+                  )}
                 </div>
 
                 <div className="form-group tipo">
@@ -428,11 +577,14 @@ export default function producoesPage() {
                       type="text"
                       placeholder="1,5"
                       value={formData.indiceLinha || ""}
-                      onChange={handlePorcentagemChange}
+                      onChange={(e) => handleQuantidadeChange(e, "indiceLinha")}
+                      className={errors.indiceLinha ? "input-error" : ""}
                     />
-                    <span className="unit">%</span>{" "}
-                    {/* Mantém o % visualmente fora do input */}
+                    <span className="unit">%</span>
                   </div>
+                  {errors.indiceLinha && (
+                    <span className="error-message">{errors.indiceLinha}</span>
+                  )}
                 </div>
               </div>
               <div className="containerProducao">
@@ -452,10 +604,15 @@ export default function producoesPage() {
                   <label>Segunda Linha</label>
                   <input
                     type="text"
+                    name="segundaLinha"
                     placeholder="10,5"
                     value={formData.segundaLinha || ""}
-                    onChange={handleSegundaLinhaChange}
+                    onChange={handleChange}
+                    className={errors.segundaLinha ? "input-error" : ""}
                   />
+                  {errors.segundaLinha && (
+                    <span className="error-message">{errors.segundaLinha}</span>
+                  )}
                 </div>
 
                 <div className="form-group unidade">
@@ -463,13 +620,17 @@ export default function producoesPage() {
                   <div className="input-group">
                     <input
                       type="text"
+                      name="unidade"
                       placeholder="M²"
                       value={formData.unidade || ""}
-                      onChange={handleUnidadeChange}
+                      onChange={handleChange}
+                      className={errors.unidade ? "input-error" : ""}
                     />
-                    <span className="unit">²</span>{" "}
-                    {/* O "²" fica fora do input, sem impedir a remoção */}
+                    <span className="unit">²</span>
                   </div>
+                  {errors.unidade && (
+                    <span className="error-message">{errors.unidade}</span>
+                  )}
                 </div>
 
                 <div className="form-group preco">
@@ -480,8 +641,12 @@ export default function producoesPage() {
                       type="text"
                       value={preco}
                       onChange={handlePrecoChange}
+                      className={errors.preco ? "input-error" : ""}
                     />
                   </div>
+                  {errors.preco && (
+                    <span className="error-message">{errors.preco}</span>
+                  )}
                 </div>
               </div>
 
@@ -497,11 +662,16 @@ export default function producoesPage() {
                     <div className="input-group">
                       <input
                         type="text"
+                        name="metaCiclos"
                         placeholder="2000"
                         value={formData.metaCiclos || ""}
-                        onChange={handleMetaCiclosChange}
+                        onChange={handleChange}
+                        className={errors.metaCiclos ? "input-error" : ""}
                       />
                     </div>
+                    {errors.metaCiclos && (
+                      <span className="error-message">{errors.metaCiclos}</span>
+                    )}
                   </div>
 
                   <div className="form-group">
@@ -509,24 +679,34 @@ export default function producoesPage() {
                     <div className="input-group">
                       <input
                         type="text"
+                        name="tempo"
                         placeholder="9:00"
                         value={formData.tempo || ""}
-                        onChange={handleTempoChange}
-                        maxLength="5"
+                        onChange={handleChange}
+                        className={errors.tempo ? "input-error" : ""}
                       />
-                      <span className="unit">Hr</span>
                     </div>
+                    {errors.tempo && (
+                      <span className="error-message">{errors.tempo}</span>
+                    )}
                   </div>
                   <div className="form-group">
                     <label>Solicitações</label>
                     <div className="input-group">
                       <input
                         type="text"
+                        name="solicitacoes"
                         placeholder="Em Unidade"
                         value={formData.solicitacoes || ""}
-                        onChange={handleSolicitacoesChange}
+                        onChange={handleChange}
+                        className={errors.solicitacoes ? "input-error" : ""}
                       />
                     </div>
+                    {errors.solicitacoes && (
+                      <span className="error-message">
+                        {errors.solicitacoes}
+                      </span>
+                    )}
                   </div>
 
                   <div className="form-group">
@@ -534,12 +714,17 @@ export default function producoesPage() {
                     <div className="input-group">
                       <input
                         type="text"
+                        name="areia"
                         placeholder="0,0"
                         value={formData.areia || ""}
                         onChange={handleAreiaChange}
+                        className={errors.areia ? "input-error" : ""}
                       />
                       <span className="unit">Kg</span>
                     </div>
+                    {errors.areia && (
+                      <span className="error-message">{errors.areia}</span>
+                    )}
                   </div>
 
                   <div className="form-group">
@@ -547,12 +732,19 @@ export default function producoesPage() {
                     <div className="input-group">
                       <input
                         type="text"
+                        name="areiaIndustrial"
                         placeholder="0,0"
                         value={formData.areiaIndustrial || ""}
                         onChange={handleAreiaIndustrialChange}
+                        className={errors.areiaIndustrial ? "input-error" : ""}
                       />
                       <span className="unit">Kg</span>
                     </div>
+                    {errors.areiaIndustrial && (
+                      <span className="error-message">
+                        {errors.areiaIndustrial}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="info-box">
@@ -569,24 +761,37 @@ export default function producoesPage() {
                     <div className="input-group">
                       <input
                         type="text"
+                        name="valor" // Certifique-se que o name está correto
                         placeholder="2300"
                         value={formData.valor || ""}
-                        onChange={handleNumeroChange}
+                        onChange={handleChange} // Alterado para handleChange
+                        className={errors.valor ? "input-error" : ""}
                       />
                     </div>
+                    {errors.valor && (
+                      <span className="error-message">{errors.valor}</span>
+                    )}
                   </div>
+
                   <div className="form-group">
                     <label>Tempo Parado</label>
                     <div className="input-group">
                       <input
                         type="text"
+                        name="tempoParado"
                         placeholder="00:30"
                         value={formData.tempoParado || ""}
                         onChange={handleTempoParadoChange}
                         maxLength="5"
+                        className={errors.tempoParado ? "input-error" : ""}
                       />
                       <span className="unit">Hr</span>
                     </div>
+                    {errors.tempoParado && (
+                      <span className="error-message">
+                        {errors.tempoParado}
+                      </span>
+                    )}
                   </div>
 
                   <div className="form-group">
@@ -594,12 +799,17 @@ export default function producoesPage() {
                     <div className="input-group">
                       <input
                         type="text"
+                        name="cimento"
                         placeholder="0,0"
                         value={formData.cimento || ""}
                         onChange={handleCimentoChange}
+                        className={errors.cimento ? "input-error" : ""}
                       />
                       <span className="unit">Kg</span>
                     </div>
+                    {errors.cimento && (
+                      <span className="error-message">{errors.cimento}</span>
+                    )}
                   </div>
 
                   <div className="form-group">
@@ -607,12 +817,17 @@ export default function producoesPage() {
                     <div className="input-group">
                       <input
                         type="text"
+                        name="brita"
                         placeholder="0,0"
                         value={formData.brita || ""}
                         onChange={handleBritaChange}
+                        className={errors.brita ? "input-error" : ""}
                       />
                       <span className="unit">Kg</span>
                     </div>
+                    {errors.brita && (
+                      <span className="error-message">{errors.brita}</span>
+                    )}
                   </div>
 
                   <div className="form-group">
@@ -620,12 +835,17 @@ export default function producoesPage() {
                     <div className="input-group">
                       <input
                         type="text"
+                        name="aditivo"
                         placeholder="70"
                         value={formData.aditivo || ""}
                         onChange={handleAditivoChange}
+                        className={errors.aditivo ? "input-error" : ""}
                       />
                       <span className="unit">L</span>
                     </div>
+                    {errors.aditivo && (
+                      <span className="error-message">{errors.aditivo}</span>
+                    )}
                   </div>
                 </div>
 
@@ -729,7 +949,9 @@ export default function producoesPage() {
               <hr className="tabs-divider" />
 
               <div className="form-actions">
-                <button className="salvar-btn">Finalizar</button>
+                <button className="salvar-btn" onClick={handleSave}>
+                  Finalizar
+                </button>
               </div>
             </div>
           )}

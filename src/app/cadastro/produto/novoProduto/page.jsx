@@ -20,6 +20,7 @@ export default function NovoProdutoPage() {
   const [estoqueMaximo, setEstoqueMaximo] = useState("");
   const [estoqueMinimo, setEstoqueMinimo] = useState("");
   const [porcentagem, setPorcentagem] = useState("");
+  const [errors, setErrors] = useState({});
   const [dimensoes, setDimensoes] = useState({
     largura: "",
     altura: "",
@@ -48,12 +49,21 @@ export default function NovoProdutoPage() {
   };
 
   const handleEstoqueMinimoChange = (e) => {
-    let value = e.target.value;
-
-    // Remove tudo que não for número (impede letras, símbolos, vírgulas e pontos)
-    value = value.replace(/\D/g, "");
-
+    let value = e.target.value.replace(/\D/g, "");
     setEstoqueMinimo(value);
+
+    if (value.trim() !== "") {
+      setErrors((prev) => ({ ...prev, estoqueMinimo: undefined }));
+    }
+  };
+
+  const handleEstoqueMaximoChange = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    setEstoqueMaximo(value);
+
+    if (value.trim() !== "") {
+      setErrors((prev) => ({ ...prev, estoqueMaximo: undefined }));
+    }
   };
 
   const [largura, setLargura] = useState("");
@@ -64,51 +74,104 @@ export default function NovoProdutoPage() {
   });
 
   const [preco, setPreco] = useState("0,00");
+
   const [formData, setFormData] = useState({
-    unidade: "", // Inicializando o campo unidade
+    descricao: "",
+    unidade: "",
+    tipo: "",
+    preco: "",
+    pesoLiquido: "",
+    pesoBruto: "",
+    numeroVolume: "",
+    largura: "",
+    altura: "",
+    comprimento: "",
+    estoqueMinimo: "",
+    estoqueMaximo: "",
   });
+
+  const validarCampos = () => {
+    let newErrors = {};
+
+    // Valida os campos de Dimensões e Peso
+    // Validação dos campos de descrição, unidade, tipo e preço de custo
+    if (!formData.descricao || formData.descricao.trim() === "")
+      newErrors.descricao = "Campo obrigatório";
+    if (!formData.unidade || formData.unidade.trim() === "")
+      newErrors.unidade = "Campo obrigatório";
+    if (!formData.tipo || formData.tipo.trim() === "")
+      newErrors.tipo = "Campo obrigatório";
+    if (
+      !formData.preco ||
+      formData.preco.trim() === "" ||
+      formData.preco === "0,00"
+    )
+      newErrors.preco = "Campo obrigatório";
+
+    if (!pesos.pesoLiquido || pesos.pesoLiquido.trim() === "")
+      newErrors.pesoLiquido = "Campo obrigatório";
+    if (!pesos.pesoBruto || pesos.pesoBruto.trim() === "")
+      newErrors.pesoBruto = "Campo obrigatório";
+    if (!numeroVolume || numeroVolume.trim() === "")
+      newErrors.numeroVolume = "Campo obrigatório";
+
+    if (!dimensoes.largura || dimensoes.largura.trim() === "")
+      newErrors.largura = "Campo obrigatório";
+    if (!dimensoes.altura || dimensoes.altura.trim() === "")
+      newErrors.altura = "Campo obrigatório";
+    if (!dimensoes.comprimento || dimensoes.comprimento.trim() === "")
+      newErrors.comprimento = "Campo obrigatório";
+
+    // Valida os campos de Estoque
+    if (!estoqueMinimo || estoqueMinimo.trim() === "")
+      newErrors.estoqueMinimo = "Campo obrigatório";
+    if (!estoqueMaximo || estoqueMaximo.trim() === "")
+      newErrors.estoqueMaximo = "Campo obrigatório";
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0; // Retorna "true" se não houver erros
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (value.trim() !== "") {
+      setErrors((prev) => ({ ...prev, [name]: "" })); // Remove erro automaticamente ao digitar
+    }
+  };
+
+  const validarFormulario = () => {
+    let newErrors = {};
+    Object.keys(formData).forEach((key) => {
+      if (key !== "codigo" && formData[key].trim() === "") {
+        newErrors[key] = "Campo obrigatório";
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSalvar = () => {
+    if (validarCampos()) {
+      console.log("Formulário válido! Enviar dados ao backend...");
+      setErrors({}); // ✅ Limpa todos os erros após o envio bem-sucedido
+    }
+  };
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const handleEstoqueMaximoChange = (e) => {
-    let value = e.target.value;
-
-    // Remove tudo que não for número ou vírgula
-    value = value.replace(/[^0-9,]/g, "");
-
-    // Impede múltiplas vírgulas
-    const parts = value.split(",");
-    if (parts.length > 2) {
-      value = parts[0] + "," + parts.slice(1).join("");
-    }
-
-    // Garante no máximo uma casa decimal
-    if (value.includes(",")) {
-      const [integer, decimal] = value.split(",");
-      value = integer + "," + (decimal.slice(0, 1) || "");
-    }
-
-    setEstoqueMaximo(value);
-  };
-
   const handleDimensaoChange = (field, value) => {
-    // Remove tudo que não for número ou vírgula
     value = value.replace(/[^0-9,]/g, "");
-
-    // Impede múltiplas vírgulas
-    const parts = value.split(",");
-    if (parts.length > 2) {
-      value = parts[0] + "," + parts.slice(1).join("");
-    }
-
-    // Garante no máximo uma casa decimal
-    if (value.includes(",")) {
-      const [integer, decimal] = value.split(",");
-      value = integer + "," + (decimal.slice(0, 1) || "");
-    }
-
     setDimensoes((prev) => ({ ...prev, [field]: value }));
+
+    if (value.trim() !== "") {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
   };
 
   const handleLarguraChange = (e) => {
@@ -133,12 +196,12 @@ export default function NovoProdutoPage() {
   };
 
   const handleNumeroVolumeChange = (e) => {
-    let value = e.target.value;
-
-    // Remove tudo que não for número
-    value = value.replace(/\D/g, "");
-
+    let value = e.target.value.replace(/\D/g, "");
     setNumeroVolume(value);
+
+    if (value.trim() !== "") {
+      setErrors((prev) => ({ ...prev, numeroVolume: undefined }));
+    }
   };
 
   const handlePesoLiquidoChange = (e) => {
@@ -163,10 +226,25 @@ export default function NovoProdutoPage() {
   };
 
   const formatarPreco = (valor) => {
-    if (!valor) return "0,00"; // Se valor for undefined ou null, retorna "0,00"
-    valor = valor.toString().replace(/\D/g, ""); // Remove tudo que não for número
+    if (!valor) return "0,00";
+
+    valor = valor.replace(/\D/g, ""); // Remove tudo que não for número
     valor = (parseFloat(valor) / 100).toFixed(2).replace(".", ","); // Formata para moeda
+
     return valor;
+  };
+
+  const handlePrecoChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+    if (!value) value = "0"; // Garante que o valor não fique vazio
+
+    value = (parseFloat(value) / 100).toFixed(2).replace(".", ","); // Formata para moeda
+
+    setFormData((prev) => ({ ...prev, preco: value }));
+
+    if (value !== "0,00") {
+      setErrors((prev) => ({ ...prev, preco: "" })); // Remove erro automaticamente
+    }
   };
 
   const removerTabela = (index) => {
@@ -196,22 +274,12 @@ export default function NovoProdutoPage() {
   };
 
   const handlePesoChange = (field, value) => {
-    // Remove tudo que não for número ou ponto decimal
-    value = value.replace(/[^0-9.]/g, "");
-
-    // Impede múltiplos pontos decimais
-    const parts = value.split(".");
-    if (parts.length > 2) {
-      value = parts[0] + "." + parts.slice(1).join("");
-    }
-
-    // Limita a duas casas decimais
-    if (value.includes(".")) {
-      const [integer, decimal] = value.split(".");
-      value = integer + "." + (decimal.slice(0, 2) || "");
-    }
-
+    value = value.replace(/[^0-9,]/g, ""); // Remove caracteres inválidos
     setPesos((prev) => ({ ...prev, [field]: value }));
+
+    if (value.trim() !== "") {
+      setErrors((prev) => ({ ...prev, [field]: undefined })); // Remove o erro do campo ao digitar
+    }
   };
 
   const handleUnidadeChange = (e) => {
@@ -242,11 +310,6 @@ export default function NovoProdutoPage() {
       .replace(".", ",");
 
     setTabelas(novasTabelas);
-  };
-
-  // ✅ Atualiza o estado do preço ao digitar
-  const handlePrecoChange = (e) => {
-    setPreco(formatarPreco(e.target.value));
   };
 
   const [tabelas, setTabelas] = useState([
@@ -335,8 +398,15 @@ export default function NovoProdutoPage() {
                   <label>Descrição</label>
                   <input
                     type="text"
+                    name="descricao"
                     placeholder="Descrição completa do produto"
+                    value={formData.descricao}
+                    onChange={handleChange}
+                    className={errors.descricao ? "input-error" : ""}
                   />
+                  {errors.descricao && (
+                    <span className="error-message">{errors.descricao}</span>
+                  )}
                 </div>
                 <div className="form-group codigo">
                   <label>Código</label>
@@ -344,10 +414,19 @@ export default function NovoProdutoPage() {
                 </div>
                 <div className="form-group tipo">
                   <label>Tipo</label>
-                  <select>
+                  <select
+                    name="tipo"
+                    value={formData.tipo}
+                    onChange={handleChange}
+                    className={errors.tipo ? "input-error" : ""}
+                  >
+                    <option value="">Selecione</option>
                     <option>Fabricado</option>
                     <option>Matéria</option>
                   </select>
+                  {errors.tipo && (
+                    <span className="error-message">{errors.tipo}</span>
+                  )}
                 </div>
               </div>
 
@@ -357,10 +436,15 @@ export default function NovoProdutoPage() {
                   <label>Unidade</label>
                   <input
                     type="text"
+                    name="unidade"
                     placeholder="Ex: UND, M²"
                     value={formData.unidade}
-                    onChange={handleUnidadeChange}
+                    onChange={handleChange}
+                    className={errors.unidade ? "input-error" : ""}
                   />
+                  {errors.unidade && (
+                    <span className="error-message">{errors.unidade}</span>
+                  )}
                 </div>
                 <div className="form-group preco">
                   <label>Preço de custo</label>
@@ -368,10 +452,16 @@ export default function NovoProdutoPage() {
                     <span className="prefix">R$</span>
                     <input
                       type="text"
-                      value={preco}
+                      name="preco"
+                      placeholder="R$ 0,00"
+                      value={formData.preco}
                       onChange={handlePrecoChange}
+                      className={errors.preco ? "input-error" : ""}
                     />
                   </div>
+                  {errors.preco && (
+                    <span className="error-message">{errors.preco}</span>
+                  )}
                 </div>
               </div>
 
@@ -390,10 +480,15 @@ export default function NovoProdutoPage() {
                       onChange={(e) =>
                         handlePesoChange("pesoLiquido", e.target.value)
                       }
+                      className={errors.pesoLiquido ? "input-error" : ""}
                     />
                     <span className="unit">Kg</span>
                   </div>
+                  {errors.pesoLiquido && (
+                    <span className="error-message">{errors.pesoLiquido}</span>
+                  )}
                 </div>
+
                 <div className="form-group">
                   <label>Peso Bruto</label>
                   <div className="input-group">
@@ -404,10 +499,15 @@ export default function NovoProdutoPage() {
                       onChange={(e) =>
                         handlePesoChange("pesoBruto", e.target.value)
                       }
+                      className={errors.pesoBruto ? "input-error" : ""}
                     />
                     <span className="unit">Kg</span>
                   </div>
+                  {errors.pesoBruto && (
+                    <span className="error-message">{errors.pesoBruto}</span>
+                  )}
                 </div>
+
                 <div className="form-group">
                   <label>N° de VOL. por embalagem</label>
                   <div className="input-group">
@@ -416,12 +516,15 @@ export default function NovoProdutoPage() {
                       placeholder="Em Unidade"
                       value={numeroVolume}
                       onChange={handleNumeroVolumeChange}
+                      className={errors.numeroVolume ? "input-error" : ""}
                     />
                     <span className="unit">un</span>
                   </div>
+                  {errors.numeroVolume && (
+                    <span className="error-message">{errors.numeroVolume}</span>
+                  )}
                 </div>
               </div>
-              {/* ✅ Adicionando imagem à direita */}
 
               <div className="form-row2">
                 <div className="form-group">
@@ -434,10 +537,15 @@ export default function NovoProdutoPage() {
                       onChange={(e) =>
                         handleDimensaoChange("largura", e.target.value)
                       }
+                      className={errors.largura ? "input-error" : ""}
                     />
                     <span className="unit">cm</span>
                   </div>
+                  {errors.largura && (
+                    <span className="error-message">{errors.largura}</span>
+                  )}
                 </div>
+
                 <div className="form-group">
                   <label>Altura</label>
                   <div className="input-group">
@@ -448,10 +556,15 @@ export default function NovoProdutoPage() {
                       onChange={(e) =>
                         handleDimensaoChange("altura", e.target.value)
                       }
+                      className={errors.altura ? "input-error" : ""}
                     />
                     <span className="unit">cm</span>
                   </div>
+                  {errors.altura && (
+                    <span className="error-message">{errors.altura}</span>
+                  )}
                 </div>
+
                 <div className="form-group">
                   <label>Comprimento</label>
                   <div className="input-group">
@@ -462,10 +575,15 @@ export default function NovoProdutoPage() {
                       onChange={(e) =>
                         handleDimensaoChange("comprimento", e.target.value)
                       }
+                      className={errors.comprimento ? "input-error" : ""}
                     />
                     <span className="unit">cm</span>
                   </div>
+                  {errors.comprimento && (
+                    <span className="error-message">{errors.comprimento}</span>
+                  )}
                 </div>
+
                 <div className="dimensoes-imagem">
                   <img src="/pacote-caixa.svg" alt="Dimensões do Produto" />
                 </div>
@@ -483,6 +601,7 @@ export default function NovoProdutoPage() {
                     <option>Não</option>
                   </select>
                 </div>
+
                 <div className="form-group">
                   <label>Estoque mínimo</label>
                   <div className="input-group">
@@ -491,10 +610,17 @@ export default function NovoProdutoPage() {
                       placeholder="0"
                       value={estoqueMinimo}
                       onChange={handleEstoqueMinimoChange}
+                      className={errors.estoqueMinimo ? "input-error" : ""}
                     />
                     <span className="unit">un</span>
                   </div>
+                  {errors.estoqueMinimo && (
+                    <span className="error-message">
+                      {errors.estoqueMinimo}
+                    </span>
+                  )}
                 </div>
+
                 <div className="form-group">
                   <label>Estoque máximo</label>
                   <div className="input-group">
@@ -503,10 +629,17 @@ export default function NovoProdutoPage() {
                       placeholder="0,0"
                       value={estoqueMaximo}
                       onChange={handleEstoqueMaximoChange}
+                      className={errors.estoqueMaximo ? "input-error" : ""}
                     />
                     <span className="unit">cm</span>
                   </div>
+                  {errors.estoqueMaximo && (
+                    <span className="error-message">
+                      {errors.estoqueMaximo}
+                    </span>
+                  )}
                 </div>
+
                 <div className="form-group">
                   <label>Controlar lotes</label>
                   <select>
@@ -639,7 +772,9 @@ export default function NovoProdutoPage() {
           )}
           <hr className="tabs-dividerDisperdicio" />
           <div className="form-actions">
-            <button className="salvar-btn">salvar</button>
+            <button className="salvar-btn" onClick={handleSalvar}>
+              salvar
+            </button>
             <button className="cancelar-btn">cancelar</button>
           </div>
         </div>

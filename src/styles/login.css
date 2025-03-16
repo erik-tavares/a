@@ -96,14 +96,6 @@
   padding-right: 40px; /* Espaço para o ícone */
 }
 
-/* Ajuste para telas menores */
-@media (max-width: 480px) {
-  .input-container,
-  .password-container {
-    padding-bottom: 15px; /* Aumenta um pouco o espaço entre inputs em telas pequenas */
-  }
-}
-
 /* Campo de entrada */
 .login-input {
   width: 90%;
@@ -224,10 +216,62 @@
   transition: background 0.3s ease-in-out, transform 0.1s;
 }
 
-/* Ajuste para telas menores */
-@media (max-width: 480px) {
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .login-box {
+    width: 90%; /* Reduz a largura da caixa de login */
+    padding: 20px; /* Reduz o padding para telas menores */
+  }
+
+  .login-title {
+    font-size: 28px; /* Reduz o tamanho da fonte do título */
+    line-height: 40px; /* Ajusta a altura da linha */
+  }
+
+  .login-subtitle {
+    font-size: 18px; /* Reduz o tamanho da fonte do subtítulo */
+    line-height: 24px; /* Ajusta a altura da linha */
+    margin-bottom: 30px; /* Reduz o espaçamento inferior */
+  }
+
+  .input-container,
+  .password-container {
+    width: 90%; /* Ajusta a largura dos inputs */
+  }
+
   .login-button {
-    margin-top: 7vw; /* Aumenta o espaçamento em telas pequenas */
+    width: 90%; /* Ajusta a largura do botão */
+    padding: 8px 0; /* Reduz o padding horizontal */
+    margin-top: 40px; /* Ajusta o espaçamento superior */
+  }
+}
+
+/* Responsividade para telas muito pequenas (ex: smartphones) */
+@media (max-width: 480px) {
+  .login-box img {
+    width: 150px; /* Reduz o tamanho da logo */
+    height: 150px;
+  }
+
+  .login-title {
+    font-size: 24px; /* Reduz ainda mais o tamanho da fonte do título */
+    line-height: 36px;
+  }
+
+  .login-subtitle {
+    font-size: 16px; /* Reduz ainda mais o tamanho da fonte do subtítulo */
+    line-height: 22px;
+    margin-bottom: 20px; /* Reduz o espaçamento inferior */
+  }
+
+  .input-container,
+  .password-container {
+    width: 100%; /* Ajusta a largura dos inputs para ocupar toda a largura */
+  }
+
+  .login-button {
+    width: 100%; /* Ajusta a largura do botão para ocupar toda a largura */
+    margin-top: 30px; /* Reduz o espaçamento superior */
   }
 }
 

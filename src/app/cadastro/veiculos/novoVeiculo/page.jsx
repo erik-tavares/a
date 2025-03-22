@@ -273,6 +273,9 @@ export default function NovoVeiculoPage() {
                   type="text"
                   className={`input-ano ${errors.ano ? "input-error" : ""}`}
                   name="ano"
+                  style={{
+                    width: "40%",
+                  }}
                   value={formData.ano}
                   onChange={handleAnoChange}
                   maxLength="4"
@@ -301,6 +304,9 @@ export default function NovoVeiculoPage() {
                 <label>Código</label>
                 <input
                   type="text"
+                  style={{
+                    width: "40%",
+                  }}
                   value="Auto"
                   className="input-codigo"
                   disabled

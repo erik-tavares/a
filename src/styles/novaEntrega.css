@@ -44,15 +44,15 @@
 .form-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* 5 colunas */
-  gap: 15px; /* Espaçamento entre os inputs */
+  gap: 45px; /* Espaçamento entre os inputs */
   align-items: center;
 }
 
 /* ✅ Estilos das labels */
 .form-group label {
   font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 18px;
   color: #676363;
   margin-bottom: 5px;
 }
@@ -65,7 +65,7 @@
 
 .form-group-container {
   display: flex;
-  gap: 10px; /* Espaço entre os campos */
+  gap: 45px; /* Espaço entre os campos */
   align-items: center;
 }
 
@@ -149,52 +149,37 @@
   align-items: center;
 }
 
-/* ✅ Labels */
-label {
-  font-family: "Roboto Slab", serif;
-  font-weight: 400;
+.form-group select {
+  width: 60%;
+  height: 40px;
   font-size: 16px;
-  color: #676363;
-  margin-bottom: 5px;
-  display: block;
+  border: 2px solid #ccc;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
 }
 
-.input,
-.select {
-  width: 183px;
-  height: 50px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
+.form-group input {
+  width: 100%;
   padding: 10px;
   font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
 }
 
 .select {
   cursor: pointer;
 }
 
-input[type="date"] {
-  width: 183px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px 10px 4px 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  gap: 10px;
-  cursor: pointer;
+input[name="uf"] {
+  width: 40%;
 }
 
 /* ✅ Ajuste para o campo de Valor do Frete */
-.valor-frete {
-  display: flex;
-  align-items: center;
-}
 
 input:focus,
 select:focus {
@@ -205,13 +190,6 @@ select:focus {
 input[disabled] {
   background-color: #e0e0e0;
   color: #676363;
-}
-
-/* ✅ Inputs específicos */
-.distancia-input {
-  width: 100%;
-  height: 50px;
-  text-align: center;
 }
 
 /* ✅ Campos da seção Cliente | Produtos */
@@ -271,14 +249,6 @@ input[disabled] {
   padding: 5px;
   border-radius: 5px;
   outline: none;
-}
-
-.input-unidade,
-.input-quantidade {
-  width: 80px;
-}
-.input-produto {
-  width: 500px;
 }
 
 .lote {
@@ -595,153 +565,23 @@ select option {
 
 /* ✅ Ajuste manual para cada input/select */
 /* ✅ Ajuste específico para o input Nome */
-.input-nome {
-  width: 513px;
-  height: 50px;
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 8px;
-  font-size: 16px;
-}
-
-.input-distancia {
-  width: 186px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background-color: white;
-  padding: 10px;
-  font-size: 16px;
-  text-align: center;
-}
-
-.input-frete {
-  width: 183px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background-color: #ffffff;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.input-tipo {
-  width: 132px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background-color: #d9d9d9;
-  padding: 10px;
-  font-size: 16px;
-  opacity: 0.5;
-  text-align: center;
-}
-
-.input-num-entrega {
-  width: 183px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background-color: #d9d9d9;
-  opacity: 50%;
-  padding: 10px;
-  font-size: 16px;
-  text-align: center;
-}
-
-.input-modelo {
-  width: 132px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background-color: #d9d9d9;
-  opacity: 50%;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.input-marca {
-  width: 185px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background-color: #d9d9d9;
-  opacity: 50%;
-  padding: 10px;
-  font-size: 16px;
-}
-
-/* ✅ Cidade */
-/* ✅ Ajuste específico para o input Cidade */
-.input-cidade {
-  width: 273px;
-  height: 50px;
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 8px;
-  font-size: 16px;
-}
-
-/* ✅ UF */
-/* ✅ Ajuste específico para o input UF */
-.input-uf {
-  width: 110px;
-  height: 55px;
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 8px;
-  font-size: 16px;
-}
-
-/* ✅ Localização GPS */
-.input-gps {
-  width: 513px;
-  height: 50px;
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-}
-
-/* ✅ Número do Pedido */
-.input-num-pedido {
-  width: 120px;
-  height: 50px;
-  border-radius: 5px;
-  border: 1px solid;
-  padding: 10px;
-  font-size: 16px;
-}
-
-/* ✅ Número NF-e */
-.input-nf-e {
-  width: 123px;
-  height: 50px;
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-}
 
 /* ✅ Grid específico para os campos */
 .cliente-novaEntrega-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 0.3fr;
   grid-template-rows: auto auto;
-  gap: 15px;
+  gap: 45px;
   align-items: center;
 }
 
 /* ✅ Labels */
-.cliente-novaEntrega-grid label {
+.form-group label {
   font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 18px;
   color: #676363;
   margin-bottom: 5px;
-  display: block;
 }
 
 .entrega-titulo {

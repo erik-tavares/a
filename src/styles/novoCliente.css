@@ -1,9 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap");
+
 /* ✅ Container principal */
 .clientesNovo-container {
   width: 100%;
   max-width: 1042px;
   margin: 40px auto;
   text-align: left;
+}
+
+.clientsNovo-content {
+  min-height: 500px;
+  transition: opacity 0.2s ease-in-out;
 }
 
 /* ✅ Ajuste do cabeçalho */
@@ -21,7 +28,7 @@
   height: 37px; /* Altura */
   font-family: "Roboto Slab", serif; /* Fonte específica */
   font-weight: 700; /* Negrito */
-  font-size: 28px; /* Tamanho da fonte */
+  font-size: 26px; /* Tamanho da fonte */
   line-height: 36.93px; /* Espaçamento entre linhas */
   color: #3b447b; /* Cor do texto */
 }
@@ -105,17 +112,58 @@
 .form-group {
   display: flex;
   flex-direction: column;
+  flex: 1;
+}
+
+.form-group select {
+  width: 50%;
+  height: 40px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
 }
 
 /* ✅ Estilização para todas as labels */
 .form-group label {
-  font-family: "Roboto Slab", serif; /* Fonte específica */
-  font-weight: 400; /* Peso da fonte */
-  font-size: 18px; /* Tamanho da fonte */
-  line-height: 23.74px; /* Espaçamento entre linhas */
-  color: #676363; /* Cor do texto */
-  width: 58px; /* Largura da label */
-  height: 24px; /* Altura da label */
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #676363;
+  margin-bottom: 5px;
+}
+
+input[name="nome"] {
+  width: 70%;
+}
+
+input[name="cnpjCpf"] {
+  width: 50%;
+}
+
+input[name="codigo"] {
+  width: 40%;
+}
+
+input[name="email"] {
+  width: 70%;
+}
+
+input[name="celular"] {
+  width: 50%;
 }
 
 /* ✅ Input desabilitado */
@@ -212,82 +260,6 @@ input[disabled] {
   display: flex;
   justify-content: flex-start;
   gap: 20px;
-}
-
-/* ✅ Estilização específica para os inputs Nome e Email */
-.input-nome,
-.input-email {
-  width: 350px; /* Largura */
-  height: 30px; /* Altura */
-  border: 1px solid; /* Borda de 1px */
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1; /* Borda com gradiente */
-  padding: 10px; /* Espaçamento interno */
-  font-size: 16px; /* Tamanho do texto */
-  border-radius: 5px; /* Bordas arredondadas */
-  outline: none; /* Remove a borda azul ao clicar */
-}
-
-/* ✅ Estilização específica para o input CNPJ/CPF */
-.input-cnpj-cpf {
-  width: 250px; /* Largura */
-  height: 30px; /* Altura */
-  border: 1px solid; /* Borda de 1px */
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1; /* Borda com gradiente */
-  padding: 10px; /* Espaçamento interno */
-  font-size: 16px; /* Tamanho do texto */
-  border-radius: 5px; /* Bordas arredondadas */
-  outline: none; /* Remove a borda azul ao clicar */
-}
-
-/* ✅ Estilização específica para o input Celular */
-.input-celular {
-  width: 150px; /* Largura */
-  height: 30px; /* Altura */
-  border: 1px solid; /* Borda de 1px */
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1; /* Borda com gradiente */
-  padding: 10px; /* Espaçamento interno */
-  font-size: 16px; /* Tamanho do texto */
-  border-radius: 5px; /* Bordas arredondadas */
-  outline: none; /* Remove a borda azul ao clicar */
-}
-
-/* ✅ Estilização específica para o input Código */
-.input-codigo {
-  width: 113px; /* Largura */
-  height: 30px; /* Altura */
-  border: 1px solid; /* Borda de 1px */
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1; /* Borda com gradiente */
-  text-align: center; /* Alinhamento central do texto */
-  padding: 10px; /* Espaçamento interno */
-  font-size: 16px; /* Tamanho do texto */
-  border-radius: 5px; /* Bordas arredondadas */
-  outline: none; /* Remove a borda azul ao clicar */
-  background-color: #f0f0f0; /* Fundo cinza para indicar que é desabilitado */
-  color: #888; /* Cor do texto */
-}
-
-/* ✅ Estilização específica para o input Situação (Select) */
-.input-situacao {
-  width: 211px; /* Largura */
-  height: 50px; /* Altura */
-  border: 1px solid; /* Borda de 1px */
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1; /* Borda com gradiente */
-  padding: 10px; /* Espaçamento interno */
-  font-size: 16px; /* Tamanho do texto */
-  border-radius: 5px; /* Bordas arredondadas */
-  outline: none; /* Remove a borda azul ao clicar */
-  background-color: white; /* Fundo branco */
-  cursor: pointer; /* Indica que é clicável */
-}
-
-/* ✅ Ajusta o ícone do dropdown no Select */
-.input-situacao::-ms-expand {
-  display: none; /* Remove seta padrão do IE */
-}
-
-.input-situacao option {
-  text-align: center;
-  font-size: 16px;
 }
 
 /* ✅ Estilização do botão salvar */

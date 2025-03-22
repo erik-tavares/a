@@ -101,13 +101,15 @@ export default function ListaDeProducao() {
             placeholder="Pesquise por máquina ou código"
             className="procurar"
           />
-          <input
-            type="date"
-            className="periodo-button"
-            value={filtroPeriodo}
-            onClick={togglePeriodo}
-            onChange={(e) => setFiltroPeriodo(e.target.value)}
-          />
+          <div className="periodo-wrapper">
+            <input
+              type="date"
+              className="periodo-button"
+              value={filtroPeriodo}
+              onClick={togglePeriodo}
+              onChange={(e) => setFiltroPeriodo(e.target.value)}
+            />
+          </div>
         </div>
 
         {/* ✅ Opções de Filtro de Período */}

@@ -52,190 +52,12 @@
   margin-bottom: 5px;
 }
 
-.input-tipo-manu {
-  width: 213px;
-  height: 50px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  text-align: center;
-  background-color: white;
-  cursor: pointer;
-}
-
-.status-divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, #07aba0, #ccc, #999);
-  margin-top: 5px;
-  margin-bottom: 15px;
-  position: relative;
-  z-index: 0;
-}
-
-.input-produto {
-  width: 319px;
-  height: 50px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  text-align: left;
-  padding-left: 10px;
-  font-size: 16px;
-  color: #333;
-}
-
-.input-valor-manu {
-  width: 183px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  text-align: center;
-}
-
-.input-tipo {
-  width: 132px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  text-align: center;
-  background-color: #d9d9d9;
-  opacity: 0.5;
-}
-
-.input-km-hodometro {
-  width: 213px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  text-align: center;
-}
-
-.input-data-final {
-  width: 183px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px 10px 4px 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  text-align: center;
-  cursor: pointer;
-}
-
-.input-data-inicial {
-  width: 183px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px 10px 4px 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  text-align: center;
-  cursor: pointer;
-}
-
-.input-num-manu {
-  width: 183px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  text-align: center;
-  background-color: #d9d9d9;
-  opacity: 0.5;
-}
-
-.input-modelo {
-  width: 132px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  text-align: center;
-  background-color: #d9d9d9;
-  opacity: 0.5;
-}
-
-.input-marca {
-  width: 213px;
-  height: 30px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  text-align: center;
-  background-color: #d9d9d9;
-  opacity: 0.5;
-}
-
-.input-motorista {
-  width: 183px;
-  height: 50px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  text-align: center;
-  cursor: pointer;
-}
-
-.input-placa {
-  width: 183px;
-  height: 50px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  font-family: "Roboto Slab", serif;
-  color: #676363;
-  text-align: center;
-  cursor: pointer;
-}
-
 /* ✅ Grid dos campos */
 /* ✅ Grid */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 30px;
+  gap: 45px;
   align-items: center;
 }
 
@@ -252,24 +74,29 @@
 /* ✅ Inputs & Selects */
 
 .form-group select {
-  width: 190px;
-  height: 60px;
-  top: 235px;
-  left: 332px;
-  border: 1px solid;
-  border-image: linear-gradient(90deg, #999999, #cccccc, #999999);
-  border-image-slice: 1;
+  width: 60%;
+  height: 40px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
 }
 
-/* ✅ Inputs e selects */
-
 .form-group input {
-  width: 185px;
-  height: 50px;
-  border: 1px solid #999999;
-  border-radius: 4px;
+  width: 100%;
+  padding: 10px;
   font-size: 16px;
-  padding: 5px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.input-descricao {
+  height: 50px;
 }
 
 .select {
@@ -288,30 +115,16 @@
   margin-right: 5px;
 }
 
-/* ✅ Campo Valor Manutenção  */
-.valor-manutencao {
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  height: 50px;
-  padding-left: 10px;
-}
-
-label {
+.form-group label {
   font-family: "Roboto Slab", serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 23.74px;
+  font-size: 17px;
   color: #676363;
-  display: block;
+  margin-bottom: 5px;
 }
 
 .select {
   cursor: pointer;
-}
-
-input[type="date"] {
-  height: 40px;
 }
 
 input[disabled] {
@@ -334,7 +147,7 @@ input[disabled] {
 .tabela-produtos th,
 .tabela-produtos td {
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 20px;
   text-align: left;
 }
 
@@ -502,9 +315,28 @@ input[disabled] {
   border: 1px solid #3b447b;
   color: #3b447b;
   border-radius: 50px;
-  height: 35px;
+  padding: 4px 15px;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
-  width: 90px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+.entrega-titulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.motorista-titulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
 }
 
 .acoes-button {
@@ -513,12 +345,20 @@ input[disabled] {
   cursor: pointer;
 }
 
+.acoes-btn:hover {
+  background: linear-gradient(
+    180deg,
+    #777777,
+    #bbbbbb
+  ); /* Gradiente mais escuro no hover */
+}
+
 .voltar-button {
   background-color: #3b447b;
   color: #fff;
   border: none;
   border-radius: 50px;
-  padding: 8px 15px;
+  padding: 11px 15px;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;

@@ -190,27 +190,8 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
   let filteredMenu;
 
   // ✅ Se estiver na Home, mostra todos os menus principais
-  if (pathname === "/home") {
-    filteredMenu = filterMenuItems(searchQuery); // Filtra os menus com base na pesquisa
-  } else {
-    // ✅ Para outras páginas, exibe apenas o menu principal correspondente e o submenu certo
-    const activeMenu = menuItems.find((menu) =>
-      menu.submenu?.some((sub) => pathname.startsWith(sub.link))
-    );
-
-    if (activeMenu) {
-      filteredMenu = [
-        {
-          ...activeMenu,
-          submenu: activeMenu.submenu.filter((sub) =>
-            pathname.startsWith(sub.link)
-          ), // ✅ Exibe apenas o submenu correspondente
-        },
-      ];
-    } else {
-      filteredMenu = []; // Se não houver correspondência, esconde o menu
-    }
-  }
+  // ✅ Sempre mostra todos os menus, com busca se aplicada
+  filteredMenu = filterMenuItems(searchQuery);
 
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>

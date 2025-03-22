@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap");
+
 .novoVeiculo-container {
   width: 100%;
   max-width: 1042px;
@@ -87,23 +89,53 @@
 .form-group {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .form-group label {
   font-family: "Roboto Slab", serif;
   font-weight: 400;
   font-size: 18px;
-  line-height: 23.74px;
   color: #676363;
-  width: 64px;
-  height: 24px;
+  margin-bottom: 5px;
 }
 
 .form-group select {
-  padding: 8px;
-  border: 1px solid #ccc;
+  width: 70%;
+  height: 40px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
   border-radius: 5px;
-  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input[name="modelo"] {
+  width: 80%;
+}
+
+input[name="marca"] {
+  width: 80%;
+}
+
+input[name="placa"] {
+  width: 80%;
+}
+
+input[name="tipo"] {
+  width: 80%;
 }
 
 ::placeholder {
@@ -113,59 +145,6 @@
   line-height: 23.74px;
   color: #676363;
   opacity: 0.5;
-}
-
-.input-modelo,
-.input-marca {
-  width: 266px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-}
-
-.input-ano {
-  width: 120px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-}
-
-.input-km {
-  width: 172px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background-color: #d9d9d9;
-}
-
-.input-tipo {
-  width: 150px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-}
-
-.input-situacao {
-  width: 150px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  cursor: pointer;
-}
-
-.input-codigo {
-  width: 120px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  text-align: center;
-}
-
-.input-placa {
-  width: 120px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
 }
 
 .novoVeiculo-footer {

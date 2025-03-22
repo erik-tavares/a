@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap");
+
 /* ✅ Container principal */
 .novo-producoes-container {
   width: 100%;
@@ -107,7 +109,7 @@
 .form-group label {
   font-family: "Roboto Slab", serif;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 23.74px;
   color: #676363;
   margin-bottom: 5px;
@@ -117,26 +119,23 @@
 /* ✅ Estilização padrão dos inputs e selects */
 .form-group input {
   width: 100%;
-  height: 35px;
-  border: 1px solid transparent;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background: #ffffff;
+  padding: 10px;
   font-size: 16px;
-  padding: 8px;
+  border: 2px solid #ccc;
   border-radius: 5px;
   outline: none;
-  text-align: center;
+  transition: border-color 0.3s ease-in-out;
 }
+
 .form-group select {
-  width: 100%;
-  height: 55px;
-  border: 1px solid transparent;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background: #ffffff;
+  width: 50%;
+  height: 40px;
   font-size: 16px;
-  padding: 8px;
+  border: 2px solid #ccc;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
   border-radius: 5px;
   outline: none;
+  transition: border-color 0.3s ease-in-out;
   cursor: pointer;
 }
 
@@ -151,15 +150,13 @@
 
 /* ✅ Estilização específica para os campos de preço */
 .form-group.preco .input-group {
-  display: flex;
-  align-items: center;
-  width: 150px;
-  height: 35px;
-  border: 1px solid transparent;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background: #d9d9d9;
+  height: 20px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
   border-radius: 5px;
-  padding: 8px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
 }
 
 .form-group.preco .prefix {
@@ -220,18 +217,6 @@
   align-items: center;
   position: relative;
   text-align: center;
-}
-
-.input-group input {
-  width: 150px;
-  height: 35px;
-  border: 1px solid transparent;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background: rgba(217, 217, 217, 0.5); /* Opacidade de 50% */
-  font-size: 16px;
-  padding: 8px;
-  border-radius: 5px;
-  outline: none;
 }
 
 .containerProducao {
@@ -1113,6 +1098,13 @@ select[name="porcentagem"] {
 
   /* Gradiente na borda */
   border-image: linear-gradient(to bottom, #999999, #cccccc, #999999) 1;
+}
+
+.motorista-titulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
 }
 
 /* Campo de Lote */

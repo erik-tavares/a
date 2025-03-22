@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap");
+
 /* ✅ Container principal */
 .paletizadorNovo-container {
   width: 100%;
@@ -53,106 +55,16 @@
 
 .form-row {
   display: flex;
-  gap: 100px;
+  gap: 80px;
   margin-bottom: 15px;
-}
-
-/* ✅ Labels */
-.form-group label {
-  font-family: "Roboto Slab", serif;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 23.74px;
-  color: #676363;
-  display: block;
-  margin-bottom: 5px;
-}
-
-/* ✅ Inputs */
-
-.input-salario {
-  width: 150px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  outline: none;
-  background: white;
-}
-
-.input-celular {
-  width: 250px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  outline: none;
-  background: white;
-}
-
-.input-email {
-  width: 300px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  outline: none;
-  background: white;
-}
-
-.input-nome {
-  width: 300px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  outline: none;
-  background: white;
-}
-
-.input-codigo {
-  width: 80px;
-  height: 35px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  background: #f0f0f0;
-  color: #888;
-  text-align: center;
-}
-
-.input-situacao {
-  width: 100px;
-  height: 50px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  color: #888;
-  text-align: center;
-}
-
-.input-situacao {
-  cursor: pointer;
 }
 
 /* ✅ Metas de Produção */
 .metas-title {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 700;
+  font-family: "Roboto Slab", serif;
   color: #3b447b;
-  margin-top: 20px;
 }
 
 /* ✅ Tabela de Metas */
@@ -231,8 +143,57 @@
   text-align: left;
 }
 
-/* ✅ Inputs dentro da tabela */
+/* ✅ Estilização dos grupos de formulário */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 
+/* ✅ Labels dos Inputs */
+.form-group label {
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #676363;
+  margin-bottom: 5px;
+}
+
+.form-group select {
+  width: 50%;
+  height: 40px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input[name="salario"] {
+  width: 60%;
+}
+
+input[name="codigo"] {
+  width: 40%;
+}
+
+input[name="celular"] {
+  width: 50%;
+}
+
+/* ✅ Inputs dentro da tabela */
 .input-quantidade {
   width: 100px;
   height: 35px;

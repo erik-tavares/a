@@ -44,7 +44,7 @@ export default function NovaMaquinaPage() {
             <label htmlFor="nome">Modelo</label>
             <input
               type="text"
-              id="nome"
+              name="modelo"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               placeholder=""
@@ -55,7 +55,7 @@ export default function NovaMaquinaPage() {
             <label htmlFor="codigo">Código</label>
             <input
               type="text"
-              id="codigo"
+              name="codigo"
               value={codigo}
               onChange={(e) => setCodigo(e.target.value)}
               placeholder="Auto"

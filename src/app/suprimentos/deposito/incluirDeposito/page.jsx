@@ -44,7 +44,7 @@ export default function IncluirDeposito() {
             <label htmlFor="nome">Nome</label>
             <input
               type="text"
-              id="nome"
+              name="nome"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               placeholder=""
@@ -55,7 +55,7 @@ export default function IncluirDeposito() {
             <label htmlFor="codigo">Código</label>
             <input
               type="text"
-              id="codigo"
+              name="codigo"
               value={codigo}
               onChange={(e) => setCodigo(e.target.value)}
               placeholder="Opcional"
@@ -66,7 +66,7 @@ export default function IncluirDeposito() {
           <div className="form-group">
             <label htmlFor="situacao">Situação</label>
             <select
-              id="situacao"
+              name="situacao"
               value={situacao}
               onChange={(e) => setSituacao(e.target.value)}
             >

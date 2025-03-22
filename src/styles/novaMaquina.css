@@ -22,58 +22,15 @@
   font-size: 35px;
   color: #3b447b;
 }
-/* ✅ Input Nome */
-#nome {
-  width: 550px; /* Largura conforme especificação */
-  height: 35px; /* Altura conforme especificação */
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  outline: none;
-  transition: border 0.3s ease-in-out;
-}
 
 /* ✅ Efeito ao focar no input */
 #nome:focus {
   border: 1px solid #3b447b;
 }
 
-/* ✅ Input Código */
-#codigo {
-  width: 120px; /* Largura conforme especificação */
-  height: 35px; /* Altura conforme especificação */
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  outline: none;
-  transition: border 0.3s ease-in-out;
-  background-color: #e5e5e5; /* Fundo cinza para indicar campo opcional */
-  color: #676363;
-}
-
 /* ✅ Efeito ao focar no input */
 #codigo:focus {
   border: 1px solid #3b447b;
-}
-
-/* ✅ Select Situação */
-#situacao {
-  width: 211px; /* Largura conforme especificação */
-  height: 50px; /* Altura conforme especificação */
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  outline: none;
-  background-color: #ffffff; /* Fundo branco */
-  color: #3b447b; /* Cor do texto */
-  cursor: pointer;
-  transition: border 0.3s ease-in-out;
 }
 
 /* ✅ Efeito ao focar no select */
@@ -129,32 +86,41 @@
 
 /* ✅ Labels dos Inputs */
 .form-group label {
-  width: 58px; /* Largura conforme especificação */
-  height: 24px; /* Altura conforme especificação */
   font-family: "Roboto Slab", serif;
-  font-weight: 400; /* Peso da fonte */
-  font-size: 18px; /* Tamanho da fonte */
-  line-height: 23.74px; /* Altura da linha */
-  color: #676363; /* Cor do texto */
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  height: 40px;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  border-radius: 5px;
-  padding: 5px 10px;
-  font-size: 16px;
-  outline: none;
-  transition: border 0.3s ease-in-out;
-}
-
-/* ✅ Estilização do campo Código */
-.codigo-input {
-  background-color: #e5e5e5;
+  font-weight: 400;
+  font-size: 18px;
   color: #676363;
+  margin-bottom: 5px;
+}
+
+.form-group select {
+  width: 50%;
+  height: 40px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input[name="codigo"] {
+  width: 40%;
+}
+
+input[name="modelo"] {
+  width: 70%;
 }
 
 /* ✅ Botões */

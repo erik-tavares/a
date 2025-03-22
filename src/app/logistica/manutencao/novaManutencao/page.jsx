@@ -269,7 +269,7 @@ export default function NovaManutencao() {
                       <td>
                         <input
                           type="text"
-                          className="input-produto"
+                          className="input-descricao"
                           value={produto}
                           onChange={(e) =>
                             atualizarTabela(id, "produto", e.target.value)

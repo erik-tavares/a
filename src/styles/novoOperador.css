@@ -67,12 +67,34 @@
   background: #2e376b;
 }
 
+.back-button-wrapper {
+  position: relative;
+  top: 20px;
+  right: -125px;
+  z-index: 10; /* Garante que fique acima de outros elementos */
+}
+
 /* Estilização das abas */
 .tabs {
   display: flex;
   border-bottom: 2px solid #ccc;
   margin-bottom: 20px;
   flex-wrap: wrap;
+  width: 112%;
+}
+
+/* .backButtonOperador {
+  padding-left: 84%;
+} */
+
+.hrButtons4 {
+  width: 115%;
+  height: 2px;
+  background: linear-gradient(to right, #07aba0, #ccc, #999);
+  margin-top: 5px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 0;
 }
 
 .tabs span {
@@ -253,7 +275,7 @@ input[name="nome"] {
 }
 
 .hrButtons {
-  width: 100%;
+  width: 115%;
   height: 2px;
   background: linear-gradient(to right, #07aba0, #ccc, #999);
   margin-top: 5px;
@@ -263,7 +285,7 @@ input[name="nome"] {
 }
 
 .hrButtons2 {
-  width: 100%;
+  width: 115%;
   height: 2px;
   background: linear-gradient(to right, #07aba0, #ccc, #999);
   margin-top: 5px;
@@ -531,8 +553,14 @@ input[name="nome"] {
   border-collapse: collapse;
 }
 
-.tabela-produtos th,
 .tabela-produtos td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+  padding: 15px;
+}
+
+.tabela-produtos th {
   border: 1px solid #ccc;
   padding: 10px;
   text-align: left;
@@ -545,7 +573,7 @@ input[name="nome"] {
 }
 
 .tabela-produtos td input {
-  padding: 5px;
+  padding: 2px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }

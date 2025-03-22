@@ -248,7 +248,7 @@ export default function NovaEntrega() {
             <div className="form-group uf">
               <label htmlFor="uf">UF</label>
               <input
-                id="uf"
+                name="uf"
                 type="text"
                 className="input-uf"
                 placeholder="UF"

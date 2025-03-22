@@ -10,7 +10,7 @@ export default function MotoristaModal() {
     <>
       {/* ✅ Botão que abre a modal */}
       <button className="acoes-btn" onClick={toggleModal}>
-        ações <FaEllipsisV />
+        ações <img src="/ponto-azul.svg" alt="" />
       </button>
 
       {/* ✅ Modal - só exibe se isOpen for true */}

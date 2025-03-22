@@ -160,9 +160,11 @@ export default function NovoOperadorPage() {
       <div className="novo-operador-content">
         <div className="novo-operador-header">
           <h1 className="novo-operador-title">Novo operador</h1>
-          <button onClick={() => router.back()} className="back-button">
-            &larr; voltar
-          </button>
+          <div className="back-button-wrapper">
+            <button onClick={() => router.back()} className="back-button">
+              &larr; voltar
+            </button>
+          </div>
         </div>
 
         <div className="tabs">
@@ -264,7 +266,7 @@ export default function NovoOperadorPage() {
                 </div>
               </div>
 
-              <hr />
+              <hr className="hrButtons4" />
               <h2 className="dados-acesso-title">Dados de Acesso</h2>
 
               <div className="novo-operador-form form-column">

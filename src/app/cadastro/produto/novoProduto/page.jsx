@@ -700,7 +700,6 @@ export default function NovoProdutoPage() {
                         </td>
                         <td>
                           <div className="input-group input-custo">
-                            <span className="prefix">R$</span>
                             <input
                               type="text"
                               value={tabela.custo}

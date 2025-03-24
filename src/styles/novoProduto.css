@@ -354,7 +354,6 @@ input[name="codigo"] {
 .input-group.input-custo {
   display: flex;
   align-items: center;
-  width: 100px;
   padding: 5px;
   border-radius: 5px;
 }

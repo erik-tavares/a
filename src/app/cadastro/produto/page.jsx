@@ -17,6 +17,9 @@ export default function ProdutosPage() {
   const [tipoFiltro, setTipoFiltro] = useState("todos");
   const [exibirOpcoesSituacao, setExibirOpcoesSituacao] = useState(false); // ✅ Estado para exibir filtros de situação
   const [selecionarTodos, setSelecionarTodos] = useState(false);
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const itensPorPagina = 10;
+
   const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
 
   const [produtos, setProdutos] = useState([
@@ -111,6 +114,17 @@ export default function ProdutosPage() {
       tipo: "fabricado",
     },
   ]);
+
+  const produtosFiltrados = produtos.filter((produto) =>
+    tipoFiltro === "todos" ? true : produto.tipo === tipoFiltro
+  );
+
+  const totalPaginas = Math.ceil(produtosFiltrados.length / itensPorPagina);
+
+  const produtosPaginados = produtosFiltrados.slice(
+    (paginaAtual - 1) * itensPorPagina,
+    paginaAtual * itensPorPagina
+  );
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -208,19 +222,28 @@ export default function ProdutosPage() {
         <div className="status-filters">
           <span
             className={tipoFiltro === "todos" ? "active" : ""}
-            onClick={() => setTipoFiltro("todos")}
+            onClick={() => {
+              setTipoFiltro("todos");
+              setPaginaAtual(1);
+            }}
           >
             todos
           </span>
           <span
             className={tipoFiltro === "fabricado" ? "active" : ""}
-            onClick={() => setTipoFiltro("fabricado")}
+            onClick={() => {
+              setTipoFiltro("fabricado");
+              setPaginaAtual(1);
+            }}
           >
             fabricado
           </span>
           <span
             className={tipoFiltro === "matéria-prima" ? "active" : ""}
-            onClick={() => setTipoFiltro("matéria-prima")}
+            onClick={() => {
+              setTipoFiltro("matéria-prima");
+              setPaginaAtual(1);
+            }}
           >
             matéria-prima
           </span>
@@ -245,15 +268,9 @@ export default function ProdutosPage() {
 
                       // Atualiza checkboxes visíveis com base no filtro
                       const novoEstado = {};
-                      produtos
-                        .filter((produto) =>
-                          tipoFiltro === "todos"
-                            ? true
-                            : produto.tipo === tipoFiltro
-                        )
-                        .forEach((produto) => {
-                          novoEstado[produto.id] = marcado;
-                        });
+                      produtos.forEach((produto) => {
+                        novoEstado[produto.id] = marcado;
+                      });
 
                       setCheckboxesSelecionados(novoEstado);
                     }}
@@ -268,53 +285,47 @@ export default function ProdutosPage() {
               </tr>
             </thead>
             <tbody>
-              {produtos
-                .filter((produto) =>
-                  tipoFiltro === "todos" ? true : produto.tipo === tipoFiltro
-                )
-                .map((produto) => (
-                  <tr key={produto.id}>
-                    <td>
-                      <input
-                        type="checkbox"
-                        className="custom-checkbox"
-                        checked={checkboxesSelecionados[produto.id] || false}
-                        onChange={(e) => {
-                          const novoEstado = {
-                            ...checkboxesSelecionados,
-                            [produto.id]: e.target.checked,
-                          };
+              {produtosPaginados.map((produto) => (
+                <tr key={produto.id}>
+                  <td>
+                    <input
+                      type="checkbox"
+                      className="custom-checkbox"
+                      checked={checkboxesSelecionados[produto.id] || false}
+                      onChange={(e) => {
+                        const novoEstado = {
+                          ...checkboxesSelecionados,
+                          [produto.id]: e.target.checked,
+                        };
 
-                          setCheckboxesSelecionados(novoEstado);
+                        setCheckboxesSelecionados(novoEstado);
 
-                          const produtosVisiveis = produtos.filter((produto) =>
-                            tipoFiltro === "todos"
-                              ? true
-                              : produto.tipo === tipoFiltro
-                          );
+                        const produtosVisiveis = produtos.filter((p) =>
+                          tipoFiltro === "todos" ? true : p.tipo === tipoFiltro
+                        );
 
-                          const todosMarcados = produtosVisiveis.every(
-                            (produto) => novoEstado[produto.id]
-                          );
+                        const todosMarcados = produtosVisiveis.every(
+                          (p) => novoEstado[p.id]
+                        );
 
-                          setSelecionarTodos(todosMarcados);
-                        }}
-                      />
-                    </td>
-                    <td className="nome-produto">
-                      <ModalOptionsProduto
-                        className="action-icon"
-                        produto={produto}
-                      />{" "}
-                      {produto.nome}
-                    </td>
-                    <td>{produto.descricao}</td>
-                    <td>{produto.codigo}</td>
-                    <td>{produto.unidade}</td>
-                    <td>{produto.custo}</td>
-                    <td>{produto.estoque}</td>
-                  </tr>
-                ))}
+                        setSelecionarTodos(todosMarcados);
+                      }}
+                    />
+                  </td>
+                  <td className="nome-produto">
+                    <ModalOptionsProduto
+                      className="action-icon"
+                      produto={produto}
+                    />{" "}
+                    {produto.nome}
+                  </td>
+                  <td>{produto.descricao}</td>
+                  <td>{produto.codigo}</td>
+                  <td>{produto.unidade}</td>
+                  <td>{produto.custo}</td>
+                  <td>{produto.estoque}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -324,9 +335,20 @@ export default function ProdutosPage() {
 
         {/* Paginação */}
         <div className="pagination">
-          <span>01</span>
-          <span>02</span>
-          <span>→</span>
+          {Array.from({ length: totalPaginas }, (_, i) => i + 1).map(
+            (pagina) => (
+              <span
+                key={pagina}
+                onClick={() => setPaginaAtual(pagina)}
+                className={paginaAtual === pagina ? "active" : ""}
+              >
+                {String(pagina).padStart(2, "0")}
+              </span>
+            )
+          )}
+          {paginaAtual < totalPaginas && (
+            <span onClick={() => setPaginaAtual(paginaAtual + 1)}>→</span>
+          )}
         </div>
       </div>
     </div>

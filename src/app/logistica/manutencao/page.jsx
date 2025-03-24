@@ -13,6 +13,8 @@ export default function Manutencao() {
   const [placaPesquisa, setPlacaPesquisa] = useState("");
   const [paginaAtual, setPaginaAtual] = useState(1);
   const router = useRouter(); // ✅ Instanciando o roteador
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
 
   const togglePeriodo = () => {
     setExibirOpcoesPeriodo(!exibirOpcoesPeriodo);
@@ -150,9 +152,25 @@ export default function Manutencao() {
           <table className="tabela-manutencao">
             <thead>
               <tr>
-                <th></th> {/* Checkbox */}
+                <th>
+                  <input
+                    type="checkbox"
+                    checked={selecionarTodos}
+                    onChange={(e) => {
+                      const marcado = e.target.checked;
+                      setSelecionarTodos(marcado);
+
+                      const novoEstado = {};
+                      manutencoesPaginadas.forEach((manutencao) => {
+                        novoEstado[manutencao.num] = marcado;
+                      });
+
+                      setCheckboxesSelecionados(novoEstado);
+                    }}
+                  />
+                </th>
                 <th>Num</th>
-                <th>Ações</th> {/* Agora tem um cabeçalho próprio para ações */}
+                <th>Ações</th>
                 <th>Data</th>
                 <th>Placa</th>
                 <th>Km</th>
@@ -164,10 +182,28 @@ export default function Manutencao() {
             </thead>
             <tbody>
               {manutencoesPaginadas.length > 0 ? (
-                manutencoesPaginadas.map((manutencao, index) => (
-                  <tr key={index}>
+                manutencoesPaginadas.map((manutencao) => (
+                  <tr key={manutencao.num}>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={
+                          checkboxesSelecionados[manutencao.num] || false
+                        }
+                        onChange={(e) => {
+                          const novoEstado = {
+                            ...checkboxesSelecionados,
+                            [manutencao.num]: e.target.checked,
+                          };
+
+                          setCheckboxesSelecionados(novoEstado);
+
+                          const todosSelecionados = manutencoesPaginadas.every(
+                            (m) => novoEstado[m.num]
+                          );
+                          setSelecionarTodos(todosSelecionados);
+                        }}
+                      />
                     </td>
                     <td>{manutencao.num}</td>
                     <td className="acoes">

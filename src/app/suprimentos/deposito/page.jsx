@@ -12,6 +12,8 @@ export default function depositoPage() {
   const [searchTerm, setSearchTerm] = useState(""); // Estado da busca
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Estado do Sidebar
   const [statusFilter, setStatusFilter] = useState("todos"); // Filtro de status
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
 
   // Lista de operadores com status
   const [operadores] = useState([
@@ -111,17 +113,47 @@ export default function depositoPage() {
           <thead>
             <tr>
               <th className="col-checkbox">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={selecionarTodos}
+                  onChange={(e) => {
+                    const marcado = e.target.checked;
+                    setSelecionarTodos(marcado);
+
+                    const novoEstado = {};
+                    filteredOperadores.forEach((op) => {
+                      novoEstado[op.id] = marcado;
+                    });
+
+                    setCheckboxesSelecionados(novoEstado);
+                  }}
+                />
               </th>
               <th className="col-nome">Nome</th>
-              <th className="col-status"></th> {/* Coluna para status */}
+              <th className="col-status"></th>
             </tr>
           </thead>
           <tbody>
             {filteredOperadores.map((operador) => (
               <tr key={operador.id}>
                 <td className="col-checkbox">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={checkboxesSelecionados[operador.id] || false}
+                    onChange={(e) => {
+                      const novoEstado = {
+                        ...checkboxesSelecionados,
+                        [operador.id]: e.target.checked,
+                      };
+
+                      setCheckboxesSelecionados(novoEstado);
+
+                      const todosMarcados = filteredOperadores.every(
+                        (op) => novoEstado[op.id]
+                      );
+                      setSelecionarTodos(todosMarcados);
+                    }}
+                  />
                 </td>
                 <td className="col-nome">
                   <ModalOptionsDeposito className="action-icon" />{" "}

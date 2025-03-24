@@ -12,6 +12,8 @@ export default function OperadoresPage() {
   const [searchTerm, setSearchTerm] = useState(""); // Estado da busca
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Estado do Sidebar
   const [statusFilter, setStatusFilter] = useState("todos"); // Filtro de status
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
 
   // Lista de operadores com status
   const [operadores] = useState([
@@ -111,7 +113,21 @@ export default function OperadoresPage() {
           <thead>
             <tr>
               <th className="col-checkbox">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={selecionarTodos}
+                  onChange={(e) => {
+                    const marcado = e.target.checked;
+                    setSelecionarTodos(marcado);
+
+                    const novoEstado = {};
+                    filteredOperadores.forEach((operador) => {
+                      novoEstado[operador.id] = marcado;
+                    });
+
+                    setCheckboxesSelecionados(novoEstado);
+                  }}
+                />
               </th>
               <th className="col-nome">Nome</th>
               <th className="col-status"></th> {/* Coluna para status */}
@@ -121,7 +137,24 @@ export default function OperadoresPage() {
             {filteredOperadores.map((operador) => (
               <tr key={operador.id}>
                 <td className="col-checkbox">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={checkboxesSelecionados[operador.id] || false}
+                    onChange={(e) => {
+                      const novoEstado = {
+                        ...checkboxesSelecionados,
+                        [operador.id]: e.target.checked,
+                      };
+
+                      setCheckboxesSelecionados(novoEstado);
+
+                      const todosSelecionados = filteredOperadores.every(
+                        (operador) => novoEstado[operador.id]
+                      );
+
+                      setSelecionarTodos(todosSelecionados);
+                    }}
+                  />
                 </td>
                 <td className="col-nome">
                   <ModalOptionsOperador className="action-icon" />{" "}

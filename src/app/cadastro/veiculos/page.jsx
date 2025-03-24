@@ -12,6 +12,8 @@ export default function VeiculoPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [statusFilter, setStatusFilter] = useState("todos"); // Estado para filtragem
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
 
   const [veiculos] = useState([
     {
@@ -136,7 +138,21 @@ export default function VeiculoPage() {
           <thead>
             <tr>
               <th>
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={selecionarTodos}
+                  onChange={(e) => {
+                    const marcado = e.target.checked;
+                    setSelecionarTodos(marcado);
+
+                    const novoEstado = {};
+                    filteredVeiculos.forEach((v) => {
+                      novoEstado[v.id] = marcado;
+                    });
+
+                    setCheckboxesSelecionados(novoEstado);
+                  }}
+                />
               </th>
               <th>Modelo</th>
               <th>Placa</th>
@@ -150,7 +166,21 @@ export default function VeiculoPage() {
             {filteredVeiculos.map((veiculo) => (
               <tr key={veiculo.id}>
                 <td>
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={selecionarTodos}
+                    onChange={(e) => {
+                      const marcado = e.target.checked;
+                      setSelecionarTodos(marcado);
+
+                      const novoEstado = {};
+                      filteredVeiculos.forEach((v) => {
+                        novoEstado[v.id] = marcado;
+                      });
+
+                      setCheckboxesSelecionados(novoEstado);
+                    }}
+                  />
                 </td>
                 <td>
                   <VeiculosOptionsModal veiculo={veiculo} /> {veiculo.modelo}

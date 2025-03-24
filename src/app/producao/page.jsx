@@ -22,6 +22,8 @@ export default function ListaDeProducao() {
   const [exibirOpcoesPeriodo, setExibirOpcoesPeriodo] = useState(false); // ✅ Estado para exibir as opções do período
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paginaAtual, setPaginaAtual] = useState(1);
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -165,7 +167,25 @@ export default function ListaDeProducao() {
           <table className="tabela-produtos">
             <thead>
               <tr>
-                <th>Num</th>
+                <th>
+                  <input
+                    type="checkbox"
+                    checked={selecionarTodos}
+                    onChange={(e) => {
+                      const marcado = e.target.checked;
+                      setSelecionarTodos(marcado);
+
+                      const novoEstado = {};
+                      producoesPaginadas.forEach((p) => {
+                        novoEstado[p.num] = marcado;
+                      });
+
+                      setCheckboxesSelecionados(novoEstado);
+                    }}
+                  />{" "}
+                  Num
+                </th>
+
                 <th></th>
                 <th>Data</th>
                 <th>Máquina</th>
@@ -181,7 +201,25 @@ export default function ListaDeProducao() {
                 producoesPaginadas.map((producao) => (
                   <tr key={producao.num}>
                     <td>
-                      <input type="checkbox" /> {producao.num}
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[producao.num] || false}
+                        onChange={(e) => {
+                          const novoEstado = {
+                            ...checkboxesSelecionados,
+                            [producao.num]: e.target.checked,
+                          };
+
+                          setCheckboxesSelecionados(novoEstado);
+
+                          const todosSelecionados =
+                            producoesPaginadas.length > 0 &&
+                            producoesPaginadas.every((p) => novoEstado[p.num]);
+
+                          setSelecionarTodos(todosSelecionados);
+                        }}
+                      />{" "}
+                      {producao.num}
                     </td>
                     <td className="acoes" onClick={toggleModal}>
                       <img

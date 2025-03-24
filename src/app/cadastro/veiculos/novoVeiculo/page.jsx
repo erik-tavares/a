@@ -20,6 +20,8 @@ export default function NovoVeiculoPage() {
     tipo: "",
     km: "",
   });
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
 
   const validarCampos = () => {
     let newErrors = {};
@@ -358,7 +360,21 @@ export default function NovoVeiculoPage() {
             <thead>
               <tr>
                 <th>
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={selecionarTodos}
+                    onChange={(e) => {
+                      const marcado = e.target.checked;
+                      setSelecionarTodos(marcado);
+
+                      const novoEstado = {};
+                      registros.forEach((registro) => {
+                        novoEstado[registro.num] = marcado;
+                      });
+
+                      setCheckboxesSelecionados(novoEstado);
+                    }}
+                  />
                 </th>
                 <th>Num</th>
                 <th>Data</th>
@@ -375,7 +391,24 @@ export default function NovoVeiculoPage() {
               {registros.map((registro) => (
                 <tr key={registro.num}>
                   <td>
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      checked={checkboxesSelecionados[registro.num] || false}
+                      onChange={(e) => {
+                        const novoEstado = {
+                          ...checkboxesSelecionados,
+                          [registro.num]: e.target.checked,
+                        };
+
+                        setCheckboxesSelecionados(novoEstado);
+
+                        const todosSelecionados =
+                          registros.length > 0 &&
+                          registros.every((r) => novoEstado[r.num]);
+
+                        setSelecionarTodos(todosSelecionados);
+                      }}
+                    />
                   </td>
                   <td>{registro.num}</td>
                   <td>{registro.data}</td>

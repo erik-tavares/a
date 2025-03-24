@@ -16,6 +16,8 @@ export default function Entregas() {
   const [mostrarCalendario, setMostrarCalendario] = useState(false);
   const [exibirOpcoesPeriodo, setExibirOpcoesPeriodo] = useState(false); // ✅ Estado para exibir as opções do período
   const [termoPesquisa, setTermoPesquisa] = useState(""); // Estado para pesquisa
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
   const router = useRouter(); // ✅ Criando a instância do router
   const togglePeriodo = () => {
     setExibirOpcoesPeriodo(!exibirOpcoesPeriodo);
@@ -159,9 +161,25 @@ export default function Entregas() {
           <table className="tabela-entregas">
             <thead>
               <tr>
-                <th></th> {/* Coluna para Checkbox */}
+                <th>
+                  <input
+                    type="checkbox"
+                    checked={selecionarTodos}
+                    onChange={(e) => {
+                      const marcado = e.target.checked;
+                      setSelecionarTodos(marcado);
+
+                      const novoEstado = {};
+                      entregasFiltradas.forEach((entrega) => {
+                        novoEstado[entrega.num] = marcado;
+                      });
+
+                      setCheckboxesSelecionados(novoEstado);
+                    }}
+                  />
+                </th>
                 <th>Num</th>
-                <th>Ações</th> {/* Movido para logo após o Num */}
+                <th>Ações</th>
                 <th>Data</th>
                 <th>Placa</th>
                 <th>Motorista</th>
@@ -173,14 +191,30 @@ export default function Entregas() {
             </thead>
             <tbody>
               {entregasFiltradas.length > 0 ? (
-                entregasFiltradas.map((entrega, index) => (
-                  <tr key={index}>
+                entregasFiltradas.map((entrega) => (
+                  <tr key={entrega.num}>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[entrega.num] || false}
+                        onChange={(e) => {
+                          const novoEstado = {
+                            ...checkboxesSelecionados,
+                            [entrega.num]: e.target.checked,
+                          };
+
+                          setCheckboxesSelecionados(novoEstado);
+
+                          const todosSelecionados = entregasFiltradas.every(
+                            (ent) => novoEstado[ent.num]
+                          );
+                          setSelecionarTodos(todosSelecionados);
+                        }}
+                      />
                     </td>
                     <td>{entrega.num}</td>
                     <td className="acoes">
-                      <ModalOptionsEntregas /> {/* Agora logo após o Num */}
+                      <ModalOptionsEntregas />
                     </td>
                     <td>{entrega.data.toLocaleDateString("pt-BR")}</td>
                     <td>{entrega.placa}</td>
@@ -189,7 +223,7 @@ export default function Entregas() {
                     <td>{entrega.pedido}</td>
                     <td>{entrega.nfe}</td>
                     <td>
-                      {entrega.frete}{" "}
+                      {entrega.frete}
                       <span
                         className={`status-indicador ${
                           entrega.status === "finalizada"

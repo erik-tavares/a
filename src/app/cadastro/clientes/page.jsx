@@ -12,6 +12,8 @@ export default function ClientesPage() {
   const [searchTerm, setSearchTerm] = useState(""); // Estado da busca
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Estado do Sidebar
   const [statusFilter, setStatusFilter] = useState("todos"); // Filtro de status
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
 
   // Lista de operadores com status
   const [clientes] = useState([
@@ -111,7 +113,21 @@ export default function ClientesPage() {
           <thead>
             <tr>
               <th className="col-checkbox">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={selecionarTodos}
+                  onChange={(e) => {
+                    const marcado = e.target.checked;
+                    setSelecionarTodos(marcado);
+
+                    const novoEstado = {};
+                    filteredclientes.forEach((cliente) => {
+                      novoEstado[cliente.id] = marcado;
+                    });
+
+                    setCheckboxesSelecionados(novoEstado);
+                  }}
+                />
               </th>
               <th className="col-nome">Nome</th>
               <th className="col-status"></th> {/* Coluna para status */}
@@ -121,7 +137,26 @@ export default function ClientesPage() {
             {filteredclientes.map((clientes) => (
               <tr key={clientes.id}>
                 <td className="col-checkbox">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={checkboxesSelecionados[clientes.id] || false}
+                    onChange={(e) => {
+                      const novoEstado = {
+                        ...checkboxesSelecionados,
+                        [clientes.id]: e.target.checked,
+                      };
+
+                      setCheckboxesSelecionados(novoEstado);
+
+                      const todosSelecionados =
+                        filteredclientes.length > 0 &&
+                        filteredclientes.every(
+                          (cliente) => novoEstado[cliente.id]
+                        );
+
+                      setSelecionarTodos(todosSelecionados);
+                    }}
+                  />
                 </td>
                 <td className="col-nome">
                   <ClientesOptionsModal motorista={clientes} /> {clientes.nome}

@@ -12,6 +12,8 @@ export default function PaletizadorPage() {
   const [searchTerm, setSearchTerm] = useState(""); // Estado da busca
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Estado do Sidebar
   const [statusFilter, setStatusFilter] = useState("todos"); // Filtro de status
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
 
   // Lista de operadores com status
   const [paletizador] = useState([
@@ -111,7 +113,21 @@ export default function PaletizadorPage() {
           <thead>
             <tr>
               <th className="col-checkbox">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={selecionarTodos}
+                  onChange={(e) => {
+                    const marcado = e.target.checked;
+                    setSelecionarTodos(marcado);
+
+                    const novoEstado = {};
+                    filteredPaletizador.forEach((item) => {
+                      novoEstado[item.id] = marcado;
+                    });
+
+                    setCheckboxesSelecionados(novoEstado);
+                  }}
+                />
               </th>
               <th className="col-nome">Nome</th>
               <th className="col-status"></th> {/* Coluna para status */}
@@ -121,7 +137,26 @@ export default function PaletizadorPage() {
             {filteredPaletizador.map((paletizador) => (
               <tr key={paletizador.id}>
                 <td className="col-checkbox">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={checkboxesSelecionados[paletizador.id] || false}
+                    onChange={(e) => {
+                      const novoEstado = {
+                        ...checkboxesSelecionados,
+                        [paletizador.id]: e.target.checked,
+                      };
+
+                      setCheckboxesSelecionados(novoEstado);
+
+                      const todosSelecionados =
+                        filteredPaletizador.length > 0 &&
+                        filteredPaletizador.every(
+                          (item) => novoEstado[item.id]
+                        );
+
+                      setSelecionarTodos(todosSelecionados);
+                    }}
+                  />
                 </td>
                 <td className="col-nome">
                   <PaletizadorOptionsModal motorista={paletizador} />

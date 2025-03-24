@@ -12,6 +12,8 @@ export default function ControleDeEstoques() {
   const [exibirOpcoesOrdenacao, setExibirOpcoesOrdenacao] = useState(false); // ✅ Estado para exibir opções de ordenação
   const [exibirOpcoesSituacao, setExibirOpcoesSituacao] = useState(false); // ✅ Estado para exibir filtros de situação
   const [paginaAtual, setPaginaAtual] = useState(1);
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
 
   // ✅ Alternar exibição dos botões de ordenação
   const toggleOrdenacao = () => {
@@ -196,7 +198,23 @@ export default function ControleDeEstoques() {
           <table className="tabela-produtos">
             <thead>
               <tr>
-                <th></th>
+                <th>
+                  <input
+                    type="checkbox"
+                    checked={selecionarTodos}
+                    onChange={(e) => {
+                      const marcado = e.target.checked;
+                      setSelecionarTodos(marcado);
+
+                      const novoEstado = {};
+                      produtosPaginados.forEach((produto) => {
+                        novoEstado[produto.codigo] = marcado;
+                      });
+
+                      setCheckboxesSelecionados(novoEstado);
+                    }}
+                  />
+                </th>
                 <th>Descrição</th>
                 <th>Código</th>
                 <th>Custo Médio</th>
@@ -211,7 +229,26 @@ export default function ControleDeEstoques() {
                 produtosPaginados.map((produto, index) => (
                   <tr key={index}>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={
+                          checkboxesSelecionados[produto.codigo] || false
+                        }
+                        onChange={(e) => {
+                          const novoEstado = {
+                            ...checkboxesSelecionados,
+                            [produto.codigo]: e.target.checked,
+                          };
+
+                          setCheckboxesSelecionados(novoEstado);
+
+                          const todosSelecionados = produtosPaginados.every(
+                            (p) => novoEstado[p.codigo]
+                          );
+
+                          setSelecionarTodos(todosSelecionados);
+                        }}
+                      />
                     </td>
                     <td className="acoes">
                       <img

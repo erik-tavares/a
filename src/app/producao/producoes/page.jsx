@@ -21,6 +21,9 @@ export default function producoesPage() {
   const [preco, setPreco] = useState("0,00");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
+
   const [formData, setFormData] = useState({
     quantidadeTotal: "", // Adicionando campo Quantidade Total
   });
@@ -436,6 +439,22 @@ export default function producoesPage() {
       delete newErrors.valor; // Remove o erro quando o usuário digita
       return newErrors;
     });
+  };
+
+  const handleCheckboxChange = (id, checked) => {
+    const novoEstado = {
+      ...checkboxesSelecionados,
+      [id]: checked,
+    };
+
+    setCheckboxesSelecionados(novoEstado);
+
+    // Verifica se todos foram marcados
+    const todosSelecionados =
+      Object.values(novoEstado).length === 10 &&
+      Object.values(novoEstado).every((v) => v);
+
+    setSelecionarTodos(todosSelecionados);
   };
 
   const handleChange = (e) => {
@@ -962,7 +981,21 @@ export default function producoesPage() {
                 <thead>
                   <tr>
                     <th>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={selecionarTodos}
+                        onChange={(e) => {
+                          const marcado = e.target.checked;
+                          setSelecionarTodos(marcado);
+
+                          const novosCheckboxes = {};
+                          for (let i = 1; i <= 10; i++) {
+                            novosCheckboxes[i] = marcado;
+                          }
+
+                          setCheckboxesSelecionados(novosCheckboxes);
+                        }}
+                      />
                     </th>
                     <th>Num</th>
                     <th>Data</th>
@@ -978,7 +1011,13 @@ export default function producoesPage() {
                 <tbody>
                   <tr>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[1] || false}
+                        onChange={(e) =>
+                          handleCheckboxChange(1, e.target.checked)
+                        }
+                      />
                     </td>
                     <td>1</td>
                     <td>01/01/2025</td>
@@ -994,7 +1033,13 @@ export default function producoesPage() {
                   </tr>
                   <tr>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[2] || false}
+                        onChange={(e) =>
+                          handleCheckboxChange(2, e.target.checked)
+                        }
+                      />
                     </td>
                     <td>2</td>
                     <td>01/01/2025</td>
@@ -1010,7 +1055,13 @@ export default function producoesPage() {
                   </tr>
                   <tr>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[3] || false}
+                        onChange={(e) =>
+                          handleCheckboxChange(2, e.target.checked)
+                        }
+                      />
                     </td>
                     <td>3</td>
                     <td>03/01/2025</td>
@@ -1026,7 +1077,13 @@ export default function producoesPage() {
                   </tr>
                   <tr>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[4] || false}
+                        onChange={(e) =>
+                          handleCheckboxChange(2, e.target.checked)
+                        }
+                      />
                     </td>
                     <td>4</td>
                     <td>04/01/2025</td>
@@ -1042,7 +1099,13 @@ export default function producoesPage() {
                   </tr>
                   <tr>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[5] || false}
+                        onChange={(e) =>
+                          handleCheckboxChange(2, e.target.checked)
+                        }
+                      />
                     </td>
                     <td>5</td>
                     <td>05/01/2025</td>
@@ -1058,7 +1121,13 @@ export default function producoesPage() {
                   </tr>
                   <tr>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[6] || false}
+                        onChange={(e) =>
+                          handleCheckboxChange(2, e.target.checked)
+                        }
+                      />
                     </td>
                     <td>6</td>
                     <td>06/01/2025</td>
@@ -1074,7 +1143,13 @@ export default function producoesPage() {
                   </tr>
                   <tr>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[7] || false}
+                        onChange={(e) =>
+                          handleCheckboxChange(2, e.target.checked)
+                        }
+                      />
                     </td>
                     <td>7</td>
                     <td>07/01/2025</td>
@@ -1090,7 +1165,13 @@ export default function producoesPage() {
                   </tr>
                   <tr>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[8] || false}
+                        onChange={(e) =>
+                          handleCheckboxChange(2, e.target.checked)
+                        }
+                      />
                     </td>
                     <td>8</td>
                     <td>08/01/2025</td>
@@ -1106,7 +1187,13 @@ export default function producoesPage() {
                   </tr>
                   <tr>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[9] || false}
+                        onChange={(e) =>
+                          handleCheckboxChange(2, e.target.checked)
+                        }
+                      />
                     </td>
                     <td>9</td>
                     <td>09/01/2025</td>
@@ -1122,7 +1209,13 @@ export default function producoesPage() {
                   </tr>
                   <tr>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkboxesSelecionados[10] || false}
+                        onChange={(e) =>
+                          handleCheckboxChange(2, e.target.checked)
+                        }
+                      />
                     </td>
                     <td>10</td>
                     <td>10/01/2025</td>

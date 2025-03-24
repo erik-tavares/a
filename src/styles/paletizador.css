@@ -95,6 +95,18 @@
   font-size: 20px;
 }
 
+.status-filters span {
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26.38px;
+  color: #676363;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
 /* ✅ Responsividade dos filtros */
 @media (max-width: 600px) {
   .status-filters {

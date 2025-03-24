@@ -12,6 +12,8 @@ export default function MaquinasPage() {
   const [searchTerm, setSearchTerm] = useState(""); // Estado da busca
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Estado do Sidebar
   const [statusFilter, setStatusFilter] = useState("todos"); // Filtro de status
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
 
   // Lista de operadores com status
   const [maquinas] = useState([
@@ -111,7 +113,21 @@ export default function MaquinasPage() {
           <thead>
             <tr>
               <th className="col-checkbox">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={selecionarTodos}
+                  onChange={(e) => {
+                    const marcado = e.target.checked;
+                    setSelecionarTodos(marcado);
+
+                    const novoEstado = {};
+                    filteredmaquinas.forEach((maq) => {
+                      novoEstado[maq.id] = marcado;
+                    });
+
+                    setCheckboxesSelecionados(novoEstado);
+                  }}
+                />
               </th>
               <th className="col-nome"> Modelo</th>
               <th className="col-status"></th> {/* Coluna para status */}
@@ -121,7 +137,24 @@ export default function MaquinasPage() {
             {filteredmaquinas.map((maquinas) => (
               <tr key={maquinas.id}>
                 <td className="col-checkbox">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={checkboxesSelecionados[maquinas.id] || false}
+                    onChange={(e) => {
+                      const novoEstado = {
+                        ...checkboxesSelecionados,
+                        [maquinas.id]: e.target.checked,
+                      };
+
+                      setCheckboxesSelecionados(novoEstado);
+
+                      const todosSelecionados =
+                        filteredmaquinas.length > 0 &&
+                        filteredmaquinas.every((maq) => novoEstado[maq.id]);
+
+                      setSelecionarTodos(todosSelecionados);
+                    }}
+                  />
                 </td>
                 <td className="col-nome">
                   <MaquinasOptionsModal maquinas={maquinas} /> {maquinas.nome}

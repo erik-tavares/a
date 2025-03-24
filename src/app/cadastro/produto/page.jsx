@@ -14,7 +14,11 @@ export default function ProdutosPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [ordemAsc, setOrdemAsc] = useState(true);
   const [exibirOpcoesOrdenacao, setExibirOpcoesOrdenacao] = useState(false); // ✅ Estado para exibir opções de ordenação
+  const [tipoFiltro, setTipoFiltro] = useState("todos");
   const [exibirOpcoesSituacao, setExibirOpcoesSituacao] = useState(false); // ✅ Estado para exibir filtros de situação
+  const [selecionarTodos, setSelecionarTodos] = useState(false);
+  const [checkboxesSelecionados, setCheckboxesSelecionados] = useState({});
+
   const [produtos, setProdutos] = useState([
     {
       id: 1,
@@ -23,6 +27,7 @@ export default function ProdutosPage() {
       unidade: "UND",
       custo: "2,45",
       estoque: 10000,
+      tipo: "fabricado",
     },
     {
       id: 2,
@@ -31,6 +36,7 @@ export default function ProdutosPage() {
       unidade: "UND",
       custo: "1,95",
       estoque: 8000,
+      tipo: "fabricado",
     },
     {
       id: 3,
@@ -39,6 +45,7 @@ export default function ProdutosPage() {
       unidade: "UND",
       custo: "1,50",
       estoque: 12000,
+      tipo: "fabricado",
     },
     {
       id: 4,
@@ -47,6 +54,7 @@ export default function ProdutosPage() {
       unidade: "UND",
       custo: "1,50",
       estoque: 12000,
+      tipo: "matéria-prima",
     },
     {
       id: 5,
@@ -55,6 +63,7 @@ export default function ProdutosPage() {
       unidade: "UND",
       custo: "1,50",
       estoque: 12000,
+      tipo: "matéria-prima",
     },
     {
       id: 6,
@@ -63,6 +72,43 @@ export default function ProdutosPage() {
       unidade: "UND",
       custo: "1,50",
       estoque: 12000,
+      tipo: "matéria-prima",
+    },
+    {
+      id: 7,
+      descricao: "CANALETA DE CONCRETO - 09X19X39",
+      codigo: 7,
+      unidade: "UND",
+      custo: "1,50",
+      estoque: 12000,
+      tipo: "matéria-prima",
+    },
+    {
+      id: 8,
+      descricao: "BLOCO DE CONCRETO - 09X19X39",
+      codigo: 8,
+      unidade: "UND",
+      custo: "1,50",
+      estoque: 12000,
+      tipo: "fabricado",
+    },
+    {
+      id: 9,
+      descricao: "CANALETA DE CONCRETO - 09X19X39",
+      codigo: 9,
+      unidade: "UND",
+      custo: "1,50",
+      estoque: 12000,
+      tipo: "matéria-prima",
+    },
+    {
+      id: 10,
+      descricao: "BLOCO DE CONCRETO - 09X19X39",
+      codigo: 10,
+      unidade: "UND",
+      custo: "1,50",
+      estoque: 12000,
+      tipo: "fabricado",
     },
   ]);
 
@@ -82,10 +128,10 @@ export default function ProdutosPage() {
 
   const router = useRouter(); // ✅ Criando a instância corretamente
   // Função para inverter a ordem da tabela
-  const inverterOrdem = () => {
-    setProdutos([...produtos].reverse());
-    setOrdemAsc(!ordemAsc);
-  };
+  // const inverterOrdem = () => {
+  //   setProdutos([...produtos].reverse());
+  //   setOrdemAsc(!ordemAsc);
+  // };
 
   const handleIncluirProduto = () => {
     router.push("produto/novoProduto"); // ✅ Agora o router está definido corretamente
@@ -160,9 +206,24 @@ export default function ProdutosPage() {
 
         {/* Filtros */}
         <div className="status-filters">
-          <span className="active">todos</span>
-          <span>fabricado</span>
-          <span>matéria-prima</span>
+          <span
+            className={tipoFiltro === "todos" ? "active" : ""}
+            onClick={() => setTipoFiltro("todos")}
+          >
+            todos
+          </span>
+          <span
+            className={tipoFiltro === "fabricado" ? "active" : ""}
+            onClick={() => setTipoFiltro("fabricado")}
+          >
+            fabricado
+          </span>
+          <span
+            className={tipoFiltro === "matéria-prima" ? "active" : ""}
+            onClick={() => setTipoFiltro("matéria-prima")}
+          >
+            matéria-prima
+          </span>
         </div>
 
         {/* Linha separadora abaixo dos filtros */}
@@ -174,14 +235,31 @@ export default function ProdutosPage() {
             <thead>
               <tr>
                 <th>
-                  <input type="checkbox" className="custom-checkbox" />
+                  <input
+                    type="checkbox"
+                    className="custom-checkbox"
+                    checked={selecionarTodos}
+                    onChange={(e) => {
+                      const marcado = e.target.checked;
+                      setSelecionarTodos(marcado);
+
+                      // Atualiza checkboxes visíveis com base no filtro
+                      const novoEstado = {};
+                      produtos
+                        .filter((produto) =>
+                          tipoFiltro === "todos"
+                            ? true
+                            : produto.tipo === tipoFiltro
+                        )
+                        .forEach((produto) => {
+                          novoEstado[produto.id] = marcado;
+                        });
+
+                      setCheckboxesSelecionados(novoEstado);
+                    }}
+                  />
                 </th>
-                <th>
-                  Descrição
-                  <button className="sort-button" onClick={inverterOrdem}>
-                    <HiChevronUpDown />
-                  </button>
-                </th>
+                <th>Descrição</th>
                 <th></th>
                 <th>Código</th>
                 <th>Unidade</th>
@@ -190,25 +268,53 @@ export default function ProdutosPage() {
               </tr>
             </thead>
             <tbody>
-              {produtos.map((produto) => (
-                <tr key={produto.id}>
-                  <td>
-                    <input type="checkbox" className="custom-checkbox" />
-                  </td>
-                  <td className="nome-produto">
-                    <ModalOptionsProduto
-                      className="action-icon"
-                      produto={produto}
-                    />{" "}
-                    {produto.nome}
-                  </td>
-                  <td>{produto.descricao}</td>
-                  <td>{produto.codigo}</td>
-                  <td>{produto.unidade}</td>
-                  <td>{produto.custo}</td>
-                  <td>{produto.estoque}</td>
-                </tr>
-              ))}
+              {produtos
+                .filter((produto) =>
+                  tipoFiltro === "todos" ? true : produto.tipo === tipoFiltro
+                )
+                .map((produto) => (
+                  <tr key={produto.id}>
+                    <td>
+                      <input
+                        type="checkbox"
+                        className="custom-checkbox"
+                        checked={checkboxesSelecionados[produto.id] || false}
+                        onChange={(e) => {
+                          const novoEstado = {
+                            ...checkboxesSelecionados,
+                            [produto.id]: e.target.checked,
+                          };
+
+                          setCheckboxesSelecionados(novoEstado);
+
+                          const produtosVisiveis = produtos.filter((produto) =>
+                            tipoFiltro === "todos"
+                              ? true
+                              : produto.tipo === tipoFiltro
+                          );
+
+                          const todosMarcados = produtosVisiveis.every(
+                            (produto) => novoEstado[produto.id]
+                          );
+
+                          setSelecionarTodos(todosMarcados);
+                        }}
+                      />
+                    </td>
+                    <td className="nome-produto">
+                      <ModalOptionsProduto
+                        className="action-icon"
+                        produto={produto}
+                      />{" "}
+                      {produto.nome}
+                    </td>
+                    <td>{produto.descricao}</td>
+                    <td>{produto.codigo}</td>
+                    <td>{produto.unidade}</td>
+                    <td>{produto.custo}</td>
+                    <td>{produto.estoque}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

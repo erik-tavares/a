@@ -454,6 +454,7 @@ export default function NovoProdutoPage() {
                 <div className="form-group preco">
                   <label>Preço de custo</label>
                   <div className="input-group">
+                    <span className="prefix">R$</span>
                     <input
                       type="text"
                       name="preco"

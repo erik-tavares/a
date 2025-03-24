@@ -410,7 +410,12 @@ export default function NovoProdutoPage() {
                 </div>
                 <div className="form-group codigo">
                   <label>Código</label>
-                  <input type="text" value="Automático" disabled />
+                  <input
+                    type="text"
+                    value="Automático"
+                    disabled
+                    name="codigo"
+                  />
                 </div>
                 <div className="form-group tipo">
                   <label>Tipo</label>
@@ -449,7 +454,6 @@ export default function NovoProdutoPage() {
                 <div className="form-group preco">
                   <label>Preço de custo</label>
                   <div className="input-group">
-                    <span className="prefix">R$</span>
                     <input
                       type="text"
                       name="preco"

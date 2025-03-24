@@ -115,28 +115,30 @@
 }
 
 /* ✅ Estilização padrão dos inputs e selects */
-.form-group input {
-  width: 100%;
-  height: 35px;
-  border: 1px solid transparent;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background: #ffffff;
-  font-size: 16px;
-  padding: 8px;
-  border-radius: 5px;
-  outline: none;
-}
 .form-group select {
   width: 100%;
-  height: 55px;
-  border: 1px solid transparent;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background: #ffffff;
+  height: 40px;
   font-size: 16px;
-  padding: 8px;
+  border: 2px solid #ccc;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
   border-radius: 5px;
   outline: none;
+  transition: border-color 0.3s ease-in-out;
   cursor: pointer;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input[name="codigo"] {
+  width: 80px;
 }
 
 .form-group input::placeholder,
@@ -146,35 +148,6 @@
   font-size: 18px;
   color: #676363;
   opacity: 0.5;
-}
-
-/* ✅ Estilização específica para os campos de preço */
-.form-group.preco .input-group {
-  display: flex;
-  align-items: center;
-  width: 150px;
-  height: 35px;
-  border: 1px solid transparent;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background: #d9d9d9;
-  border-radius: 5px;
-  padding: 8px;
-}
-
-.form-group.preco .prefix {
-  font-weight: bold;
-  color: #999999;
-  margin-right: 5px;
-}
-
-.form-group.preco .input-group input {
-  border: none;
-  background: transparent;
-  font-size: 16px;
-  color: #676363;
-  width: 100%;
-  outline: none;
-  text-align: left;
 }
 
 /* ✅ Seções adicionais */
@@ -209,18 +182,6 @@
   position: relative;
 }
 
-.input-group input {
-  width: 100%;
-  height: 35px;
-  border: 1px solid transparent;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background: #ffffff;
-  font-size: 16px;
-  padding: 8px;
-  border-radius: 5px;
-  outline: none;
-}
-
 .input-group .unit {
   position: absolute;
   right: 10px;
@@ -231,6 +192,7 @@
   padding: 5px 10px;
   border-radius: 5px;
 }
+
 /* ✅ Imagem centralizada à direita */
 .dimensoes-imagem {
   flex: 1;
@@ -727,25 +689,6 @@ select[name="porcentagem"] {
 }
 
 /* ✅ Estilização do input com unidade (%) */
-.form-group.porcentagem .input-group {
-  display: flex;
-  align-items: center;
-  position: relative;
-  width: 100%;
-}
-
-.form-group.porcentagem .input-group input {
-  width: 100%;
-  height: 35px;
-  border: 1px solid transparent;
-  border-image: linear-gradient(to right, #999999, #cccccc, #999999) 1;
-  background: #ffffff;
-  font-size: 16px;
-  padding: 8px;
-  border-radius: 5px;
-  outline: none;
-  text-align: left;
-}
 
 .form-group.porcentagem .unit {
   position: absolute;

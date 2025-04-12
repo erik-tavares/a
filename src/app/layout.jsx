@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Meu Projeto Next.js",
+  title: "APK Produção",
   description: "Projeto criado com Next.js 13+",
 };
 
